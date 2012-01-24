@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Lumine 1.01-alpha"
+---
+
+Olá, é com grande orgulho que venho através desta destacar o lançamento do Lumine 1.01-alpha.
+
+O Lumine é um "Database Mapping for PHP", desenvolvido sobre licença LGPL, podendo ser modificado, mantendo os créditos do autor.
+
+Se trata de uma versão adaptada por mim, totalmente em PHP (As bibliotecas de validação em XML ainda continuam).
+
+Foi adicionada a esse grande framework, uma forma de validação que se dá atraves de PHP, sem a necessidade de alguma configuração em XML.
+
+Neste release, ainda em versão alpha, não foram retirados as bibliotecas de validação em XML, podendo ainda ser utilizadas seguindo a documentação oficial normalmente.
+
+Até a proxima!

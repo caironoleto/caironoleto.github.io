@@ -1,0 +1,16 @@
+---
+layout: post
+title: Lumine 1.02-beta
+---
+
+Olá a todos.
+
+Ontem (25/02/2008) fiz o lançamento aqui da versão 1.01-alpha do Lumine. Junto com o lançamento, mandei um email para pessoas importantes contando sobre o feito, e uma delas foi ao Hugo, criador do framework Lumine.
+
+Ele respondeu rapidamente ao meu email, falando sobre mudanças que, ao meu ver, deveriam ser feitas. Uma das primeiras coisas, seria separar em uma classe esse tipo de validação, pois seria bem mais interessante para fazer manutenção nos códigos.
+
+E seguindo isso, lanço agora a versão 1.02-beta deste framework. Com as devidas correções propostas pelo Hugo.
+
+Fiz a alteração pra fase beta por que agora está no padrão do projeto original. Espero que essa versão seja continuada ou incorporada ao projeto original.
+
+Até a proxima!
