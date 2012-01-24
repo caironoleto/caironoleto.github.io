@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Metodologias de desenvolvimento e gerencia de projetos"
+---
+
+Olá, já tinha ouvido falar sobre SCRUM, uma metodologia de gerenciamento de projetos, mas nunca tinha parado para estudar essa tal metodologia, peguei alguns podcasts sobre o assunto e veio outras coisas juntos, como XP e TDD.
+
+Então pensei, por que não? Estou estudando essas metodologias para me aperfeiçoar e me tornar mais diferencial no mercado de trabalho. Por que não aplicar tudo isso em um novo projeto? (Mais um pra minha vida). Estou querendo desenvolver uma aplicação simples em Ruby on Rails, mais um desses sites de joguinhos em flash, junto com dois amigos, todos iniciantes em Ruby on Rails, iremos utilizar do scrum para agilizar o desenvolvimento e organização do projeto, e iremos usar o TDD com os testes em RoR.
+
+Irei catalogar cada hora trabalhada e fazer um comparativo pessoal de desenvolvimento.
+
+Até a proxima.
