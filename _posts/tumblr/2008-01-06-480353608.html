@@ -1,0 +1,66 @@
+---
+layout: post
+title: PHP e Orientação a Objeto
+---
+
+<p>Meu amigo Marcelo Lobo me perguntou agora a pouco no GTalk:
+
+</p><blockquote>é o seguinte: &#8216;eu tenho uma classe e quero chamar outra classe dentro dela&#8217;.</blockquote>
+
+Vou responder com um exemplo prático.
+
+
+
+Na empresa onde trabalho (<a title="W7 Solutions" href="http://www.w7solutions.com.br" target="_blank">W7 Solutions</a>) programamos em PHPOO (PHP Orientado a Objeto).
+
+
+
+Em PHP, pra se criar uma classe é bastante simples:
+
+
+
+[sourcecode language=&#8217;php&#8217;]
+
+<?php //Declaração da classe
+
+class NomeDaClasse {
+
+    //Declaração de Método
+
+    public function nomeDoMetodo( parametros = "" ) {
+
+    }
+
+}
+
+?>
+
+[/sourcecode]
+
+
+
+Em PHP, sem a utilização de algum framework, para se instanciar novos objetos de uma classe, e sua classe se encontra em outro arquivo, se tem a necessidade de se importar o arquivo para a fonte:
+
+
+
+[sourcecode language=&#8217;php&#8217;]
+
+<?php require_once(&#8220;arquivoComAClasse.php&#8221;);
+
+$objeto = new NomeDaClasse();
+
+$objeto->nomeDoMetodo(&#8220;parametro&#8221;);
+
+#&#8230;
+
+?&gt;
+
+[/sourcecode]
+
+
+
+Simples assim, se utiliza da Orientação a Objetos em PHP.
+
+
+
+Até a proxima.

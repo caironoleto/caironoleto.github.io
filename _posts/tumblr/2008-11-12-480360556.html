@@ -1,0 +1,104 @@
+---
+layout: post
+title: Tradução: Rails Database Migrations - Parte IV
+---
+
+<p>Esta é a última parte da tradução do <a title="Rails Database Migrations" href="http://guide.rails.info/migrations.html" target="_blank">guia sobre Rails Database Migrations</a>. Espero que vocês gostem, agora irei partir para tradução de mais guias :) Mais uma vez, dúvidas, erros de português, tradução com sentido diferente, por favor, me comuniquem!! Podem me mandar email (caironoleto NOT SPAM at gmail dot com ), pelo twitter (@caironoleto) ou pela seção de contato ou pelo Gtalk, msn, skype, enfim, me comuniquem!!
+
+
+
+<a title="Rails Database Migrations - Parte I" href="http://www.caironoleto.com/2008/09/23/traducao-rails-database-migrations-parte-i/" target="_self">Rails Database Migration - Parte I</a>
+
+
+
+<a title="Rails Database Migrations - Parte II" href="http://www.caironoleto.com/2008/10/20/traducao-rails-database-migrations-parte-ii-2/" target="_self">Rails Database Migration - Parte II</a>
+
+
+
+<a title="Rails Database Migrations - Parte III" href="http://www.caironoleto.com/2008/11/04/traducao-rails-database-migrations-parte-3/" target="_self">Rails Database Migration - Parte III</a>
+
+<h3>6. Armazenando esquemas e você</h3>
+
+<h3>6.1 Quais são os arquivos do esquema?</h3>
+
+Migrações, poderosas como são, não são fontes autorizada para o esquema do seu banco de dados. Esse papel cabe ao <tt>schema.rb</tt> ou ao um arquivo SQL gerado pelo Active Record através da análise do banco de dados. Este arquivo não foi projetado para ser editado, ele é uma representação do estado atual do banco de dados.
+
+
+
+Não é necessário (e isto é um erro propenso) para implantar uma nova instancia de uma aplicação repetindo o histórico inteiro da migração. É mais simples e rápido apenas carregar dentro do banco de dados a descrição do esquema atual.
+
+
+
+Por exemplo, esta é a forma de como o banco de dados de testes é criado: o banco de dados atual de desenvolvimento é excluído (tanto para o <tt>schema.rb</tt> ou para <tt>development.sql</tt>) e então carregado dentro do banco de dados de teste.
+
+
+
+Arquivos de esquema também são uteis se deseja olhar rapidamente quais atributos o objeto do Active Record possui. Estas informações não está no código do modelo e frequentemente está espalhado pelas várias migrações mas está resumido no arquivo de esquema. O plugin <a href="http://agilewebdevelopment.com/plugins/annotate_models" target="_blank">annotate_models</a>, adiciona automaticamente cada (e atualiza) um dos comentários no início de cada modelo resumindo o esquema, que pode ser de seu interesse.
+
+<h3>6.2 Formas de armazenar o esquema</h3>
+
+Existe duas formas de armazenar o esquema. Uma é setar em <tt>config/environment.rb</tt> atribuindo o <tt>config.active_record.schema_format</tt>, que pode ser <tt>:sql</tt> ou <tt>:ruby</tt>.
+
+
+
+Se <tt>:ruby</tt> é selecionada então o esquema será armazenado em <tt>db/schema.rb</tt>. Se você olhar este arquivo você verá que não encontrará um pouco mais do que uma grande migração:
+
+<pre><tt><tt>ActiveRecord<span style="color: #990000;">::</span>Schema<span style="color: #990000;">.</span>define<span style="color: #990000;">(:</span>version <span style="color: #990000;">=&gt;</span> <span style="color: #993399;">20080906171750</span><span style="color: #990000;">)</span> <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span>
+
+  create_table <span style="color: #ff0000;">"authors"</span><span style="color: #990000;">,</span> <span style="color: #990000;">:</span>force <span style="color: #990000;">=&gt;</span> <span style="font-weight: bold;"><span style="color: #0000ff;">true</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+    t<span style="color: #990000;">.</span>string   <span style="color: #ff0000;">"name"</span>
+
+    t<span style="color: #990000;">.</span>datetime <span style="color: #ff0000;">"created_at"</span>
+
+    t<span style="color: #990000;">.</span>datetime <span style="color: #ff0000;">"updated_at"</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  create_table <span style="color: #ff0000;">"products"</span><span style="color: #990000;">,</span> <span style="color: #990000;">:</span>force <span style="color: #990000;">=&gt;</span> <span style="font-weight: bold;"><span style="color: #0000ff;">true</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+    t<span style="color: #990000;">.</span>string   <span style="color: #ff0000;">"name"</span>
+
+    t<span style="color: #990000;">.</span>text     <span style="color: #ff0000;">"description"</span>
+
+    t<span style="color: #990000;">.</span>datetime <span style="color: #ff0000;">"created_at"</span>
+
+    t<span style="color: #990000;">.</span>datetime <span style="color: #ff0000;">"updated_at"</span>
+
+    t<span style="color: #990000;">.</span>string   <span style="color: #ff0000;">"part_number"</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+De muitas formas é exatamente isso. Este arquivo é criado pela examinação do banco de dados e expressado em estruturas usando <tt>create_table</tt>, <tt>add_index</tt> e assim por diante. Por causa da independência do banco de dados ele deve carregar dentro de qualquer banco de dados que o Active Record suporta. Isso poderia ser muito útil se você quiser distribuir a aplicação para rodar em vários banco de dados.
+
+
+
+Existe porém uma desvantagem: <tt>schema.rb</tt> não expressa itens específicos de banco de dados como constraints de chaves estrangeiras, triggers ou stored procedures. Enquanto na migração você pode executar SQL customizadas, o esquema armazenado não pode reconstituir essas atribuições do banco de dados. Se você usar recursos como este, então você deve atribuir o esquema para <tt>:sql</tt>.
+
+
+
+Em vez de usar o esquema de armazenamento do Active Record a estrutura será armazenada usando uma ferramenta específica do banco de dados (pela tarefa rake <tt>db:structure:dump</tt>) dentro de <tt>db/#\{RAILS_ENV\}_structure.sql</tt>. Por exemplo para o PostgreSQL a utilidade <tt>pg_dump</tt> é usada e para o MySQL este arquivo irá conter a saída de SHOW CREATE TABLE para as várias tabelas. Carregando este esquema é uma simples questão de executar as declarações SQL contida dentro.
+
+
+
+Por definição irá fazer uma copia perfeita da estrutura do banco de dados mas isso vai impedir o carregamento do esquema dentro de outros banco de dados que não seja um dos utilizados para criá-lo.
+
+<h3>6.3 Armazenamento de esquema e controle de código</h3>
+
+Por causa da autoridade do código do seu esquema de banco de dados, é altamente recomendado que você verifique dentro de seu controle de código.
+
+<h3>7. Active Record e Integridade Referencial</h3>
+
+O Active Record é a maneira inteligente de permanecer em seus modelos, não no banco de dados. Alguns recursos como triggers ou constraints de chaves estrangeiras, que empurra alguma inteligência de volta para os banco de dados não são muito usados.
+
+
+
+Validações como <tt>validates_uniqueness_of</tt> é uma forma de seus modelos podem valer a integridade dos dados. A opção <tt>:dependent</tt> em associações adiciona aos modelos automaticamente destruir os objetos filhos que seus pais são destruídos. Como tudo que funciona a nível de aplicação, estes não podem garantir integridade referencial e algumas pessoas aumentam com constraints de chaves estrangeiras.
+
+
+
+Apesar de o Active Record não fornecer todas as ferramentas para trabalhar diretamente com todos os recursos, o método <tt>execute</tt> pode ser usado para executar SQL arbitrárias. Há também uma série de plugins como <a href="http://agilewebdevelopment.com/plugins/search?search=redhillonrails" target="_blank">redhillonrails</a> que adicionam suporte a chaves estrangeiras para o Active Record (incluindo suporte para destruir chaves estrangeiras no <tt>schema.rb</tt>)</p>

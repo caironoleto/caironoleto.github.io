@@ -1,0 +1,220 @@
+---
+layout: post
+title: Tradução: Rails Database Migrations - Parte III
+---
+
+<p>Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, <strong>comuniquem-me!</strong> Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P
+
+
+
+<a title="Rails Database Migrations - Parte I" href="http://../2008/09/23/traducao-rails-database-migrations-parte-i/" target="_self">Rails Database Migrations - Parte I</a>
+
+
+
+<a title="Rails Database Migrations - Parte II" href="http://www.caironoleto.com/2008/10/20/traducao-rails-database-migrations-parte-ii-2/" target="_self">Rails Database Migrations - Parte II</a>
+
+<h3>4. Rodando migrações</h3>
+
+Rails fornece um conjunto de tarefas rake para trabalhar com as migrações, que se resume em rodar alguns conjuntos de migrações. A tarefa rake mais relatada que você provavelmente usará é <tt>db:migrate</tt>. Na sua forma mais básica certamente rodará o método <tt>up</tt> para todas as migrações que ainda não foram rodadas. Se não existir migrações ele sai.
+
+
+
+Se você especificar uma migração, o Active Record irá rodar as migrações requeridas (up ou down) até que ela tenha chegado nessa versão específica. A versão é o prefixo numérico do nome de uma migração. Por exemplo para migrar até a versão 20080906120000 execute
+
+<pre><tt>rake db:migrate VERSION=20080906120000</tt></pre>
+
+Se a versão for maior do que a versão corrente (ou seja, está migrando para cima) irá rodar o método <tt>up</tt> de em todas as migrações acima e incluindo a versão 20080906120000, se a migração for para baixo, então será executado os métodos <tt>down</tt> de todas as migrações para baixo até, mas não incluindo, 20080906120000.
+
+<h3>4.1 Reversão</h3>
+
+Uma tarefa comum é regressar a última migração, por exemplo, se você cometeu um engano e deseja corrigi-lo. Ao invés de monitorar o método down com a migração anterior, você pode rodar
+
+<pre><tt>rake db:rollback</tt></pre>
+
+Isso irá rodar o método down da migração mais recente. Se você precisa se desfazer de várias migrações, você pode fornecer o parâmetro <tt>STEP</tt>:
+
+<pre><tt>rake db:rollback STEP=3</tt></pre>
+
+irá rodar o método <tt>down</tt> das 3 últimas migrações.
+
+
+
+A tarefa <tt>db:migrate:redo</tt> é um atalho para fazer uma reversão e a migração de volta. Assim como na tarefa <tt>db:rollback</tt> você pode usar o parâmetro <tt>STEP</tt> se você precisar voltar em mais de uma versão, por exemplo
+
+<pre><tt>rake db:migrate:redo STEP=3</tt></pre>
+
+Nenhuma dessas tarefas Rake fazem qualquer coisa que você não poderia fazer com <tt>db:migrate</tt>, são simplesmente mais convenientes, desde que você não precise especificar explicitamente de uma migração para outra.
+
+
+
+Finalmente, a tarefa <tt>db:reset</tt> irá destruir sua base de dados, recria-la e carregar o schema atual dentro dela.
+
+<h3>4.2 Especificando uma migração</h3>
+
+Se você precisa especificar uma migração para cima ou para baixo, as tarefas <tt>db:migrate:up</tt> e <tt>db:migrate:down</tt> irão fazer isso. Basta especificar a versão apropriada e a migração correspondente e terá seu método <tt>up</tt> ou <tt>down</tt> invocado, por exemplo
+
+<pre><tt>rake db:migrate:up VERSION=20080906120000</tt></pre>
+
+irá rodar o método <tt>up</tt> da migração 20080906120000. Estas tarefas checa se a migração já tenha sido executada, se por exemplo <tt>db:migrate:up VERSION=20080906120000</tt> não irá fazer nada se o Active Record acreditar que 20080906120000 já tenha sido executada.
+
+<h3>4.3 Sendo comunicativo</h3>
+
+Por padrão, as migrações falam exatamente o que elas estão fazendo e o tempo de duração. Uma migração criando uma tabela e adicionando um index produz uma saída como esta
+
+<pre><tt>== 20080906170109 CreateProducts: migrating ===================================
+
+-- create_table(:products)
+
+   -&gt; 0.0021s
+
+-- add_index(:products, :name)
+
+   -&gt; 0.0026s
+
+== 20080906170109 CreateProducts: migrated (0.0059s) ==========================</tt></pre>
+
+Vários método fornecem para você o controle tudo isto:
+
+<ul><li><tt>suppress_messages</tt> suprime qualquer mensagem gerada pelo bloco</li>
+
+	<li><tt>say</tt> saída de texto (o segundo argumento controle se é recortado ou não)</li>
+
+	<li><tt>say_with_time</tt> saída de texto com o tempo utilizado pelos blocos. Se o bloco retornar um inteiro, assume-se que este é o número de linhas afetadas.</li>
+
+</ul>
+
+Por exemplo, esta migração
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> CreateProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    suppress_messages <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span>
+
+      create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+        t<span style="color: #990000;">.</span>string <span style="color: #990000;">:</span>name
+
+        t<span style="color: #990000;">.</span>text <span style="color: #990000;">:</span>description
+
+        t<span style="color: #990000;">.</span>timestamps
+
+      <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+    <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+    say <span style="color: #ff0000;">"Created a table"</span>
+
+    suppress_messages <span style="color: #ff0000;">{</span>add_index <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>name<span style="color: #ff0000;">}</span>
+
+    say <span style="color: #ff0000;">"and an index!"</span><span style="color: #990000;">,</span> <span style="font-weight: bold;"><span style="color: #0000ff;">true</span></span>
+
+    say_with_time <span style="color: #ff0000;">'Waiting for a while'</span> <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span>
+
+      sleep <span style="color: #993399;">10</span>
+
+      <span style="color: #993399;">250</span>
+
+    <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    drop_table <span style="color: #990000;">:</span>products
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+gera a seguinte saída
+
+<pre><tt>== 20080906170109 CreateProducts: migrating ===================================
+
+-- Created a table
+
+   -&gt; and an index!
+
+-- Waiting for a while
+
+   -&gt; 10.0001s
+
+   -&gt; 250 rows
+
+== 20080906170109 CreateProducts: migrated (10.0097s) =========================</tt></pre>
+
+Se você quiser que o Active Record mantenha-se em silêncio, então execute <tt>rake db:migrate VERBOSE=false</tt> irá suprimir qualquer saída.
+
+<h3>5. Usando Models nas suas migrações</h3>
+
+Ao criar ou atualizar dados na sua migração, muitas vezes, é tentador utilizar um de seus models. Afinal eles existem para fornecer acesso fácil nos dados subjacentes. Isto pode ser feito mas um certo cuidado devem ser observados.
+
+
+
+Considere por exemplo a migração que usa o modelo Product para atualizar a linha na tabela correspondente. Alice depois atualiza o modelo Product, adicionando uma nova coluna e uma validação. Bobs volta do feriado, atualiza o código e roda as migrações pendentes com <tt>rake db:migrate</tt>, incluindo o modelo que é utilizado para o Product. Quando o código é atualizado e só então o modelo Product possui a atualização adicionada pela Alice. O banco de dados entretanto não é atualizado e assim não possui a coluna e então gerará um erro, por que a validação para esta coluna ainda não existe.
+
+
+
+Frequentemente eu preciso atualizar as linhas no banco de dados sem escrever SQL pelas minhas mãos. Eu não estou usando qualquer especialidade do modelo. Um padrão para isso é definir uma cópia do modelo dentro da própria migração, por exemplo
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> AddPartNumberToProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> Product <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Base
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    <span style="color: #990000;">...</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    <span style="color: #990000;">...</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+A migração possuirá uma própria copia do modelo Product e não mais precisará saber sobre o modelo Product definido na própria aplicação.
+
+<h3>5.1 Lidando com as mudanças no modelo</h3>
+
+Por razões de performance, as informações sobre as colunas de um modelo é cacheada. Por exemplo, se você adicionar a coluna na tabela e tentar usar o modelo correspondente para inserir uma nova linha, ele pode tentar usar as informações antigas. Você pode forçar o Active Record para reler a informação da coluna com o método <tt>reset_column_information</tt>, por exemplo
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> AddPartNumberToProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> Product <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Base
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    add_column <span style="color: #990000;">:</span>product<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+    Product<span style="color: #990000;">.</span>reset_column_information
+
+    <span style="color: #990000;">...</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    <span style="color: #990000;">...</span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+<a title="Rails Database Migrations - Parte IV" href="http://www.caironoleto.com/2008/11/12/traducao-rails-database-migrations-parte-iv/" target="_self">Continuação: Rails Database Migrations - Parte IV</a></p>

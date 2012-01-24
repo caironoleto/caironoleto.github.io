@@ -1,0 +1,100 @@
+---
+layout: post
+title: PHPUnit Series - Instalação
+---
+
+<p>Olá, é com prazer que venho aqui iniciar uma série sobre desenvolvimento ágil em PHP.
+
+
+
+E vamos utilizar um Framework de testes unitarios chamado de PHPUnit.
+
+
+
+<!--more-->
+
+
+
+PHPUnit é um desses framework pra se trabalhar orientado a testes. Atualmente ele está na versão 3.2.15, e já está se desenvolvendo a versão 4.0 para ser integrada ao PHP 5.3.
+
+
+
+Mas vamos ao que interessa
+
+
+
+INSTALAÇÃO
+
+
+
+Antes de mais nada, é necessário de PHP 5,  você pode fazer a instalação seguindo vários blog, foruns e sites espalhados pela internet.
+
+
+
+Após isso, é necessário fazer o download do PHPUnit, <a title="Download do PHPUnit" href="http://pear.phpunit.de/get/" target="_blank">neste link</a> é possivel fazer o download.
+
+
+
+Algumas considerações, as versões releases vem com um arquivo em lotes necessário para rodar os testes, deve conter na PATH do windows o caminho para esse arquivo.
+
+
+
+Extraia o conteudo em uma pasta do Windows, renomei o arquivo <strong>pear-phpunit.bat</strong> para <strong>phpunit.bat.</strong>
+
+
+
+Importa para seu projeto a pasta PHPunit, crie um novo arquivo PHP e digite nele:
+
+<pre class="php">require_once 'PHPUnit/Framework.php';
+
+
+
+class Test1 extends PHPUnit_Framework_TestCase
+
+{
+
+public function testNewArrayIsEmpty() {
+
+// Create the Array fixture.
+
+$fixture = array();
+
+// Assert that the size of the Array fixture is 0.
+
+$this-&gt;assertEquals(0, sizeof($fixture));
+
+}
+
+public function testArrayContainsAnElement() {
+
+// Create the Array fixture.
+
+$fixture = array();
+
+// Add an element to the Array fixture.
+
+$fixture[] = 'Element';
+
+// Assert that the size of the Array fixture is 1.
+
+$this-&gt;assertEquals(1, sizeof($fixture));
+
+}
+
+}
+
+?&gt;</pre>
+
+Abra o prompt de comando do DOS, navegue a pasta do arquivo que você acabou de criar, e digite phpunit arquivo, o resultado esperado será o seguinte:
+
+
+
+<a title="Imagem001" href="http://www.caironoleto.com/wp/wp-content/uploads/2008/03/imagem001.png" target="_blank"><img src="http://caironoleto.files.wordpress.com/2008/03/imagem001.thumbnail.png" alt="Imagem001"/></a>
+
+
+
+No proximo, explicarei o codigo acima e demonstrarei novos casos de usos.
+
+
+
+Até a proxima!</p>

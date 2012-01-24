@@ -1,0 +1,38 @@
+---
+layout: post
+title: Proc e lambda
+---
+
+<p>Você já deve ter ouvido que tudo em Ruby é objeto. Sim, sim, tudo é objeto. Menos blocos.</p>
+
+<p>Blocos não são objetos. Mas existe duas formas de transformar blocos em objetos. Uma é usar Proc e a outra é usa lamda.</p>
+
+<p>Para se criar um Proc existem algumas formas, a mais simples e mais utilizada é:</p>
+
+<pre>proc = Proc.new do |object|
+
+  puts object.inspect
+
+end
+
+</pre>
+
+<p>Depois que você criar o seu Proc, para chamar o bloco que você acabou de criar, você deve utilizar o método call:</p>
+
+<pre>proc.call Object</pre>
+
+<p>O método call é chamado para executar o bloco. Em blocos, vocês podem fazer o que quiser. Um caso interessante é para processamento sequencial. No rails é bastante utilizado na definição de named scopes.</p>
+
+<p>Outra forma de fazer blocos virarem objetos é utilizar o lambda:</p>
+
+<pre>lambda = lambda do |object|
+
+  puts object.inspect
+
+end
+
+</pre>
+
+<p>Basicamente, Proc e lambda funcionam da mesma forma. Mas existe uma diferença, que é no caso de se utilizar controles de fluxo, no caso return, break, redo, retry e vários outros.</p>
+
+<p>O problema nesse caso é que esses controles de fluxo quebram quando você está utilizando Proc.</p>

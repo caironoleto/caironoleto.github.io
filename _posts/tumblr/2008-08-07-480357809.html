@@ -1,0 +1,54 @@
+---
+layout: post
+title: Instalando PHPUnit e PHPSpec no Ubuntu Linux
+---
+
+<p><a title="Pear-ish Fall-ish Composition by mysza831" href="http://www.flickr.com/photos/mysza/1974882990/" target="_blank"><img class="aligncenter" src="http://farm3.static.flickr.com/2399/1974882990_46f1742bf5_d.jpg" alt="Pear-ish Fall-ish Composition"/></a>
+
+UPDATE: Se está com problemas na instalação, fiz <a title="Instalando PHP-PEAR no Ubuntu Linux" href="http://www.caironoleto.com/2008/08/11/instalando-php-pear-no-ubuntu-linux/" target="_self">aqui</a> um breve tutorial de <a title="Instalando PHP-PEAR no Ubuntu Linux" href="http://www.caironoleto.com/2008/08/11/instalando-php-pear-no-ubuntu-linux/" target="_self">como instalar o PHP-PEAR</a>.
+
+
+
+Olá, essa dica vai para quem tem Ubuntu ou que usa algum GNU/Linux Debian-like.
+
+
+
+Vamos fazer os passos mais simples para instalar esses frameworks e para isso você deve ter o <a title="PEAR - PHP Extension and Application Repository" href="http://pear.php.net/" target="_blank">PHP-PEAR</a> instalado, se não tiver, apenas abra o seu terminal linux favorito e digite:
+
+</p><blockquote><em>sudo apt-get install php-pear</em></blockquote>
+
+Difícil em? :D
+
+
+
+Agora vamos instalar o <a title="PHPUnit" href="http://www.phpunit.de" target="_blank">PHPUnit</a>, o primeiro passo é adicionar o canal do PHPUnit ao PEAR, e para isso, mais uma vez no terminal digite:
+
+<blockquote><em>sudo pear channel-discover pear.phpunit.de</em></blockquote>
+
+Esse comando serve para o PEAR reconhecer o host pear.phpunit.de como uma de suas fontes, agora vem a segunda parte:
+
+<blockquote><em>sudo pear install phpunit/PHPUnit</em></blockquote>
+
+Pronto, está instalado o PHPUnit, nesse mesmo terminal você pode rodar o comando:
+
+<blockquote><em>cairo@angus:~$ phpunit -v
+
+PHPUnit 3.2.21 by Sebastian Bergmann.</em></blockquote>
+
+A versão pode mudar :P Ainda não uso a versão <a title="Lançamento do PHPUnit 3.3.0 Beta 1" href="http://www.caironoleto.com/2008/07/29/lancamento-do-phpunit-330-beta-1/" target="_self">beta 1 do PHPUnit</a>.
+
+
+
+Para instalar o <a title="PHPSpec is a Behaviour-Driven Development (BDD) framework for PHP" href="http://www.phpspec.org" target="_blank">PHPSpec</a> é a mesma coisa, você deve adicionar o canal e depois instalar:
+
+<blockquote><em>sudo pear channel-discover pear.phpspec.org</em>
+
+
+
+<em>sudo pear install phpspec/PHPSpec</em></blockquote>
+
+Pronto, feito isso estará instalado PHPUnit e PHPSpec.
+
+
+
+Até a próxima!

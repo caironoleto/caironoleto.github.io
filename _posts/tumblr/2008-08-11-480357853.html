@@ -1,0 +1,68 @@
+---
+layout: post
+title: Instalando PHP-PEAR no Ubuntu Linux
+---
+
+<p><a title="Andrea's paintings at Mom's by Belinda Hankins Miller" href="http://www.flickr.com/photos/ninjapoodles/731129776/" target="_blank"><img class="aligncenter" src="http://farm2.static.flickr.com/1072/731129776_d9f2fdd1f9.jpg" alt="Andrea\'s paintings at Mom\'s"/></a>
+
+
+
+Olá, recentemente coloquei um tutorial aqui de <a title=" Instalando PHPUnit e PHPSpec no Ubuntu Linux" href="http://www.caironoleto.com/2008/08/07/instalando-phpunit-e-phpspec-no-ubuntu-linux/" target="_self">como instalar PHPUnit e PHPSpec</a> usando o PHP-PEAR, daí formatei e reinstalei o ubuntu aqui no meu laptop e segui o tutorial, até a instalação do PHPSpec.
+
+
+
+O PHPSpec usa a versão mais recente (1.7.2) do PHP-PEAR, e a versão que é instalada pelo repositório do Ubuntu Linux é 1.6.x assim tive que remover o PHP-PEAR pelo apt-get e reinstalar a nova versão.
+
+
+
+Bom, vamos ao que interessa, como instalar PEAR no Ubuntu Linux. Primeiro devemos pegar o source do instalador no site do PHP-PEAR, entre nesse <a title="Go PEAR" href="http://pear.php.net/go-pear" target="_blank">site</a> e salve para go-pear.php.
+
+
+
+Com sudo, rode o seguinte comando:
+
+</p><blockquote><em>sudo php go-pear.php</em></blockquote>
+
+Isso irá inicializar o instalador, se você entende um pouco de inglês, apenas leia que será simples, se não, aperte enter uma vez, se você tiver proxy, adicione conforme o exemplo que ele sugere e aperte enter, agora vem a parte mais interessante:
+
+<blockquote><em>Below is a suggested file layout for your new PEAR installation.  To
+
+change individual locations, type the number in front of the
+
+directory.  Type &#8216;all&#8217; to change all of them or simply press Enter to
+
+accept these locations.</em>
+
+
+
+<em>1. Installation prefix ($prefix)&#160;: /home/user/
+
+2. Temporary files directory    &#160;: $prefix/temp
+
+3. Binaries directory           &#160;: $prefix/bin
+
+4. PHP code directory ($php_dir)&#160;: $prefix/PEAR
+
+5. Documentation base directory &#160;: $php_dir/docs
+
+6. Data base directory          &#160;: $php_dir/data
+
+7. Tests base directory         &#160;: $php_dir/tests</em>
+
+
+
+<em>1-7, &#8216;all&#8217; or Enter to continue: </em></blockquote>
+
+Para manter uma consistencia eu instalei na mesma pasta do PHP-PEAR do pacote do Ubuntu, no caminho /usr/share/php, se você quiser mudar o caminho, aperte 1 e escolha um local para instalar, tudo pronto, agora é só apertar o enter, nas próximas perguntas responda Y e enter.
+
+
+
+Quando finalizar, será necessário você colocar o caminho da pasta da instalação +/bin para o PATH, assim reconhecendo o comando pear no sistema. No meu caso aqui, tive um problema com o comando PEAR não sendo reconhecido pelo sudo, no caso, tive que mudar as permissões da pasta para poder ter escrita com meu usuário, sendo assim não tendo necessidade de utilizar sudo antes de instalar qualquer pacote, depois disso apenas siga o tutorial.
+
+
+
+Espero que isso resolva que teve problemas e não relatou!
+
+
+
+Até a próxima!

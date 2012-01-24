@@ -1,0 +1,36 @@
+---
+layout: post
+title: Documentação Ágil (Agile documentation) com PHPUnit
+---
+
+<p><p style="text-align: center;"><a href="http://novo.caironoleto.com/wp-content/uploads/2008/08/462935349_3b15a9a120.jpg" target="_blank"><img class="alignnone size-full wp-image-102 aligncenter" title="Agile team por rewl" src="http://novo.caironoleto.com/wp-content/uploads/2008/08/462935349_3b15a9a120.jpg" alt="Agiel team por rewl" width="375" height="500"/></a></p>
+
+<p style="text-align: left;">Para quem acha que times Ágeis não criam documentação, <strong>vocês estão enganados!</strong> O que acontece é que a documentação está sempre em mudanças, que levaria bem mais tempo documentar as coisas do que programar ou entender do negócio.</p>
+
+<p style="text-align: left;">Mas nem por isso times Ágeis não documentam, times Ágeis usam as próprias ferramentas para criar documentação, e com <a title="PHPUnit" href="http://www.phpunit.de/" target="_blank">PHPUnit</a> não é diferente. No PHPUnit existe uma forma de criar documentação a partir dos testes utilizando o comando phpunit<strong> &#8212;testdox</strong> ClasseDeTeste.</p>
+
+<p style="text-align: left;">Esse simples comando gera a partir de seus testes uma breve documentação sobre o que são os testes que você está escrevendo:</p>
+
+
+
+<blockquote>
+
+<pre class="screen"><strong class="userinput"><code>phpunit --testdox BankAccountTest</code></strong>
+
+PHPUnit 3.2.10 by Sebastian Bergmann.
+
+
+
+BankAccount
+
+ - Balance is initially zero
+
+ - Balance cannot become negative</pre>
+
+</blockquote>
+
+Exemplo retirado da <a href="http://www.phpunit.de/pocket_guide/3.2/en/other-uses-for-tests.html" target="_blank">documentação oficial</a>. Daí você pode exportar para html ou qualquer outro formato de saída que o próprio PHPUnit oferece.
+
+
+
+Até a próxima!</p>

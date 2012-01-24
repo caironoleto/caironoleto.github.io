@@ -1,0 +1,50 @@
+---
+layout: post
+title: Integrando o PHPUnit e o PHPSpec ao CodeIgniter e ao Lumine Framework
+---
+
+<p>Meu grande amigo português <a title="Ricardo Mestre" href="http://site.ricardomestre.com/" target="_blank">Ricardo Mestre</a> me fez a seguinte pergunta esses dias:
+
+</p><blockquote><em>Como faço para usar o <a title="PHPUnit" href="http://www.phpunit.de/" target="_blank">PHPUnit</a> no <a title="CodeIgniter" href="http://www.codeigniter.com" target="_blank">CodeIgniter</a>?</em></blockquote>
+
+O que vou mostrar aqui serve para esses dois frameworks (PHPUnit e <a title="PHPSpec" href="http://www.phpspec.org/" target="_blank">PHPSpec</a>) ou para qualquer um outro framework que necessite.
+
+
+
+Seguinte, o CodeIgniter possui sua configuração de acesso no <strong>index.php</strong>, só que na penúltima linha, ele faz chamada ao arquivo <strong>BASEPATH.&#8217;codeigniter/CodeIgniter.php&#8217;;</strong>. Quando é requisitado, ele faz a requisição aos arquivos de inicialização e executa o método index da classe default dentro do arquivo <strong>system/application/config/routes.php</strong>. (<strong>UPDATE</strong>: o arquivo que define do controlador default a ser chamado assim que a aplicação funcina é em routes.php)
+
+
+
+Aí, para usarmos os controladores do CI é necessário utilizar esse arquivo de configuração por conta das contantes que o CI utiliza. Para evitar de quando executarmos nossas classes de testes, elas não venham a executar por conta da saída do CI.
+
+
+
+Então, é necessário fazer um arquivo com o mesmo contéudo do index.php, exceto da linha <strong>BASEPATH.&#8217;codeigniter/CodeIgniter.php&#8217;;</strong>. Ao fazermos isso é necessário chamar as bibliotecas básicas do CodeIgniter manualmente que estão dentro da pasta <strong>/system/codeigniter/</strong>. As bibliotecas são <strong>Base</strong><em>N</em><strong>.php</strong> (4 para o PHP 4 e 5 para o PHP 5). <strong>Common.php</strong> e como vamos fazer teste dos controladores, é necessário importar a classe Controlller.php que está dentro da pasta <strong>/system/libraries/</strong>.
+
+
+
+Após isso é só incluir esse arquivo criado dentro das classes de testes.
+
+
+
+Resumindo:
+
+<ol><li>Criar arquivo com contéudo do <strong>index.php</strong> excluindo a penúltima linha que faz chamada ao <strong>BASEPATH.&#8217;codeigniter/CodeIgniter.php&#8217;;</strong></li>
+
+	<li>Incluir dentro desse arquivo chamada para <strong>/system/codeigniter/BaseN.php</strong> (N = 4 ou N = 5);</li>
+
+	<li>Incluir dentro desse arquivo chamada para <strong>/system/codeigniter/Common.php</strong>;</li>
+
+	<li>Incluir dentro desse arquivo chamada para <strong>/system/libraries/Controller.php</strong>;</li>
+
+</ol>
+
+Bom, agora para utilizar os Models do <a title="Lumine Framework" href="http://www.hufersil.com.br" target="_blank">Lumine</a>, é apenas necessário fazer chamada ao arquivo com as configurações de acesso do Lumine. A critério de convenção, podemos criar um novo arquivo de configuração apenas alterando o nome do banco de dados, assim não prejudicando seu banco de dados.
+
+
+
+Depois disso tudo podemos testar nossos controladores e os modelos do Lumine com o PHPUnit, PHPSpec ou qualquer outro framework de testes.
+
+
+
+Até a próxima!

@@ -1,0 +1,34 @@
+---
+layout: post
+title: Namespaces em PHP e a confusão!
+---
+
+<p>A semana passada foi movimentada no PHP. Para quem ainda não sabe Namespaces é a forma conveniente de agrupar e distribuir bibliotecas, para quem já programa em Java são os velhos pacotes e quem programa em ruby são os módulos.
+
+
+
+E só agora o PHP está querendo colocar no seu Core o uso de namespaces, que vai ser uma boa forma de programar, adicionando mais paradigmas legais em PHP.
+
+
+
+Mas a grande confusão que se teve na semana passada, foi sobre a forma de requisitar os Namespaces.
+
+
+
+No início, seu uso seria com 3 dois pontos ( ::: ), depois mudaram para 2 dois pontos ( :: ) e viram que haveria conflito com chamadas estáticas e por fim decidiram o uso de uma barra invertida ( \ ), como por exemplo:
+
+<p style="padding-left: 30px;">MeuNameSpace:::metodo();</p>
+
+<p style="padding-left: 30px;">MeuNameSpace::metodo();</p>
+
+<p style="padding-left: 30px;">MeuNameSpace\metodo();</p>
+
+Mas com isso surgiu vários problemas como poder ser facilmente trocado por &#44; \ é usada para escapar strings entre outros problemas. <a href="http://wiki.php.net/rfc/backslashnamespaces" target="_blank">Aqui</a> você pode ver com detalhes a discussão sobre NameSpaces.
+
+
+
+Depois de toda essa discussão, quem já estava querendo no próximo release utilizar namespaces, pode ir tirando o cavalinho da chuva :P
+
+
+
+Agora é aguardar e observar as próximas decisões do CoreTeam do PHP.</p>

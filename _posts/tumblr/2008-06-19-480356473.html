@@ -1,0 +1,228 @@
+---
+layout: post
+title: Behavior Driven Development em PHP com PHPSpec
+---
+
+<p>Comecei a ler muito sobre <a href="http://en.wikipedia.org/wiki/Test_driven_development" target="_blank">TDD</a>, depois na comunidade <a href="http://groups.google.com/group/rails-br" target="_blank">rails-br</a> descobri o <a href="http://en.wikipedia.org/wiki/Behavior_driven_development" target="_blank">BDD</a> li e me pareceu mais simples do que TDD.
+
+
+
+Para fazer TDD no rails é bem mais simples do que parece, é só executar os scripts de criação de models, controllers e views que o framework já cria os arquivos básicos para fazer TDD, bastando apenas escrever os casos de testes e executar o comando rake para tudo funcionar.
+
+
+
+Para fazer BDD em rails é necessário a instalação de um plugin chamado RSPec, esse plugin é responsável pela criação das especificações em BDD.
+
+
+
+Em rails é muito simples fazer TDD e BDD, já que o próprio ambiente te prepara para desenvolver se utilizando dessas técnicas, diferente dos frameworks PHP que poucos deles possuem facilidades como rails (Na sua última versão, o <a href="http://www.codeigniter.com" target="_blank">CodeIgniter</a> introduziu TDD em seu core, ainda não tive tempo para dar uma olhada de como funciona. No <a href="http://cakephp.org/" target="_blank">cakePHP</a>, pelo que eu vi na comunidade, é capaz de se fazer TDD).
+
+
+
+Para se fazer TDD e BDD no PHP é necessário a instalação de frameworks para o mesmo, no meu caso eu escolhi o <a href="http://www.phpunit.de/" target="_blank">PHPUnit</a> para testes unitários e para BDD eu escolhi o <a href="http://www.phpspec.org" target="_blank">PHPSpec</a>. Só que essa escolha foi por livre e espontânea pressão, é que somente existe esse framework para se trabalhar com BDD em PHP.
+
+
+
+Ele foi escrito após o desenvolvedor (<a href="http://blog.astrumfutura.com/" target="_blank">Pádraic Brady</a>) ter se aventurado por Ruby e Rails e conhecido RSpec, ele resolveu desenvolver o &#8220;RSpec&#8221; para PHP e o batizou de PHPSpec.
+
+
+
+A documentação é bastante simples e fácil de ler, usei algumas horas e li toda a documentação, e agora estou planejando para utiliza-los nos projetos que faço parte.
+
+
+
+Agora vou explicar um pouco de como funciona com um exemplo.
+
+
+
+Primeiro, antes da gente começar, devemos especificar o problema, no caso, como um usuário irá fazer um comentário.
+
+<blockquote>Usuário deverá colocar seu nome, depois ele deverá colocar seu email.
+
+
+
+Se o usuário tiver um site, poderá coloca-lo.
+
+
+
+Então depois o usuário coloca o conteúdo do comentário e clica em enviar.</blockquote>
+
+Agora que temos a especificação, vamos criar nosso primeiro exemplo:
+
+<pre name="code" class="php">require_once "Post.php";
+
+
+
+class DescribeNewPostInBlog extends PHPSpec_Context {
+
+
+
+	private $post = null;
+
+
+
+	public function before() {
+
+		$this-&gt;post = new Post;
+
+	}
+
+
+
+	public function itShouldSetName() {
+
+		$this-&gt;post-&gt;setName("Cairo Noleto");
+
+		$this-&gt;spec($this-&gt;post-&gt;getName())-&gt;should-&gt;beEqualTo("Cairo Noleto");
+
+	}
+
+
+
+	public function itShouldSetEmail() {
+
+		$this-&gt;post-&gt;setEmail("caironoleto@gmail.com");
+
+		$this-&gt;spec($this-&gt;post-&gt;getEmail())-&gt;should-&gt;beEqualTo("caironoleto@gmail.com");
+
+	}
+
+
+
+	public function itShouldSetWebSite() {
+
+		if ("user set as website") {
+
+			$this-&gt;post-&gt;setWebSite("http://www.caironoleto.com/");
+
+		}
+
+
+
+		$this-&gt;spec($this-&gt;post-&gt;getWebSite())-&gt;should-&gt;beEmpty();
+
+	}
+
+
+
+	public function itShouldSetContent() {
+
+		$this-&gt;post-&gt;setContent("Aqui vai o comentário do post :P");
+
+		$this-&gt;spec($this-&gt;post-&gt;getContent())-&gt;should-&gt;be("Aqui vai o comentário do post :P");
+
+	}
+
+}</pre>
+
+Se rodarmos no terminal, teremos o resultado:
+
+<strong> cairo@angus:~/BDDonPHP$ phpspec DescribeNewPostInBlog
+
+E
+
+Fatal error: Call to undefined method Post::setName() in /home/cairo/BDDonPHP/DescribeNewPostInBlog.php on line 15</strong>
+
+
+
+Da erro por que nossa classe Post não contém o método setName, e vai da erro a cada um dos métodos que não funciona, então irei cria-los:
+
+<pre name="code" class="php">class Post {
+
+
+
+	private $name;
+
+	private $email;
+
+	private $website;
+
+	private $content;
+
+
+
+	public function setName($name) {
+
+		$this-&gt;name = $name;
+
+	}
+
+
+
+	public function setEmail ($email) {
+
+		$this-&gt;email = $email;
+
+	}
+
+
+
+	public function setWebSite($website) {
+
+		$this-&gt;website = $website;
+
+	}
+
+
+
+	public function setContent($content) {
+
+		$this-&gt;content = $content;
+
+	}
+
+
+
+	public function getName() {
+
+		return $this-&gt;name;
+
+	}
+
+
+
+	public function getEmail() {
+
+		return $this-&gt;email;
+
+	}
+
+
+
+	public function getWebSite() {
+
+		return $this-&gt;website;
+
+	}
+
+
+
+	public function getContent() {
+
+		return $this-&gt;content;
+
+	}
+
+}</pre>
+
+Agora rode mais uma o código e veja tudo rodando perfeitinho :D
+
+
+
+<strong>Algumas considerações:</strong>
+
+
+
+A primeira e mais importante é que o framework está na versão 0.2.3 e ainda não saiu nenhuma versão release, todas as versões são betas.
+
+
+
+Por ser beta, falta alguns métodos (Como os &#8220;Matchers&#8221; beAnInstaceOf, beString, beOfType). Por assinar a lista, foi resolvido hoje e inserido o método beString, ainda não sei como faço pra pegar a versão do SVN que seria bem mais interessante, vou colocar um email na lista perguntando como faço e blogo aqui.
+
+
+
+O Framework como está funcionando já da pra escrever muita especificação, então é bola pra frente.
+
+
+
+Até a próxima!</p>

@@ -1,0 +1,366 @@
+---
+layout: post
+title: Tradução: Rails database Migrations - Parte II
+---
+
+<p>Esta é a segunda parte da tradução do <a title="Rails Database Migrations" href="http://guide.rails.info/migrations.html" target="_blank">artigo Rails database Migrations</a>. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, <strong>comuniquem-me!</strong> Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P
+
+
+
+<a title="Rails Database Migrations - Parte I" href="http://www.caironoleto.com/2008/09/23/traducao-rails-database-migrations-parte-i/" target="_self">Rails Database Migrations - Parte I</a>
+
+<h3>2.0 Criando migrações</h3>
+
+<h3>2.1 Criando um Modelo</h3>
+
+Um Modelo e os geradores de scaffold criará migrações apropriadas para criação de um novo Modelo. Esta migração contém instruções prontas para criação de uma tabela relevante. Se você mostrar pro Rails as colunas que você precisa então as declarações já estarão criadas. Por exemplo, rodando <tt>ruby script/generate model Product name:string description:text </tt>gerará uma migração como esta
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> CreateProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+      t<span style="color: #990000;">.</span>string <span style="color: #990000;">:</span>name
+
+      t<span style="color: #990000;">.</span>text <span style="color: #990000;">:</span>description
+
+
+
+      t<span style="color: #990000;">.</span>timestamps
+
+    <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    drop_table <span style="color: #990000;">:</span>products
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+</tt></pre>
+
+Você pode adicionar quantos nomes/tipo de colunas como você deseja. Por padrão <tt>t.timestamps</tt> (Que criam as colunas <tt>updated_at</tt> e <tt>created_at</tt> que serão populadas automáticamentes pelo Rails) podem ser adicionadas para você.
+
+<h3>2.2 Criando uma migração autônoma</h3>
+
+Se você criar uma migração para outros propósitos (Por exemplo, adicionar uma coluna numa tabela já existente) então você pode usar o gerador de migrações:
+
+
+
+<tt>ruby script/generate migration AddPartNumberToProducts</tt>
+
+
+
+Criará uma migração vazia mas já apropriada com o nome da migração:
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> AddPartNumberToProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+Se o nome da migração é na forma AddXXXtoYYY ou RemoveXXXtoYYY e for seguida de uma lista de nomes de colunas e seus tipos então a migração será criada contendo declarações apropriadas para adicionar e remover colunas.
+
+
+
+<tt>ruby script/generate migration AddPartNumberToProducts part_number:string</tt>
+
+
+
+Gerará:
+
+<pre><tt><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> AddPartNumberToProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    add_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+</tt></tt></pre>
+
+Similarmente:
+
+
+
+<tt>ruby script/generate migration RemovePartNumberFromProducts part_number:string</tt>
+
+
+
+gerará
+
+<pre><tt><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> RemovePartNumberFromProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    add_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+E você não está limitado a gerar magicamente apenas uma coluna, por exemplo
+
+
+
+<tt>ruby script/generate migration AddDetailsToProducts part_number:string price:decimal</tt>
+
+
+
+gerará
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> AddDetailsToProducts <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    add_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+    add_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>price<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>decimal
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>price
+
+    remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+E sempre o que foi gerado é apenas um ponto de partida, você pode adicionar ou remover a partir dele o que você quiser, como você achar melhor.
+
+<h3>3. Escrevendo uma migração</h3>
+
+Uma vez que você criou uma migração usando um dos geradores, é a hora de trabalhar!
+
+<h3>3.1 Criando uma tabela</h3>
+
+<tt>create_table </tt>será um dos métodos mais usados. Tipicamente usada assim
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>string <span style="color: #990000;">:</span>name
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+criará uma tabela <tt>products</tt> com uma coluna chamada<tt> name</tt> (e como discutido anteriormente, implicitamente criará uma coluna id).
+
+
+
+O objeto &#8220;renderizado&#8221; (yielded) no bloco permite você criar colunas na tabela. Existe duas formas de se fazer isso. A primeira é algo assim
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>column <span style="color: #990000;">:</span>name<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>null <span style="color: #990000;">=&gt;</span> <span style="font-weight: bold;"><span style="color: #0000ff;">false</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+a segunda forma, que é chamada de migração &#8220;sexy&#8221;, elimina redundância dos métodos. Em vez de <tt>string, </tt><tt>integer</tt><tt>, </tt>etc os métodos são criados a partir do tipo da coluna, onde os parâmetros subseqüentes são idênticos.
+
+
+
+Por padrão <tt>create_table </tt>criará uma chave primária chamada <tt>id</tt>. Você pode alterar o nome da chave primária com a opção <tt>:primary_key</tt> (Não esqueça de atualizar o modelo correspondente) ou se você não precisar de uma chave primária (por exemplo HABTM (<a title="Has and belongs to many" href="http://wiki.rubyonrails.org/rails/pages/has_and_belongs_to_many" target="_blank">has and belongs to many</a>) join table) você pode passar <tt>:id&#160;? false</tt>. Se você precisa passar alguma informação específica, você pode passar um fragmento SQL na opção <tt>:options</tt>. Por exemplo:
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>options <span style="color: #990000;">=&gt;</span> <span style="color: #ff0000;">"ENGINE=BLACKHOLE"</span> <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>string <span style="color: #990000;">:</span>name<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>null <span style="color: #990000;">=&gt;</span> <span style="font-weight: bold;"><span style="color: #0000ff;">false</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+Irá anexar <tt>ENGINE=BLACKHOLE </tt>na sql usada para criar a tabela (Quando se usa MySQL por padrão é usado &#8220;ENGINE=InnoDB&#8221;.
+
+
+
+Os tipos que o Active Record suporta são <tt>:primary_key</tt>, <tt>:string</tt>, <tt>:text</tt>, <tt>:integer</tt>, <tt>:float</tt>, <tt>:decimal</tt>, <tt>:datetime</tt>, <tt>:timestamp</tt>, <tt>:time</tt>, <tt>:date</tt>, <tt>:binary</tt>, <tt>:boolean.</tt>
+
+
+
+Eles vão ser mapeados apropriadamente para cada banco de dados, por exemplo com MySQL <tt>:string</tt> é mapeada para <tt>VARCHAR(255)</tt>. Você pode criar colunas e tipos não suportados pelo Active Record usando uma sintaxe não sexy, por exemplo:
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>column <span style="color: #990000;">:</span>name<span style="color: #990000;">,</span> <span style="color: #ff0000;">'polygon'</span><span style="color: #990000;">,</span> <span style="color: #990000;">:</span>null <span style="color: #990000;">=&gt;</span> <span style="font-weight: bold;"><span style="color: #0000ff;">false</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+Esta forma, no entanto, dificulta a portabilidade para outros banco de dados.
+
+<h3>3.2 Mudando tabelas</h3>
+
+O primo mais próximo de <tt>create_table </tt>é <tt>change_table</tt>. Usado para alterar tabelas existentes, é similarmente usada como o <tt>create_table </tt>mas o objeto &#8220;rendenrizado&#8221; (yielded) para o bloco conhece mais truques. Por exemplo
+
+<pre><tt><tt>change_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>remove <span style="color: #990000;">:</span>description<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>name
+
+  t<span style="color: #990000;">.</span>string <span style="color: #990000;">:</span>part_number
+
+  t<span style="color: #990000;">.</span>index <span style="color: #990000;">:</span>part_number
+
+  t<span style="color: #990000;">.</span>rename <span style="color: #990000;">:</span>upccode<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>upc_code
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+remove a coluna <tt>description</tt> e <tt>name</tt>, adiciona a coluna <tt>part_number</tt> e adiciona um index nesta mesma coluna. E por ultimo altera o nome da coluna <tt>upccode</tt>. É o mesmo que fazer
+
+<pre><tt><tt>remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>description
+
+remove_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>name
+
+add_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+add_index <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>part_number
+
+rename_column <span style="color: #990000;">:</span>products<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>upccode<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>upc_code
+
+</tt></tt></pre>
+
+Você não deve manter repetindo o nome da tabela e de todos os grupos de declarações relatados para modificar uma tabela em particular. Em uma transformação individual os nomes são curtos, por exemplo <tt>remove_column </tt>torna-se <tt>remove</tt> e <tt>add_index</tt> torna-se <tt>index</tt>.
+
+<h3>3.3 Helpers especiais</h3>
+
+O Active Record provê alguns atalhos para as funcionalidades mais comuns. Por exemplo, é muito comum adicionar as colunas <tt>created_at </tt>e <tt>updated_at </tt>e o método que faz exatamente isso é:
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>timestamps
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+Criará uma tabela products com essas duas colunas
+
+<pre><tt><tt>change_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>timestamps
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+Adiciona essas duas colunas a uma tabela existente.
+
+
+
+Outro helper é chamado de <tt>references </tt>(Também disponível como <tt>belongs_to</tt> ). Na sua forma mais simples adiciona alguma habilidade de reutilização.
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>references <span style="color: #990000;">:</span>category
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+então criará a coluna <tt>category_id</tt> com o tipo apropriado. Note que você deve passar o nome do modelo e não da coluna. O Active Record adicionará o sufixo _id para você. Se você tiver uma associação <tt>belongs_to</tt> polimórfica então <tt>references</tt> irá adicionar as colunas referidas
+
+<pre><tt><tt>create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+  t<span style="color: #990000;">.</span>references <span style="color: #990000;">:</span>attachment<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>polymorphic <span style="color: #990000;">=&gt;</span> <span style="color: #ff0000;">{</span><span style="color: #990000;">:</span>default <span style="color: #990000;">=&gt;</span> <span style="color: #ff0000;">'Photo'</span><span style="color: #ff0000;">}</span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></tt></pre>
+
+irá adicionar a coluna <tt>attachment_id </tt>e a coluna <tt>attachment_type</tt> com o valor padrão Photo.
+
+
+
+Se os helpers providos pelo Active Record não for suficiente, você pode utilizar a função <tt>execute</tt> para executar SQL arbitrárias.
+
+
+
+Para mais detalhes e exemplos de métodos individuais dê uma olhada na documentação da API, em particular a documentação para <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html" target="_blank">ActiveRecord::ConnectionAdapters::SchemaStatements</a> (na qual provê os métodos disponíveis nos métodos <tt>up </tt>e <tt>down</tt>), <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html" target="_blank">ActiveRecord::ConnectionAdapters::TableDefinition</a> (na qual provê os métodos disponíveis para o objeto &#8220;rendenrizado&#8221; (yielded) por <tt>create_table</tt>) e o <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/Table.html" target="_blank">ActiveRecord::ConnectionAdapters::Table</a> (na qual provê os métodos disponíveis para o objeto &#8220;rendenrizado&#8221; (yielded) por <tt>change_table</tt>).
+
+<h3>3.4 Escrevendo seu método down</h3>
+
+O método <tt>down</tt> da sua migração deve reverter as transformações concluídas pelo método <tt>up</tt>. Em outras palavras, o banco de dados deve se manter inalterado se você fizer um <tt>up</tt> seguido de um <tt>down</tt>. Por exemplo, se você criar uma tabela no método up você deverá excluí-la no método <tt>down</tt>. Deve ser sábio e precisamente inverso ao método <tt>up</tt>. Por exemplo
+
+<pre><tt><span style="font-weight: bold;"><span style="color: #0000ff;">class</span></span> ExampleMigration <span style="color: #990000;">&lt;</span> ActiveRecord<span style="color: #990000;">::</span>Migration
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>up
+
+    create_table <span style="color: #990000;">:</span>products <span style="font-weight: bold;"><span style="color: #0000ff;">do</span></span> <span style="color: #990000;">|</span>t<span style="color: #990000;">|</span>
+
+      t<span style="color: #990000;">.</span>references <span style="color: #990000;">:</span>category
+
+    <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+    <span style="font-style: italic;"><span style="color: #9a1900;">#add a foreign key</span></span>
+
+    execute <span style="color: #ff0000;">"ALTER TABLE products ADD CONSTRAINT fk_products_categories FOREIGN KEY (category_id) REFERENCES categories(id)"</span>
+
+
+
+    add_column <span style="color: #990000;">:</span>users<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>home_page_url<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>string
+
+
+
+    rename_column <span style="color: #990000;">:</span>users<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>email<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>email_address
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">def</span></span> <span style="font-weight: bold;"><span style="color: #0000ff;">self</span></span><span style="color: #990000;">.</span>down
+
+    rename_column <span style="color: #990000;">:</span>users<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>email_address<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>email
+
+    remove_column <span style="color: #990000;">:</span>users<span style="color: #990000;">,</span> <span style="color: #990000;">:</span>home_page_url
+
+    execute <span style="color: #ff0000;">"ALTER TABLE products DROP FOREIGN KEY fk_products_categories"</span>
+
+    drop_table <span style="color: #990000;">:</span>products
+
+  <span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span>
+
+<span style="font-weight: bold;"><span style="color: #0000ff;">end</span></span></tt></pre>
+
+as vezes a sua migração pode fazer algumas coisas irreversíveis, por exemplo quando você destrói alguns dados. Em casos como esse onde você não pode reverter uma migração, você pode lançar IrreversibleMigration para o seu método <tt>down</tt>. Se alguém tentar reverter a sua migração uma mensagem será mostrada falando que ela não será completa.
+
+
+
+E aqui finaliza a segunda parte do artigo.
+
+
+
+<a title="Rails Database Migrations - Parte III" href="http://www.caironoleto.com/2008/11/04/traducao-rails-database-migrations-parte-3/" target="_self">Continuação: Rails Database Migrations - Parte III</a>
+
+
+
+<a title="Rails Database Migrations - Parte IV" href="http://www.caironoleto.com/2008/11/12/traducao-rails-database-migrations-parte-iv/" target="_self">Continuação: Rails Database Migrations - Parte IV</a>
+
+
+
+Até a próxima!</p>
