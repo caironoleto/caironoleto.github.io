@@ -1,0 +1,14 @@
+---
+layout: post
+title: Begin¬
+---
+
+E hoje começa mais uma edição do Erecompi, Encontro Regional de Computação do Piauí, evento realizado pelo Ceut, Construtora Sucesso e um tal de "CCCC" que eu ainda não descobri o que significa.
+
+Bom, eu iria participar apenas das palestras, e por infelicidade (Sim, infelicidade) irei participar do curso de ajax. Infelicidade por que meu grande amigo Marcelo não vai poder participar do curso, então ele cedeu seu lugar para mim.
+
+E nesse sábado, no laboratório de sistemas de informação estarei ministrando a terceira aula do curso de PHP, que vai ser sobre como o PHP trata classes, objetos, métodos, herança, entre outros assuntos sobre Orientação a Objetos. E na quarta aula começarei o desenvolvimento de uma aplicação utilizando CodeIgniter e Lumine Framework.
+
+E para quem acompanha, na próxima semana começo mais um novo desafio, mas esse merece um post especial, então até domingo o escrevo.
+
+Até a próxima!
