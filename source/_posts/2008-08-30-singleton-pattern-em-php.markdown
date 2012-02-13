@@ -3,64 +3,35 @@ layout: post
 title: Singleton pattern em PHP
 ---
 
-<p><strong>UPDATE: Alteração no código do Singleton</strong>
-
-
+**UPDATE: Alteração no código do Singleton**
 
 O Pattern Singleton é um design usado para restringir a criação de objetos e apenas utilizar uma quantidade exata de cada instancia.
 
-
-
 Para que eu vou usar isso afinal? Diminuição no uso de memória, uso de apenas algumas conexões com um banco de dados, apenas um único objeto para toda a aplicação entre outros.
-
-
 
 O framework CodeIgniter utiliza esse pattern para a criação de objetos, o Lumine utiliza essa pattern, eu utilizo esse pattern :P.
 
-
-
 Exemplo de como fazer isso em PHP:
 
-<pre name="code" class="php">
-
+```php
 class Singleton {
-
-
-
   private static $instance;
-
-
-
   private function Singleton() {
-
-    //Your code
-
+    // Your code here…
   }
 
-
-
   public static function getInstance() {
-
     if (!self::$instance instanceof self) {
-
       self::$instance = new self;
-
     }
 
     return self::$instance;
-
   }
-
 }
-
-</pre>
+```
 
 UPDATE: Por que usar construtor privado? Se o construtor não for privado, você poderá fazer várias instancias assim quebrando o Singleton Pattern. Você não deve iniciar diretamente o objeto, deve fazer isso chamando o método estático getInstance().
 
-
-
 Imagine agora as possibilidades ;)
 
-
-
-Até a próxima!</p>
+Até a próxima!
