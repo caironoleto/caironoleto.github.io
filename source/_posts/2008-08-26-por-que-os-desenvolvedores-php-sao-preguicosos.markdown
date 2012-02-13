@@ -9,4 +9,4 @@ Eu estou de saco cheio das listas PHP do Google Groups porque 98% das mensagens 
 
 Pior do que isso são as pessoas que só procuram um "scriptizinho". Ninguém PENSA em como solucionar os problemas, mas pensam em usar um scriptzinho para tal.
 
-#prontofalei
+`#prontofalei`
