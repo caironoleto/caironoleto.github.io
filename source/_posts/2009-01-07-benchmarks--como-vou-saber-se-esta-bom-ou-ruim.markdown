@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Benchmarks: Como vou saber se está bom ou ruim?"
+---
+
+Esta foi a pergunta que um amigo me fez no GTalk, eu respondi a ele mas gostei do assunto, é um bom assunto para começar 2009.
+
+Como vou saber se está bom ou ruim um benchmark?! Simples, assim como muita coisa na vida, tudo depende do ponto de vista. A grande maioria dos benchmarks são sobre performance, tecnologia X é mais rápido do que Y ou framework U é mais rápido do que framework K.
+
+Mas existem alguns benchmarks específicos como framework Y é mais fácil de fazer manutenção do que framework Z ou o tamanho dos arquivos gerados. Enfim, todos os propósitos dos benchmarks são apenas para demonstrar o lado bom e o ruim de uma tecnologia e levantar dados que facilitam na escolha dessas tecnologias.
+
+Se você está indeciso de sobre qual tecnologia escolher, pesquise todos os benchmarks que existem sobre esta tecnologia em comparações a outras, se ainda não estiver satisfeito, faça seus próprios benchmarks e no final faça um levantamento junto com a sua equipe e discuta todos os pontos.
