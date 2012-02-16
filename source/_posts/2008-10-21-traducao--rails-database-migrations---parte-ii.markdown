@@ -5,7 +5,7 @@ title: "Tradução: Rails database Migrations - Parte II"
 
 Esta é a segunda parte da tradução do [artigo Rails database Migrations](http://guide.rails.info/migrations.html). Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter ([caironoleto](http://twitter.com/caironoleto)), ou qualquer mensageiro!! :P
 
-[Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
+ * [Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
 
 ### 2.0 Criando migrações
 
@@ -250,7 +250,7 @@ as vezes a sua migração pode fazer algumas coisas irreversíveis, por exemplo 
 
 E aqui finaliza a segunda parte do artigo.
 
-[Continuação: Rails Database Migrations - Parte III](2008/11/04/traducao--rails-database-migrations---parte-ii)
-[Continuação: Rails Database Migrations - Parte IV](2008/10/20/traducao--rails-database-migrations---parte-iv)
+ * [Continuação: Rails Database Migrations - Parte III](/2008/11/04/traducao--rails-database-migrations---parte-iii)
+ * [Continuação: Rails Database Migrations - Parte IV](/2008/11/12/traducao--rails-database-migrations---parte-iv)
 
 Até a próxima!

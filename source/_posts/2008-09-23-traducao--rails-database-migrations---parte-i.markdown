@@ -95,9 +95,9 @@ Ocasionalmente você comete um erro enquanto escrevia a migração. Se você já
 
 No geral, editar migrações existentes não é uma boa idéia: você criará trabalho extra para você mesmo e para seus parceiros de trabalho e causar um maior problema se a versão da migração for rodada em uma máquina de produção. Em vez disso, você deve escrever uma nova migração para realizar as alterações que você solicita. Editando uma recém migração gerada e que ainda não foi `commitada` para o controle de versão (ou que geralmente não foi propagada além da sua máquina de desenvolvimento) é relativamente inofensivo. Apenas use com bom senso.
 
-[Continuação: Rails Database Migrations - Parte II](2008/10/20/traducao--rails-database-migrations---parte-ii)
-[Continuação: Rails Database Migrations - Parte III](2008/11/04/traducao--rails-database-migrations---parte-ii)
-[Continuação: Rails Database Migrations - Parte IV](2008/10/20/traducao--rails-database-migrations---parte-iv)
+ * [Continuação: Rails Database Migrations - Parte II](/2008/10/21/traducao--rails-database-migrations---parte-ii)
+ * [Continuação: Rails Database Migrations - Parte III](/2008/11/04/traducao--rails-database-migrations---parte-iii)
+ * [Continuação: Rails Database Migrations - Parte IV](/2008/11/12/traducao--rails-database-migrations---parte-iv)
 
 E aqui finaliza a primeira parte deste artigo.
 

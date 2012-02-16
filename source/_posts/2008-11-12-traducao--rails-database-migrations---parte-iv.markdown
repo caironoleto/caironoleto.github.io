@@ -5,9 +5,9 @@ title: "Tradução: Rails Database Migrations - Parte IV"
 
 Esta é a última parte da tradução [desse artigo](http://guide.rails.info/migrations.html) sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter ([caironoleto](http://twitter.com/caironoleto)), ou qualquer mensageiro!! :P
 
-[Continuação: Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
-[Continuação: Rails Database Migrations - Parte II](/2008/10/20/traducao--rails-database-migrations---parte-ii)
-[Continuação: Rails Database Migrations - Parte III](/2008/11/04/traducao--rails-database-migrations---parte-ii)
+ * [Continuação: Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
+ * [Continuação: Rails Database Migrations - Parte II](/2008/10/21/traducao--rails-database-migrations---parte-ii)
+ * [Continuação: Rails Database Migrations - Parte III](/2008/11/04/traducao--rails-database-migrations---parte-iii)
 
 ### 6. Armazenando esquemas e você
 

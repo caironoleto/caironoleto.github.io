@@ -5,8 +5,8 @@ title: "Tradução: Rails Database Migrations - Parte III"
 
 Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, **comuniquem-me!** Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P
 
-[Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
-[Rails Database Migrations - Parte II](/2008/10/21/traducao--rails-database-migrations---parte-ii)
+ * [Rails Database Migrations - Parte I](/2008/09/23/traducao--rails-database-migrations---parte-i)
+ * [Rails Database Migrations - Parte II](/2008/10/21/traducao--rails-database-migrations---parte-ii)
 
 ### 4. Rodando migrações
 
@@ -161,4 +161,4 @@ class AddPartNumberToProducts < ActiveRecord::Migration
   end
 end
 ```
-[Continuação: Rails Database Migrations - Parte IV](2008/11/12/traducao--rails-database-migrations---parte-iv)
+ * [Continuação: Rails Database Migrations - Parte IV](/2008/11/12/traducao--rails-database-migrations---parte-iv)
