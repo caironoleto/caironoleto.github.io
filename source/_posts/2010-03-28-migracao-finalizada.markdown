@@ -1,0 +1,24 @@
+---
+layout: post
+title: Migração finalizada!
+---
+
+Nesta semana fiz duas migrações, uma importante e outra super mega ulta importante. A primeira é que acabei de migrar todos os posts do Wordpress para cá. Não fiz a migração dos comentários ainda. Vou fazer em breve :P
+
+A migração mais importante ainda foi a do TrendTime. Vou contar um pouco de história!
+
+Nós começamos o TrendTime como brincadeira, e como tal não escolhemos um banco de dados, usamos o bom e velho SQLite que com um `rails projeto` já vem configurado. E o colocamos em produção assim.
+
+E com o SQLite nós cobrimos o Rails Summit Latin America 2009, Chupa Argentina, Intercon 2009, Ceará On Rails, Flex for Kids 2010, PyCon 2010 Atlanta e até o Big Brother Brasil.
+
+Nós migramos para o MySQL quando o SQLite não estava mais aguentando a inserção dos dados do Big Brother, que apesar de não ser um TrendTopic, é um case muito bom de análise de tweets, por quê é uma hash que é usada massivamente enquanto o programa está passando na TV.
+
+Neste ponto, nós começamos a ter problemas com crons que não finalizavam, inserção de múltiplos resultados no banco, além da lentidão em indexar 100 novos tweets. Mesmo depois da migração para o MySQL continuamos com esses problemas.
+
+Então nessa última semana resolvemos migrar para o MongoDB. Nós temos experiência com CouchDB usando CouchRest, mas a migração para o MongoDB com MongoMapper foi muito mais rápida do que esperávamos. Além disso, nos testes iniciais tivemos uma percepção de velocidade maior do que com couchdb. Esses fatores foram decisivos para a migração.
+
+Além da migração para MongoDB, nós fizemos ajustes na nossa biblioteca de busca ao Twitter e agora temos uma cron específica para a indexação dos usuários. Com isso conseguimos mais requisições livres para o Twitter (Ainda estamos com a limitação padrão)
+
+Por falar em velocidade, a migração do MySQL para MongoDB foi mais rápida do que a migração do SQLite para o MySQL (Escrita, a leitura é praticamente a mesma velocidade).
+
+Vamos testando o MongoDB. Se precisarmos mudar de banco, seja para outro NoSQL ou para um novo paradigma, ou até voltando para um banco de dados relacionais, vamos fazer e vocês nem vão perceber quando migrarmos. :)
