@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Rails 4 kids. Ajude!"
+---
+
+[Rails for Kids](http://www.railsforkids.com/) é uma iniciativa muito bacana do [Carlos Eduardo, da e-Genial](http://www.egenial.com.br/). Quem não sabe ou não lembra, o Rails for Kids é um dia inteiro com muito Rails e toda a renda é para ajudar uma instituição que cuida de crianças.
+
+Esse ano a instituição escolhida foi a Cotolengo. Sobre o evento, vai contar com os mais importantes Railers do Brasil, vai ser um puta grande evento sobre Rails. Vamos ajudar as crianças e vamos ganhar conhecimento que é o este Brasil esta precisando, principalmente nosso estúpido senado.
+
+O Rails 4 kids acontecerá no dia 12 de setembro, não fique de fora dessa, não perca essa oportunidade de ajudar as crianças e poder contar com um dia inteiro de rails com os melhores do Brasil, faça já [sua inscrição](http://www.railsforkids.com/inscriptions).

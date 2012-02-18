@@ -1,0 +1,26 @@
+---
+layout: post
+title: "O mais importante é arte e não código!"
+---
+
+Nos últimos dias eu venho tentando aprender a fazer design sozinho. E sinceramente, design é algo que se aprende, mas é muito difícil. Não é tão simples como programação, aprender meio número de comandos e escrevê-los.
+
+Se fosse assim, já estaria com o design que eu quero pronto. Mas não, não é tão simples. Falo sinceramente quando uma pessoa que sabe fazer design e é programador é um profissional completo.
+
+Desing é mais complexo do que muitos pensam. Não é apenas colocar alguns formulários e pronto! Não, longe disso. Você tem que entender de cores, de tamanhos, de posição. Depois você tem que entender de usabilidade, saber que botão é melhor para colocar aqui, ou para colocar ali.
+
+Eu tenho noção de usabilidade. Sei que posicionar um botão num lugar errado pode fazer com que os clientes não saibam usar o seu produto. Sei que isso é o que define o seu produto e sinceramente, eu vejo poucas empresas que apostam alto nessa parte que eu considero importante.
+
+Não basta que a coisa seja bonita, ela tem que ser funcional, e o mais importante, o seu cliente tem que saber usar sem precisar de um manual.
+
+Quando um programador, como eu, tento fazer um desing de um produto, eu só consigo pensar nas funcionalidades que eu vou implementar com JavaScript, ou o banco de dados que eu vou usar para armazenar os dados. Eu não consigo imaginar mais, não porquê eu não saiba (Tá, eu não sei, AINDA! ;) mas porquê como programador, eu não prático isso no meu dia-a-dia.
+
+Para um designer é fácil ele fazer isso, é a profissão dele. É a mesma coisa, ele não conhece programação para poder fazer o meu trabalho. Se ele sabe, com certeza, para ele é mais fácil saber o que deve fazer.
+
+Lembro muito bem no livro da 37 Signals, Getting Real, onde eles falam que a melhor coisa que você faz no seu produto é começar pelo mais importante, o que seus clientes irão ver. O mais importante dessa abordagem é que você, como programador, só vai implementar o que é essencial para o produto funcionar. Nem uma linha a mais, nenhuma a menos.
+
+A 37 Signals sabe que isso fará com que seu produto seja o mais simples possível. É verdade, o produto será. Mas por quê você apenas faz o essencial, não mais do que você vê. Para o seu cliente é a melhor abordagem! Em menos tempo ele tem o seu produto funcionando, com todos os recursos possíveis.
+
+Foi nessa filosofia que o Rails foi desenvolvido. Não apenas para ser rápido, mas para está preparado para as mudanças do cliente. Em alguns minutos é possível mudar a forma como os dados estão sendo mostrados no Rails, mais uma vez, não apenas por que ele já é rápido e já vem com várias coisas disponíveis para que você faça a coisa mais rápido, mas por quê ele foi desenhado para que isso seja feito de forma rápida e sem dor, porquê foi essa praticidade que a 37 Signals estava precisando para resolver o seu problema.
+
+Vai começar um novo produto e já escolheu o banco de dados, criou os models mas nem imagina como está as telas?! Peço que você reconsidere todo o seu trabalho, pois tenho certeza que esse seu produto não vai ser tão recompensante do que se você começar pelo design.
