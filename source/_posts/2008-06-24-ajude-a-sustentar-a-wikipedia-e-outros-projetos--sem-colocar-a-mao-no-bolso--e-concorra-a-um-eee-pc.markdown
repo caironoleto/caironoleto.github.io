@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ajude a sustentar a Wikipédia e outros projetos, sem colocar a mão no bolso, e concorra a um Eee PC!
+comments: true
 ---
 
 *Ajude a sustentar a Wikipédia e outros projetos, sem colocar a mão no bolso, e concorra a um Eee PC!*

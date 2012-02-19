@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Futuro do PHPSpec
+comments: true
 ---
 
 Olá, para quem não conhece, PHPSpec é um framework BDD para PHP.

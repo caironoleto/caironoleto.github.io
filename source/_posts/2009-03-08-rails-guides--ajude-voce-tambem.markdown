@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Rails Guides: ajude você tambem!"
+comments: true
 ---
 
 Todos já viram a tradução que eu fiz do Rails Database Migrations, certo?!

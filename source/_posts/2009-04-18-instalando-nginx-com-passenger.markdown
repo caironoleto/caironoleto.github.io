@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Instalando Nginx com Passenger
+comments: true
 ---
 
 Para quem acompanha o mundo [Ruby On Rails](http://www.rubyonrails.com) soube que no dia 16 foi [lançado](http://blog.phusion.nl/2009/04/16/phusions-one-year-anniversary-gift-phusion-passenger-220) o [Passenger](http://www.modrails.com) com suporte total para [Nginx](http://nginx.net) (Lê-se `Engine X`). Assim temos mais uma rápida opção de deployment para Ruby On Rails.

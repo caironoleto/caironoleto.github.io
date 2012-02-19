@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Lumine 1.0, mudanças chegarão!"
+comments: true
 ---
 
 Eu comecei meu desenvolvimento profissional com PHP, e não faz muito tempo não, cerca de 6 meses. E com o PHP, eu comecei utilizado alguns frameworks, [CodeIgniter](http://codeigniter.com/), [Lumine](http://www.hufersil.com.br/documentacao/apresentacao), [Xajax](http://xajaxproject.org/), e dentre deles, um me chamou muito a atenção, o Lumine.

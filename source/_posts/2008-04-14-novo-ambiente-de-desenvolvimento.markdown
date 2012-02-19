@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Novo ambiente de desenvolvimento
+comments: true
 ---
 
 Olá, post rapido devido a falta de tempo.

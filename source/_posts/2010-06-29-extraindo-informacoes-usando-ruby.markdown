@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Extraindo informações usando Ruby
+comments: true
 ---
 
 Hoje lancei [uma aplicação](http://hackmarkoapp.heroku.com) que faz a análise dos palpites de um bolão ([O bolão da Marko Informática](http://www.bolaodamarko.com.br)) e mostra um gráfico com a quantidade de palpites por placa em um determinado jogo.

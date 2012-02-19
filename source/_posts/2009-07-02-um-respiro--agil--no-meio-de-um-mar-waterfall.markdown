@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Um respiro 'Ágil' no meio de um mar waterfall!"
+comments: true
 ---
 
 Olá, hoje vou contar apenas uma das histórias de desenvolvimento que vivenciei.

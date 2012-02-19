@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Mais teorias sobre testes
+comments: true
 ---
 
 Atualmente eu trabalho em basicamente duas aplicações: a do Jus Navigandi e o TrendTime. São duas aplicações Ruby On Rails, bem distintas, nessas duas aplicações eu faço testes.

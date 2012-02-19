@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Novos tempos, novo layout, promoção e tudo que você precisa saber
+comments: true
 ---
 
 Faz muito tempo que não blogo não por quê não queira mas é que tem vários motivos e é o que pretendo explanar nesse post!

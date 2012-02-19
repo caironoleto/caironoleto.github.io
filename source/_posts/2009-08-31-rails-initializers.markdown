@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rails Initializers!
+comments: true
 ---
 
 No rails existem 4 lugares onde você pode configurar sua aplicação, no config/environment.rb, config/environments/production.rb, config/environments/development.rb, config/environments/test.rb.

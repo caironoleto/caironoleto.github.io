@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Lumine 1.01-alpha"
+comments: true
 ---
 
 Olá, é com grande orgulho que venho através desta destacar o lançamento do Lumine 1.01-alpha.

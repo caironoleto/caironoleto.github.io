@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Dois programadores pensam melhor do que um
+comments: true
 ---
 
 O XP é uma metodologia de desenvolvimento Ágil, alguns consideram como framework, outros, assim como eu, consideram como filosofia. Não da dá pra aprender XP em um dia e no segundo dia sua equipe já será extremamente Ágil. Isso é mentira. Assim como programação, XP só se aprende com o tempo, treinando dia após dia.

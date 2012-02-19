@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Café com o tom
+comments: true
 ---
 
 Olá mais uma vez, para quem não conhece a [e-Genial](http://www.egenial.com.br) e seu produto [Treina TOM](http://www.treinatom.com.br), com certeza está perdendo uma ótima oportunidade de aumentar seus conhecimentos.

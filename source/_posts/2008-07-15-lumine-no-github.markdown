@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Lumine no GitHub
+comments: true
 ---
 
 Olá, na semana passada o Hugo Ferreira, criador do [Lumine Framework](http://www.hufersil.com.br/lumine), fez um release de uma versão beta onde ele criou destrutores e um método invocando esses destrutores. Eu até comentei aqui no blog sobre esse release, e gostei muito porquê realmente fez diminuir o consumo de memória, mas uma coisa ainda me deixava com a pulga atrás da orelha, porquê o framework ainda "inchava" no consumo de memória.

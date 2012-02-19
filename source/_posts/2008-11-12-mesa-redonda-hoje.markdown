@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Mesa redonda hoje!
+comments: true
 ---
 
 Olá, fui convidado para participar de uma mesa redonda na [semana de Comunicação](http://www.ceut.com.br/semanadecomunicacao.asp) da faculdade CEUT.

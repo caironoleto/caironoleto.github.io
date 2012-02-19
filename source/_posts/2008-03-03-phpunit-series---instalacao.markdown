@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "PHPUnit Series - Instalação"
+comments: true
 ---
 
 Olá, é com prazer que venho aqui iniciar uma série sobre desenvolvimento ágil em PHP.

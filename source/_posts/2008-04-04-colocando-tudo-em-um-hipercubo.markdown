@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Colocando tudo em um hipercubo"
+comments: true
 ---
 
     "O maior problema com as técnicas de único hipercubo é sua falta de qualquer príncipio 

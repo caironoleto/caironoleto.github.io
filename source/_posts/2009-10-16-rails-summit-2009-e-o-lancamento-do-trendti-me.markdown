@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rails Summit 2009 e o lançamento do TrendTi.me!
+comments: true
 ---
 
 Este ano o Rails Summit se consolidou como um dos maiores eventos de Rails do mundo. Infelizmente mais uma vez não pude ir e participar presencialmente ao evento, mas nem por isso eu não participei!

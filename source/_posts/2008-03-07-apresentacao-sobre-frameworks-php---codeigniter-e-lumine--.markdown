@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Apresentação sobre frameworks PHP ( CodeIgniter e Lumine )"
+comments: true
 ---
 
 Olá, hoje estarei fazendo uma apresentação na faculdade (FAETE).

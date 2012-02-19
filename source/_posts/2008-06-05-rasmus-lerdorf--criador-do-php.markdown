@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rasmus Lerdorf, criador do PHP
+comments: true
 ---
 
 PHP foi criada em 1995, originalmente designada para produção de web-sites dinâmicos, por [Rasmus Lerdorf](http://lerdorf.com/).

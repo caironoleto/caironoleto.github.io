@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Test-driven development on Rails"
+comments: true
 ---
 
 Comecei um projeto pessoal, que já vi um muito bom rodando, [Spesa](http://spesa.com.br), feito pelo [Nando Vieira](http://simplesideias.com.br/) (sempre queria saber quem tinha criado o spesa, e por acaso descobri) e outro no [rails-br](http://groups.google.com/group/rails-br/browse_thread/thread/db8bee2f2b2c8637?hl=pt-BR) bem interessante, em AJAX.

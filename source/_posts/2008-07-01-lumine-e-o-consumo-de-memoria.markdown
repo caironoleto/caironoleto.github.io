@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Lumine e o consumo de memória
+comments: true
 ---
 
 Olá, alguns dias atrás estava fazendo o mapeamento de um projeto que estou desenvolvendo na Add4 Comunicação no Lumine Framework.

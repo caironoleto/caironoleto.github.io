@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ruby Masters Conf
+comments: true
 ---
 
 Eis que mais uma vez a e-Genial surpreende anunciando o [Ruby Masters Conf](http://rubymastersconf.com), que é uma maratona de palestras com os maiores feras de Ruby do Brasil e ainda com convidados internacionais!

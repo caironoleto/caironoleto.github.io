@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Proc e lambda
+comments: true
 ---
 
 Você já deve ter ouvido que tudo em Ruby é objeto. Sim, sim, tudo é objeto. Menos blocos.

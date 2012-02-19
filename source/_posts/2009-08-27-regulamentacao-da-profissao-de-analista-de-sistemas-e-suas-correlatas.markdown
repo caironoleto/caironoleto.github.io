@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Regulamentação da Profissão de Analista de Sistemas e suas Correlatas
+comments: true
 ---
 
 Muito se tem falado sobre a Regulamentação da Profissão de Analista de Sistemas e suas Correlatas, a discussão é grande, e existe muita gente a favor, muita gente contra e algumas em cima do muro.

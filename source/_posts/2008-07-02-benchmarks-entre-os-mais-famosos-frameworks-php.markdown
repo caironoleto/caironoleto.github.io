@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Benchmarks entre os mais famosos framework PHP
+comments: true
 ---
 
 Olá, acabei de ler um post no site da [AVNet Labs](http://www.avnetlabs.com/php/php-framework-comparison-benchmarks) um benchmark entre os maiores framework PHP:

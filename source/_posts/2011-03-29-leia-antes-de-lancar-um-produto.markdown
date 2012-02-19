@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Leia antes de lançar um produto
+comments: true
 ---
 
 Qual a sua definição de um bom produto? Ele tem que ser funcional?! Ele tem que ser útil?! Ou ele tem que despertar em você uma necessidade?

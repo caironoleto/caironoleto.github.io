@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Por que os desenvolvedores PHP são preguiçosos?
+comments: true
 ---
 
 A comparação que eu faço é com Ruby, não sei das outras linguagens, mas por que os desenvolvedores PHP são tão preguiçosos?

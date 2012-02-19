@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "E - TextEditor"
+comments: true
 ---
 
 Eu tenho assinatura do grupo [rails-br](http://groups.google.com/group/rails-br?hl=pt-BR), e essa semana vi uma discussão sobre [editores e IDEs para Ruby on Rails](http://groups.google.com/group/rails-br/browse_thread/thread/5458b5cf1534fc90?hl=pt-BR). Foi mais uma das milhares de discussões sobre editores que existe por aí.

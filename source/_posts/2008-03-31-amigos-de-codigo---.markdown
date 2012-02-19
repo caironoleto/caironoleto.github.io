@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Amigos de codigo…"
+comments: true
 ---
 
 Na sexta feira não fui trabalhar a tarde, tive que resolver alguns problemas no banco.

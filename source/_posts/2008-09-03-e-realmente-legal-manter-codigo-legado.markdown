@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "É realmente legal manter código legado?"
+comments: true
 ---
 
 Eu lendo meu feeds hoje me deparo com um resumo da [RailsConf Europe](http://www.pedropimentel.com/2008/09/03/railsconf-europe-2008-primeiro-dia/) no blog do Pedro Pimentel. E um comentário dele foi sobre o keynote do [David Heinemeier Hansson](http://www.loudthinking.com)/. Ele falou sobre a importância de código legado.

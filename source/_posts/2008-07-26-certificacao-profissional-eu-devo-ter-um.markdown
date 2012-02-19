@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Certificação profissional, eu devo ter um?
+comments: true
 ---
 
 Olá hoje teve um [email](http://groups.google.com/group/php-brasil/browse_thread/thread/664b5df169608888?hl=pt-BR) na lista [PHP-Brasil](http://groups.google.com/group/php-brasil?hl=pt-BR) bastante interessante. Foi sobre uma dúvida de um iniciante que gerou uma discussão bonita e foi sobre um assunto que diverge a opinião de várias pessoas, sobre Certificação Profissional.

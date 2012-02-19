@@ -1,6 +1,7 @@
 ---
 layout: post
 title: CodeIgniter, música e programação
+comments: true
 ---
 
 Música? Interessante, fui atrás da história do CodeIgniter, e acabei me deparando com uma história muito boa.

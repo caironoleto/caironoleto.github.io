@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Apache CouchDB
+comments: true
 ---
 
 Para quem é e participa do mundo Ruby On Rails não é nenhuma novidade, para quem já trabalha com banco de dados não relacionais também não é muita novidade, mas, para quem nunca teve contato ou nunca ouviu o que é: Apache Couch DB é um banco de dados distribuído, orientado a documentos e acessível por uma API RESTful HTTP/JSON.

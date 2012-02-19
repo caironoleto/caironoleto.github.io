@@ -1,6 +1,7 @@
 ---
 layout: post
 title: E se você fizer sem paixão?
+comments: true
 ---
 
 Hoje o [Vinícius](http://www.improveit.com.br/empresa/vinicius) da [Improve It](http://www.improveit.com.br/) colocou um [Receita do sucesso: fazer o que você ama](http://blog.improveit.com.br/articles/2008/08/27/receita-do-sucesso-fazer-o-que-voce-ama) explicando porquê ele deixou a consultoria de mão e começou a trabalhar produzindo seus próprios produtos.

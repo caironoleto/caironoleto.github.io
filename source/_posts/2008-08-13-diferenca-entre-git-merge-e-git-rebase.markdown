@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Diferença entre git merge e git rebase
+comments: true
 ---
 
 Olá, há alguns dias tive muitos problemas de conflitos ao usar o git, quando ia unir dois branchs. Sempre tinha um ou outro arquivo com conflito.

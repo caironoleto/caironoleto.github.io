@@ -1,6 +1,7 @@
 ---
 layout: post
 title: RSpec Framework!
+comments: true
 ---
 
 [RSpec](http://rspec.info/) é um framework para ajudar você desenvolvedor a ter sua aplicação coberta por testes e ainda esses testes definindo o comportamento da aplicação. RSpec é um framework para [Desenvolvimento Guiado a Comportamentos](http://en.wikipedia.org/wiki/Behavior_driven_development).

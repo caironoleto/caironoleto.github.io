@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Tradução: Rails database Migrations - Parte II"
+comments: true
 ---
 
 Esta é a segunda parte da tradução do [artigo Rails database Migrations](http://guide.rails.info/migrations.html). Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter ([caironoleto](http://twitter.com/caironoleto)), ou qualquer mensageiro!! :P

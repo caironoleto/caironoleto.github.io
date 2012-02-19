@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Colhendo frutos do Pomodoro
+comments: true
 ---
 
 A pouco tempo eu comecei com essa história de [Pomodoro](http://www.pomodorotechnique.com). Eu já conhecia a técnica faz tempos, desde o ano passado. Na época ela passou como mais uma metodologia de concentração e foco, mas agora voltou então resolvi da uma chance ao Pomodoro.

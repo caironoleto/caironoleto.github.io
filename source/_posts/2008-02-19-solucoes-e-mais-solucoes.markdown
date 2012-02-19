@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Soluções e mais soluções"
+comments: true
 ---
 
 Cada dia que passa, venho adquirindo mais e mais o senso de soluções.

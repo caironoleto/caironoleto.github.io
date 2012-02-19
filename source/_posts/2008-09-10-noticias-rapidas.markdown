@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Notícias rápidas
+comments: true
 ---
 
 Como ta sendo corrido para mim esses últimos dias e hoje consegui uma folguinha rápida, vou postar rapidamente aqui.

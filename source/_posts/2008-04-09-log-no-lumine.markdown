@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Log no Lumine"
+comments: true
 ---
 
 Ontem (08/04/2008) na aplicação que estou desenvolvendo na W7 Solutions tive o seguinte problema:

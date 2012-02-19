@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create, update, destroy e index não são obrigatórios!
+comments: true
 ---
 
 Olá, mas que titulo é esse? O que quer dizer isso!?

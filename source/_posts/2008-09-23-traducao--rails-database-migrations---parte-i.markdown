@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Tradução: Rails database Migrations - Parte I"
+comments: true
 ---
 
 Olá, este é o primeiro de quatro partes [desse artigo](http://guide.rails.info/migrations.html) sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter ([caironoleto](http://twitter.com/caironoleto)), ou qualquer mensageiro!! :P

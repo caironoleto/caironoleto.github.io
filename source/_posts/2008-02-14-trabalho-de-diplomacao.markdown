@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Trabalho de diplomação"
+comments: true
 ---
 
 Desde domingo que eu vejo comentários, noticias, e muito, mas muito blog comentando, participando e isso é muito bom!

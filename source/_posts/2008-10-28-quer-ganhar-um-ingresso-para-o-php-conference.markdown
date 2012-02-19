@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Que ganhar um ingresso para o PHP Conference?
+comments: true
 ---
 
 Quer ganhar?! Então faz o seguinte:

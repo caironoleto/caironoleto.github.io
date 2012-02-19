@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "CodeIgniter e Lumine, em um só framework"
+comments: true
 ---
 
 Olá a todos, é mais uma vez com muita emoção que venho por aqui dizer que consegui fazer a integração do Framework Lumine ao CodeIgniter.

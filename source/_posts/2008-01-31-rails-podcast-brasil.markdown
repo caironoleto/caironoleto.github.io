@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rails Podcast Brasil
+comments: true
 ---
 
 Há algumas semanas foi lançado o episodio piloto do [Rails Podcast Brasil](http://www.rubyonrails.com.br/podcasts), contando com a presença do [Fábio Akita](http://www.akitaonrails.com) e do [Carlos Brando](http://www.nomedojogo.com). Sendo esses dois as pessoas que tenho como "referência" quando se trata de Ruby e Ruby on Rails.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Curso de PHP
+comments: true
 ---
 
 Inicia-se nesse sábado, dia 26, às 16:00 na FAETE - Faculdade das Atividades Empresariais de Teresina - um curso sobre PHP Orientado a Objetos, utilizando CodeIgniter e Lumine, ministrado por Cairo Noleto (eu!).

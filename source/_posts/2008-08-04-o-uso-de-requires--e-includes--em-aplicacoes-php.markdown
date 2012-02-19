@@ -1,6 +1,7 @@
 ---
 layout: post
 title: O uso de requires* e includes* em aplicações PHP
+comments: true
 ---
 
 Já imaginou os includes e os requires de aplicações escritas em PHP?

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Diferença entre TDD e BDD
+comments: true
 ---
 
 TDD  um acronimo para [Test-Driven Development](http://en.wikipedia.org/wiki/Test-driven_development), que significa desenvolvimento orientado a testes, e BDD  um acronimo para [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior_driven_development), que significa desenvolvimento orientando a comportamentos.  

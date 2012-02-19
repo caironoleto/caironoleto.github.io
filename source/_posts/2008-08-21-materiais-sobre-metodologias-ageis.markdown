@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Materiais sobre Metodologias Ágeis
+comments: true
 ---
 
 Algumas pessoas entraram em contato comigo procurando materiais sobre metodologias Ágeis.

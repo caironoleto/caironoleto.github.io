@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Quer saber mais sobre Scrum? Novas mudanças de plano!
+comments: true
 ---
 
 Infelizmente, o conteúdo ainda não vai ser totalmente meu!

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Que venha Junho!
+comments: true
 ---
 
 Olá, estamos no final do mês de maio, domingo já é mês de junho, e por isso quero dizer que algumas coisas vão mudar.

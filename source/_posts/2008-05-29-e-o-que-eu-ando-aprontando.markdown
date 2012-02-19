@@ -1,6 +1,7 @@
 ---
 layout: post
 title: E o que eu ando aprontando?
+comments: true
 ---
 
 Olá, muita gente viu o post me despedindo da W7 Solutions, muitos acharam que iam embora, bom, não fui embora, estou ainda em Teresina, mas o futuro ninguém sabe ;P.

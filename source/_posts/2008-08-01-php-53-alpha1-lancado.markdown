@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHP 5.3 alpha1 lançado!
+comments: true
 ---
 
 Olá, hoje foi lançado a primeira versão do PHP 5.3, essa versão é esperada para aumentar a estabilidade e perfomance além de ter sido adicionado novas funções e extensões.

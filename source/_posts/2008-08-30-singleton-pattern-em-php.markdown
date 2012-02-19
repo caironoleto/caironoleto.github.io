@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Singleton pattern em PHP
+comments: true
 ---
 
 **UPDATE: Alteração no código do Singleton**

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 'Por que as empresas "necessitam" de blogs?'
+comments: true
 ---
 
 Hoje é fato que qualquer nova startup, principalmente na internet, está surgindo com um blog.

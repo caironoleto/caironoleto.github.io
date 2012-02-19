@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHP é uma linguagem de programação Ágil?
+comments: true
 ---
 
 Hoje eu li um artigo bastante interessante, [PHP é uma linguagem de programação Ágil?](http://www.ibuildings.com/blog/archives/1221-Is-PHP-an-Agile-Programming-Language.html)

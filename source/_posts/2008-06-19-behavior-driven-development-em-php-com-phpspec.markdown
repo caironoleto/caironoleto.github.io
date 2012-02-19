@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Behavior Driven Development em PHP com PHPSpec
+comments: true
 ---
 
 Comecei a ler muito sobre [TDD](http://en.wikipedia.org/wiki/Test_driven_development), depois na comunidade [rails-br](http://groups.google.com/group/rails-br) descobri o [BDD](http://en.wikipedia.org/wiki/Behavior_driven_development) li e me pareceu mais simples do que TDD.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Mídias alternativas - A vida além dos 30 segundos
+comments: true
 ---
 
 Esse foi o tema da mesa redonda na semana de comunicação da [semana de Comunicação](http://www.ceut.com.br/semanadecomunicacao.asp). Estava lá eu ( :P ), Thiago Emérito, Igor Drey e Itallo Victor.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Flex and Flex Builder"
+comments: true
 ---
 
 Olá a todos. Há alguns dias, vendo o site [Mate Comigo](http://www.matecomigo.com.br), fiquei impressionado.

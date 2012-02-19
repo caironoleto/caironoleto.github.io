@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Novos rumos, velhos amigos...
+comments: true
 ---
 
 Interessante como as coisas acontecem, há alguns meses eu comecei esse blog, e por desse blog começarei a trilhar novos caminhos.

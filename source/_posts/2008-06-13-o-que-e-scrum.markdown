@@ -1,6 +1,7 @@
 ---
 layout: post
 title: O que é scrum?
+comments: true
 ---
 
 Scrum é uma Metodologia de Desenvolvimento Ágil. Que utiliza um processo interativo e incremental. Foi criado para gerencias equipes de projetos e integrar equipes no desenvolvimento de softwares e principalmente, para lidar com os problemas encontrador na metodologia em cascata (Waterfall).

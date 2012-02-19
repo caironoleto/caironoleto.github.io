@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Cake: Codeigniter mAKE!"
+comments: true
 ---
 
 Olá, hoje eu lancei o [cake](http://github.com/caironoleto/cake/tree/master) e ele tem esse nome por que é um acrônimo de **C**odeIgniter m**AKE**.

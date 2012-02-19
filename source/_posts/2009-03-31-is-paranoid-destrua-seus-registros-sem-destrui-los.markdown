@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "is_paranoid destrua seus registros sem destruí-los!"
+comments: true
 ---
 
 [is_paranoid](http://github.com/jchupp/is_paranoid/) é uma gem que faz uma coisa mágica na sua aplicação. Ele faz com que seus registros não sejam excluídos do banco de dados.

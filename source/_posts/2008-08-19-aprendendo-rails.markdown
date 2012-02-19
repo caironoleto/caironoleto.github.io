@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Aprendendo Rails!
+comments: true
 ---
 
 Sabe por que eu gosto da comunidade de [Ruby](http://www.ruby-lang.org/en/) e do [Rails](http://www.rubyonrails.org/)? Por que as pessoas se unem para ajudar umas as outras, e sempre sai coisas boas da comunidade!

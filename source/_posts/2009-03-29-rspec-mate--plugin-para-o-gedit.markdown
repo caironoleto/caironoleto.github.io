@@ -1,6 +1,7 @@
 ---
 layout: post
 title: RSpec Mate, plugin para o Gedit
+comments: true
 ---
 
 Para quem já viu screencasts sobre RSpec e ficou maravilhado com aquela janelinha que aparece no Textmate eu tenho uma boa notícia:

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Scrum? Desenvolvimento Ágil? FEEDBACK!
+comments: true
 ---
 
 Olá, gostaria de saber das pessoas do Piauí:

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Coding Dojo Piauí
+comments: true
 ---
 
 Um pouco de história por aqui. Durante o Oxente Rails fomos "contaminados" de coisas boas :D

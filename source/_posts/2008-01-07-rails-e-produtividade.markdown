@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Rails e produtividade
+comments: true
 ---
 
 Olá, é com esse post que começo a fazer explanações sobre este framework que comecei a estudar profundamente (Já fiz um minicurso, e na época, me empolguei muito, mas me faltava experiencia, enfim).

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Está chegando, PHP Conference!
+comments: true
 ---
 
 Essas últimas semanas está sendo corrida Estou acertando todos os detalhes para o [PHP Conference](http://www.phpconf.com.br), e é por que ainda não cheguei por lá, quando chegar, terá mais coisas para fazer :)

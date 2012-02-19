@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Semana difícil…
+comments: true
 ---
 
 Essa semana está sendo difícil…

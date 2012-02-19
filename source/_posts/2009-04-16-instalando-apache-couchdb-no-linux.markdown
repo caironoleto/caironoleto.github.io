@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Instalando Apache CouchDB no Linux
+comments: true
 ---
 
 Para instalar o [Apache CouchDB](http://couchdb.apache.org/) no Ubuntu/Debian-likes use

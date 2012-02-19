@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "PHP e Orientação a Objeto"
+comments: true
 ---
 
 Meu amigo Marcelo Lobo me perguntou agora a pouco no GTalk:

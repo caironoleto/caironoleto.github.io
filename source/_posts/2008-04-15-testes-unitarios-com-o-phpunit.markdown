@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Testes unitarios com o PHPUnit
+comments: true
 ---
 
 Estou devendo, e já ta muito caro, a série sobre o PHPUnit.

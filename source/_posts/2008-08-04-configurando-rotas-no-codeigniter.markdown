@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Configurando rotas no CodeIgniter
+comments: true
 ---
 
 Olá, para quem já conhece o [CodeIgniter](http://www.codeigniter.com) pode dar uma olhada em outros posts aqui no meu blog. Para quem não conhece resumindo: CodeIgniter é um framework MVC para PHP.

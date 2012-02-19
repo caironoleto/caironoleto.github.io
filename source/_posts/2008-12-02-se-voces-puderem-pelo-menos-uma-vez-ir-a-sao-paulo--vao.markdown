@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Se vocês puderem pelo menos uma vez ir a São Paulo, vão!
+comments: true
 ---
 
 Não é brincadeira, é sério! Vocês não precisam morar lá, mas devem conhecer São Paulo e seus lugares mais obscuros!

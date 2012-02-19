@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Série sobre desenvolvimento ágil utilizando PHP"
+comments: true
 ---
 
 Esta semana, iniciarei uma série de artigos sobre o framework PHPUnit.

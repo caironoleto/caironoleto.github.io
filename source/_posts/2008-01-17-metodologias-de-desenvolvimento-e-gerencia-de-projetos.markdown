@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Metodologias de desenvolvimento e gerencia de projetos"
+comments: true
 ---
 
 Olá, já tinha ouvido falar sobre SCRUM, uma metodologia de gerenciamento de projetos, mas nunca tinha parado para estudar essa tal metodologia, peguei alguns podcasts sobre o assunto e veio outras coisas juntos, como XP e TDD.

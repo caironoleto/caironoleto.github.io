@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Curso sobre PHP Orientado a Objeto"
+comments: true
 ---
 
 Parece que o PHP vai ser torna mais e mais minha linguagem favorita de desenvolvimento.

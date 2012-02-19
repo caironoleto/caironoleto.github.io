@@ -1,6 +1,7 @@
 ---
 layout: post
 title: '"Eu programo em ruby"'
+comments: true
 ---
 
 Hoje eu abri o Google Reader, a primeira boa noticia é que agora está em Portugues do Brasil, a segunda, que da o titulo ao post, é que ele me mostrou "As melhores recomendações" e o terceiro link foi do blog da Caelum, resolvi ler, e pra minha surpresa e admiração, vi um post do dia 02/11/2007, com o titulo ["Quão intuitivo é aprender Ruby?"](http://feeds.feedburner.com/~r/caelum/~3/178735843/).

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 'Autoditada, uma "profissão" que está com os dias contados?!'
+comments: true
 ---
 
     Quando eu nasci eu era uma pessoa que precisava de muitos cuidados, 

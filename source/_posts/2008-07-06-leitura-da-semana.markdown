@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Leitura da semana
+comments: true
 ---
 
 Na última semana comecei a ler os livros [Como transformar sua equipe no seu maior patrimônio](http://www.americanas.com.br/AcomProd/1472/660911) e [Caindo na Real](http://gettingreal.37signals.com/GR_por.php).

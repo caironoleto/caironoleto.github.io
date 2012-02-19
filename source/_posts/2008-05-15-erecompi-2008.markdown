@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Erecompi 2008
+comments: true
 ---
 
 Talvez esse ano tenha sido o divisor de águas dos eventos aqui em Teresina, principalmente de conteúdo!

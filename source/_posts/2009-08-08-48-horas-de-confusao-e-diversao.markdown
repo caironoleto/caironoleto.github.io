@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "48 horas de confusão e diversão"
+comments: true
 ---
 
 Esse foi o tema da desconferência que eu e o Cleiton Francisco meu amigo josu que trabalha comigo no Jus Navigandi apresentamos no OxenteRails.

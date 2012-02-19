@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Lumine 1.02-beta
+comments: true
 ---
 
 Olá a todos.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "WordPress.org"
+comments: true
 ---
 
 Eu queria muito utilizar o Google Analytics para analisar esse meu blog, e pra minha surpresa, o WordPress.com não aceita instalação de Plugins (Necessário para utilização do Google Analytics).

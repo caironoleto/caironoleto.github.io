@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Sem comunicação não dá!
+comments: true
 ---
 
 Tudo o que você faz na vida envolve comunicação. Qualquer tipo de comunicação, visual, gestual, verbal, enfim, qualquer tipo de comunicação. É uma premissa básica do ser humano se comunicar! E isso está dentro de cada uma das empresas que você ver e está ligado diretamente em um maior ou menor grau de sucesso de uma empresa ou startup.

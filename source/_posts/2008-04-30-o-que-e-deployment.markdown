@@ -1,6 +1,7 @@
 ---
 layout: post
 title: O que é deployment?
+comments: true
 ---
 
 Há varias semanas o grande assunto na comunidade [rails-br](http://groups.google.com/group/rails-br) era "Deployment". Principalmente por um [Screencast do Akita](http://www.akitaonrails.com/2008/4/19/di-rio-de-bordo-do-fisl-9), de uma palestra que ele ministrou no FISL.

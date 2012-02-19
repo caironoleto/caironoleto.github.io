@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Code Igniter with Lumine"
+comments: true
 ---
 
 Olá, como prometido no ultimo post, estarei disponibilizando online o CodeIgniter integrado ao Lumine.

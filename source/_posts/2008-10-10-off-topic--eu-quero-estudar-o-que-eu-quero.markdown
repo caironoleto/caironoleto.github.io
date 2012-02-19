@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Off-Topic: Eu quero estudar o que eu quero!"
+comments: true
 ---
 
 Estou no ultimo período da faculdade e sinceramente, não aguento mais! Não aguento mais não ter tempo de estudar o que realmente eu quero, para estudar algo que eu vejo que não vai ter utilidade, pelo menos por enquanto.

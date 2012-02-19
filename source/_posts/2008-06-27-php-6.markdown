@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHP 6
+comments: true
 ---
 
 Eu busquei pelo Google noticias sobre o PHP 6. E realmente não encontrei muita coisa boa.

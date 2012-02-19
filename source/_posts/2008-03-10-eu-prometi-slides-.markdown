@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Eu prometi Slides?"
+comments: true
 ---
 
 AHEoiAHEiAOEhIAe, engraçado como as coisas são.

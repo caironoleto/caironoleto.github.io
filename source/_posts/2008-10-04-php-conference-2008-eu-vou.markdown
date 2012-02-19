@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHP Conference 2008, eu vou!
+comments: true
 ---
 
 Não sei se vocês perceberam, mas coloquei um mini banner do [PHP Conference 2008](http://www.phpconf.com.br) e sim, eu vou participar, eu e toda a equipe da [Add4 Comunicação](http://www.add4.com.br).

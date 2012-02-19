@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Redcar, release da versão 0.1"
+comments: true
 ---
 
 A pouco tempo atrás, descobri através do [Twitter](http://www.twitter.com)um editor que promete ser o TextMate para Linux, o [RedCar](http://redcareditor.com)

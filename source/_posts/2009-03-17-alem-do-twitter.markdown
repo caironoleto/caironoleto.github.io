@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Além do Twitter
+comments: true
 ---
 
 A mídia está voltando os olhos para este "novo" serviço que tem um potencial enorme, se usado adequadamente.

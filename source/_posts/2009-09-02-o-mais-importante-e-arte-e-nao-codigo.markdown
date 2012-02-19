@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "O mais importante é arte e não código!"
+comments: true
 ---
 
 Nos últimos dias eu venho tentando aprender a fazer design sozinho. E sinceramente, design é algo que se aprende, mas é muito difícil. Não é tão simples como programação, aprender meio número de comandos e escrevê-los.

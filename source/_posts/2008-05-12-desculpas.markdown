@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Desculpas
+comments: true
 ---
 
 Olá, queria me desculpar as pessoas que foram prestigiar mais uma aula do mini curso de PHP que estou ministrando na faete.

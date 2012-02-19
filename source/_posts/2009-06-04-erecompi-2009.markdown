@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Erecompi 2009
+comments: true
 ---
 
 Hoje começou as palestras do Erecompi 2009. Esse ano contou com a presença da figura carimbada na comunidade Rails no Brasil do Fábio Akita.

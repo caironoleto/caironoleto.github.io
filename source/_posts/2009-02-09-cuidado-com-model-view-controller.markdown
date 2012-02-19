@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Cuidado com Model-View-Controller
+comments: true
 ---
 
 Um assunto recorrente nas listas de discussão é sobre [MVC](http://en.wikipedia.org/wiki/Model-view-controller), esse [pattern](http://en.wikipedia.org/wiki/Design_pattern_(computer_science)) que é a base para quase todos os [framewok](http://en.wikipedia.org/wiki/Frameworks) atuais. Quem usa Ruby On Rails sabe "Fat Models, Slim Controls" por que é um comportamento imposto pelo criador do framework e praticamente por todos que utilizam.

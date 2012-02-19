@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Migração finalizada!
+comments: true
 ---
 
 Nesta semana fiz duas migrações, uma importante e outra super mega ulta importante. A primeira é que acabei de migrar todos os posts do Wordpress para cá. Não fiz a migração dos comentários ainda. Vou fazer em breve :P

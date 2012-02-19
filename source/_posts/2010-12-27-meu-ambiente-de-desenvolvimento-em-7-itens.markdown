@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Meu ambiente de desenvolvimento em 7 itens
+comments: true
 ---
 
 Fui convidado pelo <a href="http://twitter.com/danillos" target="_blank">@danillos</a> para descrever mais sobre o meu ambiente de trabalho :) 

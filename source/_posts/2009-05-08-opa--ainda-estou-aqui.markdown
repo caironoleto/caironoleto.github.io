@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Opa, ainda estou aqui!"
+comments: true
 ---
 
 Sumi! Nas últimas semanas realmente sumi, por uma boa razão!

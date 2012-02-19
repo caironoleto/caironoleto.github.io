@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Realmente existe diferença entre TDD e BDD?
+comments: true
 ---
 
 Recebi um comentário do Cândido Sales que me fez reler um texto meu antigo sobre [a diferença entre TDD e BDD](/2008/06/11/diferenca-entre-tdd-e-bdd). Achei legal, interessante, mas vale a pena escrever mais um "dedinho" de palavras e incluir agora minha experiência de se usar TDD/BDD por algum tempo (Uns 2 anos, mais ou menos)!

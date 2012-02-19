@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Lançado o Rails Guides em Português
+comments: true
 ---
 
 Foi [lançado](http://www.rubyinside.com.br/lancado-rails-guides-em-portugues-1100) hoje a primeira versão dos [Guias dos Rails](http://guides.rubyonrails.org/) em português.

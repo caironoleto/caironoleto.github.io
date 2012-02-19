@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Porque utilizar Ruby on Rails"
+comments: true
 ---
 
 Hoje na empresa me mandaram um artigo sobre Java, Ruby e PHP intitulado ["Why Do 'Cool Kids' Choose Ruby or PHP to Build Websites Instead of Java?"](http://java.sys-con.com/read/45732"), gostei muito do artigo (Pena que fala praticamente o poder do Java).

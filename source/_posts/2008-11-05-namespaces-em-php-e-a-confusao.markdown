@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Namespaces em PHP e a confusão!
+comments: true
 ---
 
 A semana passada foi movimentada no PHP. Para quem ainda não sabe Namespaces é a forma conveniente de agrupar e distribuir bibliotecas, para quem já programa em Java são os velhos pacotes e quem programa em ruby são os módulos.

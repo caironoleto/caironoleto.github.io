@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bem vindo!
+comments: true
 ---
 
 Olá, bem vindo ao meu novo blog.

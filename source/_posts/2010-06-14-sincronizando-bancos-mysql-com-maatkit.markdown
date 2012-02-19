@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Sincronizando bancos MySQL com Maatkit
+comments: true
 ---
 
 Maatkit é uma ferramenta criada para DBAs, programadores e usuários que lidam com bancos de dados opensource em replicação master-master e master-slave.

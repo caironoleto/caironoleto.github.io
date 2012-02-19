@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Benchmarks: Como vou saber se está bom ou ruim?"
+comments: true
 ---
 
 Esta foi a pergunta que um amigo me fez no GTalk, eu respondi a ele mas gostei do assunto, é um bom assunto para começar 2009.

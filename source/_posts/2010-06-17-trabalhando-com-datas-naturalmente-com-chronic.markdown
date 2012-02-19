@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Trabalhando com datas naturalmente com Chronic
+comments: true
 ---
 
 Esta semana passei gastando um tempão implementando um Parser que me retornaria um dia em que um evento ocorre em uma determinada data.

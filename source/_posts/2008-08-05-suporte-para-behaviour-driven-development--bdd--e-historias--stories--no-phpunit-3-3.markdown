@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Suporte para Behaviour Driven Development (BDD) e Histórias (Stories) no PHPUnit 3.3
+comments: true
 ---
 
 Agora o PHPUnit tem suporte para Behaviour Driven Development (BDD) e criação de histórias (Stories). Além de Test-Driven Development (TDD) agora BDD no PHPUnit. <a title="Support for BDD and Stories in PHPUnit 3.3" href="http://sebastian-bergmann.de/archives/738-Support-for-BDD-and-Stories-in-PHPUnit-3.3.html" target="_blank"></a>

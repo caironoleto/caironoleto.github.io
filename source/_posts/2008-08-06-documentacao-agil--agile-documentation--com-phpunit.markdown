@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Documentação Ágil (Agile documentation) com PHPUnit
+comments: true
 ---
 
 Para quem acha que times Ágeis não criam documentação, **vocês estão enganados!** O que acontece é que a documentação está sempre em mudanças, que levaria bem mais tempo documentar as coisas do que programar ou entender do negócio.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHPUnit 3.3.0 RC1
+comments: true
 ---
 
 Hoje foi lançado no [blog](http://sebastian-bergmann.de/archives/815-PHPUnit-3.3.0-RC1.html) do [Sebastian Bergmann](http://sebastian-bergmann.de) o primeiro release candidate do PHPUnit 3.3.0 :D

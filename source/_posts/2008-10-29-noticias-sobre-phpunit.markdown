@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Notícias sobre PHPUnit
+comments: true
 ---
 
 No dia 20/10 foi lançado a versão 3.3.2 desse framework de testes.

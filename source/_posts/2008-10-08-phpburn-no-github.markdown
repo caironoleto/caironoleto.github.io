@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHPBurn no GitHub
+comments: true
 ---
 
 Nós migramos o [PHPBurn](http://www.phpburn.com) para o [GitHub](http://github.com/klederson), então se você tiver vontade de nos ajudar a transformar este ORM faça um fork do projeto e depois nos mande um pull request!

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Authlogic, use-o no lugar do restful_authentication
+comments: true
 ---
 
 Autenticação no Rails e a primeira coisa que todos pensam é: [restful_authentication](http://github.com/technoweenie/restful-authentication/tree/master). Muito bom o plugin, extremamente útil, já gera testes básicos, os models, controllers, rotas e tudo mais para começar a funcionar.

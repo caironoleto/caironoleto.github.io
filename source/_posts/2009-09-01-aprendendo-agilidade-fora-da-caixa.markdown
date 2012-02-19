@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Aprendendo Agilidade fora da caixa
+comments: true
 ---
 
 Podemos aprender em qualquer lugar, com qualquer coisa. Livros, vídeos, fotos, apresentações, músicas, filmes, etc. Se você ver a coisa com outra ótica poderá aprender muito.

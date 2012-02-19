@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Controle de Versão"
+comments: true
 ---
 
 Na empresa que eu trabalho (W7 Solutions) utilizamos do CVS pra controle de versão. Uma metodologia que eu implementei assim que cheguei na empresa (E por falta de conhecimento acabei escolhendo o CVS).

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Estatísticas"
+comments: true
 ---
 
 Ultimamente venho muito interessado sobre as estatisticas desse blog, a cada duas ou três horas venho ver as estatisticas de acesso.

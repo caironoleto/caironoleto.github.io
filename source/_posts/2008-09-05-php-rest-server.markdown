@@ -1,6 +1,7 @@
 ---
 layout: post
 title: PHP Rest Server
+comments: true
 ---
 
 Olá, hoje no blog da Lorna Jane saiu a terceira e ultima parte de como fazer um REST Server em PHP. Aqui você pode ver o [primeiro](http://www.lornajane.net/posts/2008/PHP-Rest-Server-part-1-of-3), [segundo](http://www.lornajane.net/posts/2008/PHP-Rest-Server-part-2-of-3) e [terceiro](http://www.lornajane.net/posts/2008/PHP-Rest-Server-part-3-of-3) artigo.

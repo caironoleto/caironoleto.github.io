@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Git Cheat Sheets
+comments: true
 ---
 
 Está muito aperreado com o Git? [Aqui](http://zrusin.blogspot.com/2007/09/git-cheat-sheet.html) tem um Git Cheat Sheets, muito bom por sinal!

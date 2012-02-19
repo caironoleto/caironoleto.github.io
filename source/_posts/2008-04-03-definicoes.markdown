@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Definições …"
+comments: true
 ---
 
 Olá, dia da mentira passou, varias pegadinhas do google, teve até a minha.

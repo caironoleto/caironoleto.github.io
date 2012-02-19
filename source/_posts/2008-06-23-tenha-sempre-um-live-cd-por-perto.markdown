@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Tenha sempre um live cd por perto...
+comments: true
 ---
 
 É isso mesmo, você usuário linux, tenha sempre um Live CD por perto.

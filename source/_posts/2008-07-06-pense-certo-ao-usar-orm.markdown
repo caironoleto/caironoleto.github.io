@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Pense certo ao usar ORM
+comments: true
 ---
 
 Muitos acham que usar [Object-Relational Mapping](http://en.wikipedia.org/wiki/Object-relational_mapping) (ORM) é fazer você não ter mais que escrever SQL dentro do códigos de sua linguagem preferida. É uma pena pensar assim, ORM é muito mais que isso e é muito mais difícil do que se parece.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Tradução: Rails Database Migrations - Parte III"
+comments: true
 ---
 
 Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, **comuniquem-me!** Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P

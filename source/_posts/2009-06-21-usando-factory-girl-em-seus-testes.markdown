@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Usando Factory Girl em seus testes
+comments: true
 ---
 
 Hoje quem desenvolve em Ruby On Rails tem nas mãos as poderosas ferramentas de testes, sejam eles para desenvolvimento orientado a testes ou orientado a comportamentos. E no início nós usávamos fixtures, que são arquivos que contém um amontoado de dados que serão usados em nossos testes.

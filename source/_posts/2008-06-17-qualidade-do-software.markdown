@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Qualidade do software
+comments: true
 ---
 
 Qualidade do software é uma das áreas de estudo em Engenharia de Software onde o principal objetivo é que o produto final atenda ao maior numero de requisitos em que ele foi solicitado.
