@@ -16,22 +16,24 @@ E como tudo na comunidade Ruby onde cada movimento vem com uma pitada de amadure
 
 O conceito de SOLID mais forte no uso de POROs é o de [Single Responsibility](http://blog.lucashungaro.com/2011/05/04/solid-ruby-single-responsibility-principle/), onde cada classe tem apenas uma única responsabilidade. Neste refactoring, a classe Cripto tinha a responsabilidade de criptografar e descriptografar um texto. Só que ele também tinha a responsabilidade de saber o dicionário de criptografia.
 
-    class Cripto
-      # Responsabilidade de criptografar  
-      def cripto
-        # …
-      end
+```ruby
+class Cripto
+  # Responsabilidade de criptografar  
+  def cripto
+    # …
+  end
 
-      # Responsabilidade de descriptografar
-      def decript
-        # …
-      end
+  # Responsabilidade de descriptografar
+  def decript
+    # …
+  end
 
-      # Responsabilidade de saber o dicionário
-      def dicionario
-        # …
-      end
-    end
+  # Responsabilidade de saber o dicionário
+  def dicionario
+    # …
+  end
+end
+```
     
 Fonte: [79236001445a2e04312825668f99114d80d849f1](https://github.com/caironoleto/Criptografia/blob/79236001445a2e04312825668f99114d80d849f1/lib/cripto.rb)
 
@@ -41,31 +43,33 @@ Neste caso então eu posso utilizar a class Hash, que implementa esses métodos,
 
 E a implementação final da classe Cripto ficou da sequinte forma:
 
-    class Cripto
-      attr_accessor :dictionary
-    
-      def initialize(dictionary)
-        self.dictionary = dictionary
-      end
-    
-      def encrypt(text)
-        process(:[], text)
-      end
-    
-      def decrypt(text)
-        process(:key, text)
-      end
-    
-      private
-    
-      def process(method, text)
-        processed_text = ""
-        text.each_char do |ch|
-          processed_text << (dictionary.send(method, ch) || ch)
-        end
-        processed_text
-      end
+```ruby
+class Cripto
+  attr_accessor :dictionary
+
+  def initialize(dictionary)
+    self.dictionary = dictionary
+  end
+
+  def encrypt(text)
+    process(:[], text)
+  end
+
+  def decrypt(text)
+    process(:key, text)
+  end
+
+  private
+
+  def process(method, text)
+    processed_text = ""
+    text.each_char do |ch|
+      processed_text << (dictionary.send(method, ch) || ch)
     end
+    processed_text
+  end
+end
+```
 
 Fonte: [dfeecf4c00590b027017514723329562a46fa9d0](Fonte: https://github.com/caironoleto/Criptografia/blob/dfeecf4c00590b027017514723329562a46fa9d0/lib/cripto.rb)
 
@@ -75,52 +79,58 @@ Eu falei antes que na Nohup nós não estamos utilizando callbacks, assim como r
 
 Uma coisa bastante comum em aplicações Rails é a geração de slugs. A regra mais comum para geração do slug é de sempre que o nome do usuário for passado pelo formulário para ser alterado, ele deve gerar um novo slug. A implementação mais comum é:
 
-    class User < ActiveRecord::Base
-      before_save :slugify
-    
-      private
-    
-      def slugify
-        self.slug = name.parameterize.to_s
-      end
-    end
+```ruby
+class User < ActiveRecord::Base
+  before_save :slugify
+
+  private
+
+  def slugify
+    self.slug = name.parameterize.to_s
+  end
+end
+```
 
 Essa abordagem fere um dos princípios que comentei anteriormente. A classe User deixa de ter somente a responsabilidade de lidar com os dados e adiciona a responsabilidade de gerar o slug sempre que o usuário for salvo.
 
 A primeira coisa que fazemos nesse caso é extrair nossa regra de negócio para um PORO. Poderíamos fazer da seguinte forma:
 
-    class SlugGenerator
-      attr_accessor :slug
-    
-      def initialize(slug)
-        self.slug = slug
-      end
-    
-      def slugify!
-        slug.parameterize.to_s
-      end
+```ruby
+  class SlugGenerator
+    attr_accessor :slug
+   
+    def initialize(slug)
+      self.slug = slug
     end
+  
+    def slugify!
+      slug.parameterize.to_s
+    end
+  end
+```
 
 Então para finalizar, essa regra de negócio deve sempre ser executada quando o usuário for criado ou quando for atualizado, então nós alteramos o controller de `users`:
 
-    class UsersController < ActionController::Base
-      def create
-        @user = User.new(params[:user])
-    
-        @user.slug = SlugGenerator.new(@user.name).slugify!
-    
-        # …
-      end
-    
-      def update
-        @user = User.find(params[:id])
-    
-        @user.slug = SlugGenerator.new(@user.name).slugify!
-    
-        # …
-      end
-    end
+```ruby
+class UsersController < ActionController::Base
+  def create
+    @user = User.new(params[:user])
 
+    @user.slug = SlugGenerator.new(@user.name).slugify!
+
+    # …
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    @user.slug = SlugGenerator.new(@user.name).slugify!
+
+    # …
+  end
+end
+```
+:
 Em muitos lugares diferentes da aplicação nós podemos salvar esse objeto e não necessariamente nós precisamos aplicar a regra de gerar um novo slug. O que geralmente acontece é que no uso de callbacks, você acaba tendo comportamentos inesperados na hora de salvar um objeto.
 
 Daí na Nohup nós acabamos criando uma convenção, onde uma regra de negócio não deve ficar no model e sim em um PORO e que só deve ser executado nas actions que tem necessidade.
