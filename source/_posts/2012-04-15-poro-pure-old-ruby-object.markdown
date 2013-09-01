@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PORO - Pure Old Ruby Object"
-date: 2013-09-01 09:43
+date: 2012-04-15 09:43
 comments: true
 categories: 
 ---
