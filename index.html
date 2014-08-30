@@ -1,1 +1,1116 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="O título desse artigo poderia ser &#8220;Minhas impressões sobre go&#8221;. Mas não, esse tipo de artigo é fácil encontrar por aí :) Enfim, das &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-30T07:12:00-03:00" pubdate data-updated="true">Aug 30<span>th</span>, 2014</time>
+        
+         | <a href="/2014/08/30/o-que-eu-nao-curti-em-go/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>O título desse artigo poderia ser &#8220;Minhas impressões sobre go&#8221;. Mas não, esse tipo de artigo é fácil encontrar por aí :)</p>
+
+<p>Enfim, das coisas que eu não curti em go, uma delas é a forma como você lida com atribuições de um resultado do banco de dados.</p>
+
+<p>Por exemplo:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package main
+</span><span class='line'>
+</span><span class='line'>import (
+</span><span class='line'>  "database/sql"
+</span><span class='line'>  "errors"
+</span><span class='line'>  "fmt"
+</span><span class='line'>  _ "github.com/lib/pq"
+</span><span class='line'>  "os"
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'>type Category struct {
+</span><span class='line'>  Id       int64
+</span><span class='line'>  Name     string
+</span><span class='line'>  ParentId int64
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>const (
+</span><span class='line'>  FIND_SQL = `SELECT id, name, parent_id FROM categories WHERE id = $1`
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'>func connection() *sql.DB {
+</span><span class='line'>  db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+</span><span class='line'>  if err != nil {
+</span><span class='line'>      fmt.Println("Error: ", err)
+</span><span class='line'>  }
+</span><span class='line'>  return db
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>func FindCategory(id int64) (Category, error) {
+</span><span class='line'>  db := connection()
+</span><span class='line'>  var parentId sql.NullInt64
+</span><span class='line'>  category := Category{}
+</span><span class='line'>
+</span><span class='line'>  err := db.QueryRow(FIND_SQL, id).Scan(&category.Id, &category.Name, &parentId)
+</span><span class='line'>
+</span><span class='line'>  if err != nil {
+</span><span class='line'>      fmt.Println("Error: ", err)
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  if parentId.Valid {
+</span><span class='line'>      category.ParentId = parentId.Int64
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  switch {
+</span><span class='line'>  case err == sql.ErrNoRows:
+</span><span class='line'>      return category, errors.New("Record Not Found")
+</span><span class='line'>  case err != nil:
+</span><span class='line'>      return category, errors.New(err.Error())
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  return category, nil
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>func main() {
+</span><span class='line'>  category, err := FindCategory(1)
+</span><span class='line'>
+</span><span class='line'>  if err == nil {
+</span><span class='line'>      fmt.Println(category)
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>No código acima, no seguinte trecho:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if parentId.Valid {
+</span><span class='line'>  category.ParentId = parentId.Int64
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>O que acontece é que após a consulta, eu preciso verificar se o <code>parentId</code> que é retornado na consulta é válido, se ele for, só aí eu atribuo o <code>category.ParentId</code>.</p>
+
+<p>Esse tipo de tratamento, eu não curto.</p>
+
+<p>Infelizmente go tem dessas, várias e várias vezes você precisa fazer esse tipo de verificação para poder continuar.</p>
+
+<p>Uma outra coisa que eu não curto é a organização de arquivos do código em go, saca só:</p>
+
+<p><img src="http://monosnap.com/image/TyjibjnO3s2rNQHxvsWhAGW5eL1J90.png" alt="example" /></p>
+
+<p>Fica tudo dentro da raiz do projeto, não existe organização por diretórios. Para quem é acostumado com a estrutura de projetos em Rails é um martírio!</p>
+
+<p>Que eu me lembre são esses pontos. Depois eu faço um artigo contando o que eu curto em go que sinto falta em outras linguagens.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-01T09:43:00-03:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
+        
+         | <a href="/2013/09/01/rubyconf-brasil-2013/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Por incrível que pareça, essa foi a minha primeira RubyConf Brasil! O mais engraçado nisso, é que estou na comunidade desde 2009 e nunca tive uma oportunidade de ir.</p>
+
+<p>Nos anos anteriores acompanhei quase tudo pela Eventials, mas esse ano vi ali ao vivo algumas palestras. Algumas porquê tive motivos profissionais que conflitaram com algumas palestras.</p>
+
+<p>Sobre as palestras, não tenho muito o que falar. Elas foram ok, algumas apresentaram alguma coisa nova.</p>
+
+<p>Mas a parte mais importante foram as pessoas. Cada uma das que fizeram esse evento funcionar, as que foram lá prestigiar e esse foi o maior motivo que me fez querer ir para a RubyConf.</p>
+
+<p>Tive oportunidade de rever amigos que há tempos não via, também conheci pessoas com quem trabalhei na minha antiga empresa e conheci pessoalmente aquelas que só conhecemos por avatares!</p>
+
+<p>Não vá para um evento apenas para ver as palestras, vá para conhecer as pessoas, conversar, discutir sobre tecnologia e tudo mais!</p>
+
+<p>P. S. Sempre leve uma roupa de frio pra São Paulo, ela sempre vai ter surpreender :P</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-15T09:43:00-03:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
+        
+         | <a href="/2012/04/15/poro-pure-old-ruby-object/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Este post foi escrito no README de um <a href="https://github.com/caironoleto/Criptografia">projeto</a> depois de um refactoring.</h2>
+
+<p>Hoje, no dia 22 de janeiro de 2011, resolvi fazer um refactoring neste código e explicar mais sobre uma dúvida que o <a href="https://github.com/dannlucioano">dannluciano</a> me perguntou no twitter de como estavamos usando PORO em nossos projetos na <a href="https://github.com/nohupbrasil">Nohup</a>.</p>
+
+<p>Para começarmos, PORO é um acrônimo para Pure Old Object Ruby, que é mais um movimento da comunidade Ruby em trazer de volta aquelas velhas classes puras do Ruby.</p>
+
+<p>E como tudo na comunidade Ruby onde cada movimento vem com uma pitada de amadurecimento, com os POROs não podia ser diferente. Além de resgatar a utilização de classes puras do Ruby, sem ter que herdar (na sua grande maioria do ActiveRecord) de nenhuma outra classe, o uso dos POROs é para poder aplicar os conceitos de SOLID que o Uncle Bob introduziu no desenvolvimento de software e que o Lucas Húngaro explanou muito bem em uma série de blog posts que cobre os 5 princípios de SOLID e de como aplicá-los em Ruby.</p>
+
+<p>O conceito de SOLID mais forte no uso de POROs é o de <a href="http://blog.lucashungaro.com/2011/05/04/solid-ruby-single-responsibility-principle/">Single Responsibility</a>, onde cada classe tem apenas uma única responsabilidade. Neste refactoring, a classe Cripto tinha a responsabilidade de criptografar e descriptografar um texto. Só que ele também tinha a responsabilidade de saber o dicionário de criptografia.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cripto</span>
+</span><span class='line'>  <span class="c1"># Responsabilidade de criptografar  </span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">cripto</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Responsabilidade de descriptografar</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">decript</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Responsabilidade de saber o dicionário</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">dicionario</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fonte: <a href="https://github.com/caironoleto/Criptografia/blob/79236001445a2e04312825668f99114d80d849f1/lib/cripto.rb">79236001445a2e04312825668f99114d80d849f1</a></p>
+
+<p>Meu refactoring nesta classe foi em retirar o dicionário da classe Cripto e de usar outro princípio do SOLID, que é o de <a href="http://blog.lucashungaro.com/2011/05/09/solid-ruby-dependency-inversion-principle/">Dependecy Inversion</a>, para preparar a classe Cripto a aceitar qualquer objeto que respondam a <code>Object#[]</code> e <code>Object#key</code>.</p>
+
+<p>Neste caso então eu posso utilizar a class Hash, que implementa esses métodos, ou qualquer outra classe que eu possa criar e no caso eu criei a classe Dictionary.</p>
+
+<p>E a implementação final da classe Cripto ficou da sequinte forma:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cripto</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:dictionary</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">dictionary</span> <span class="o">=</span> <span class="n">dictionary</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">process</span><span class="p">(</span><span class="ss">:[]</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">process</span><span class="p">(</span><span class="ss">:key</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">processed_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'>    <span class="n">text</span><span class="o">.</span><span class="n">each_char</span> <span class="k">do</span> <span class="o">|</span><span class="n">ch</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">processed_text</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="o">||</span> <span class="n">ch</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">processed_text</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fonte: <a href="Fonte:%20https://github.com/caironoleto/Criptografia/blob/dfeecf4c00590b027017514723329562a46fa9d0/lib/cripto.rb">dfeecf4c00590b027017514723329562a46fa9d0</a></p>
+
+<h2>Aplicando esses conceitos em uma aplicação Rails</h2>
+
+<p>Eu falei antes que na Nohup nós não estamos utilizando callbacks, assim como reuniões, callbacks são tóxicos! No lugar deles, estamos usando POROs com a responsabilidade de fazer o que seria feito pelo callback e chamando nas actions onde eles seriam executados.</p>
+
+<p>Uma coisa bastante comum em aplicações Rails é a geração de slugs. A regra mais comum para geração do slug é de sempre que o nome do usuário for passado pelo formulário para ser alterado, ele deve gerar um novo slug. A implementação mais comum é:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">before_save</span> <span class="ss">:slugify</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">slugify</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">parameterize</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Essa abordagem fere um dos princípios que comentei anteriormente. A classe User deixa de ter somente a responsabilidade de lidar com os dados e adiciona a responsabilidade de gerar o slug sempre que o usuário for salvo.</p>
+
+<p>A primeira coisa que fazemos nesse caso é extrair nossa regra de negócio para um PORO. Poderíamos fazer da seguinte forma:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">class</span> <span class="nc">SlugGenerator</span>
+</span><span class='line'>    <span class="kp">attr_accessor</span> <span class="ss">:slug</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">slug</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="n">slug</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">slugify!</span>
+</span><span class='line'>      <span class="n">slug</span><span class="o">.</span><span class="n">parameterize</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Então para finalizar, essa regra de negócio deve sempre ser executada quando o usuário for criado ou quando for atualizado, então nós alteramos o controller de <code>users</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="vi">@user</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="no">SlugGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@user</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">slugify!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">update</span>
+</span><span class='line'>    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="vi">@user</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="no">SlugGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@user</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">slugify!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>:
+Em muitos lugares diferentes da aplicação nós podemos salvar esse objeto e não necessariamente nós precisamos aplicar a regra de gerar um novo slug. O que geralmente acontece é que no uso de callbacks, você acaba tendo comportamentos inesperados na hora de salvar um objeto.</p>
+
+<p>Daí na Nohup nós acabamos criando uma convenção, onde uma regra de negócio não deve ficar no model e sim em um PORO e que só deve ser executado nas actions que tem necessidade.</p>
+
+<p>E ficamos com uma estrutura de diretórios assim:</p>
+
+<p><img src="https://img.skitch.com/20120123-n9ypqgy419ds8urqmj1ywgu6p6.png" alt="app" /></p>
+
+<p>Obviamente, dentro do diretório <code>business</code> estão todos os POROs com todas as regras de negócio da aplicação. Nossos models são bem simples, contendo apenas a lógica para lidar com os dados (validações, escopos de busca, etc) e toda as regras de negócio ficam dentro de <code>business</code>.</p>
+
+<p>Espero que isso ajude a você a repensar melhor no design da sua aplicação.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-10T00:00:00-03:00" pubdate data-updated="true">Jul 10<span>th</span>, 2011</time>
+        
+         | <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recebi um comentário do Cândido Sales que me fez reler um texto meu antigo sobre <a href="/2008/06/11/diferenca-entre-tdd-e-bdd">a diferença entre TDD e BDD</a>. Achei legal, interessante, mas vale a pena escrever mais um &#8220;dedinho&#8221; de palavras e incluir agora minha experiência de se usar TDD/BDD por algum tempo (Uns 2 anos, mais ou menos)!</p>
+
+<p>Depois de toda a experiência que tenho hoje com desenvolvimento orientado a testes/comportamento vejo que não existe muita diferença entre as técnicas. Acredito, como já acreditava, que BDD faz parte da evolução de quem começa a praticar TDD.</p>
+
+<p>Mas a parte mais importante, é que no final, essas duas técnicas não são apenas para testar a sua aplicação. Hoje considero que mais importante do que testar a aplicação é:</p>
+
+<ul>
+<li>Fazer um design consciente da sua aplicação;</li>
+<li>Melhorar a manutenção com a facilidade de se fazer refactoring! (Refactoring sem testes não é refactoring).</li>
+</ul>
+
+
+<h3>Design consciente:</h3>
+
+<p>Quando vamos desenvolver algum código, não temos ainda uma opinião forte de como deve ser esse novo código. Então praticamente não sabemos ainda nomes de classe, métodos, rotinas…</p>
+
+<p>Então TDD/BDD entra para nos ajudar a modelar no inicio do desenvolvimento de nossa API. Se você considerar o desenvolvimento em baby steps, então teremos uma API que evolua naturalmente conforme nossa aplicação vai crescendo. E a base dessa evolução são os testes que criamos antes e que nos dá segurança no desenvolvimento.</p>
+
+<h3>Refactoring:</h3>
+
+<p>Refactoring é rescrever nossa API de forma mais simplificada e que os testes continuem passando e devemos evoluir nossos testes para acompanhar essa simplificação. Sem os testes não temos como garantir que essas alterações que visam simplificar o código continuem funcionando, por isso refactoring sem testes não é refactoring.</p>
+
+<h3>Conclusão</h3>
+
+<p>Hoje considero TDD e BDD como duas formas diferentes de design da aplicação e que você realmente deve estuda-lás (Ou escolher uma :P) e melhorar o design do seu código.</p>
+
+<p>Não vejo muitas diferenças em se utilizar TDD ou BDD e que vai mais da escolha pessoal do programador ou da sua equipe. E que o mais importante, é que se você está usando alguma dessas técnicas, então isso demonstra que você já tem uma preocupação com a qualidade do código que você escreve.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-01T00:00:00-03:00" pubdate data-updated="true">Apr 1<span>st</span>, 2011</time>
+        
+         | <a href="/2011/04/01/proc-e-lambda/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Você já deve ter ouvido que tudo em Ruby é objeto. Sim, sim, tudo é objeto. Menos blocos.</p>
+
+<p>Blocos não são objetos. Mas existe duas formas de transformar blocos em objetos. Uma é usar Proc e a outra é usa lamda.</p>
+
+<p>Para se criar um Proc existem algumas formas, a mais simples e mais utilizada é:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">proc</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">inspect</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Depois que você criar o seu Proc, para chamar o bloco que você acabou de criar, você deve utilizar o método call:</p>
+
+<p><code>proc.call Object</code></p>
+
+<p>O método call é chamado para executar o bloco. Em blocos, vocês podem fazer o que quiser. Um caso interessante é para processamento sequencial. No rails é bastante utilizado na definição de named scopes.</p>
+
+<p>Outra forma de fazer blocos virarem objetos é utilizar o lambda:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">lambda</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="k">do</span> <span class="o">|</span><span class="n">object</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">object</span><span class="o">.</span><span class="n">inspect</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basicamente, Proc e lambda funcionam da mesma forma. Mas existe uma diferença, que é no caso de se utilizar controles de fluxo, no caso return, break, redo, retry e vários outros.</p>
+
+<p>O problema nesse caso é que esses controles de fluxo quebram quando você está utilizando Proc.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/03/29/leia-antes-de-lancar-um-produto/">Leia antes de lançar um produto</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-29T00:00:00-03:00" pubdate data-updated="true">Mar 29<span>th</span>, 2011</time>
+        
+         | <a href="/2011/03/29/leia-antes-de-lancar-um-produto/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Qual a sua definição de um bom produto? Ele tem que ser funcional?! Ele tem que ser útil?! Ou ele tem que despertar em você uma necessidade?</p>
+
+<p>Todos falam sobre os produtos da Apple, sobre como o Steve Jobs consegue criar a necessidade e como todos acabam comprando (Eu sou um deles!).</p>
+
+<p>Não importa o quanto revolucionário é o seu produto. Se ele não despertar a necessidade nos seus clientes, você não irá fazer sucesso. E a melhor maneira de despertar a necessidade é criando um fucking awesome produto!</p>
+
+<p>Uau! Você chegou até aqui e com certeza nada do que você leu é novidade. Estou apenas pensando sobre um assunto que sempre é recorrente, principalmente se você é empreendedor.</p>
+
+<p>Se você está fazendo um produto agora, que lançou um produto ou que ainda vai lançar um novo produto nunca esqueça de que antes da arquitetura da sua aplicação ou o quão rápido ela deve ser, o mais importante é que ela seja espetacularmente lindo e que tenha a melhor usabilidade ever.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/11/ruby-masters-conf/">Ruby Masters Conf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-11T00:00:00-03:00" pubdate data-updated="true">Jan 11<span>th</span>, 2011</time>
+        
+         | <a href="/2011/01/11/ruby-masters-conf/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Eis que mais uma vez a e-Genial surpreende anunciando o <a href="http://rubymastersconf.com">Ruby Masters Conf</a>, que é uma maratona de palestras com os maiores feras de Ruby do Brasil e ainda com convidados internacionais!</p>
+
+<p>A e-Genial é conhecida no Brasil pela excelência dos seus cursos (Já <a href="http://egenial.com.br/nosql">ministrei</a> um por lá \o/) e também conhecida por ter uma das melhores plataformas de ensino a distância do país, o TreinaTom.</p>
+
+<p>O evento vai ser todo através do TreinaTom, com a possibilidade de você conhecer muita gente boa e no final poder ter as palestras sempre que você quiser, tudo vai ser gravado e disponibilizado para quem se inscrever!</p>
+
+<p>O Ruby Masters Conf é um evento para espalhar conhecimento e ajudar projetos OpenSource. Foi escolhidos dois projetos, o <a href="http://rubyinstaller.org">RubyInstaller</a>, para quem usa windows, e o <a href="http://modrails.com">Passenger</a>, dos carinhas da Phusion.</p>
+
+<p>O RubyInstaller é um binário executável que faz todo o processo de instalação do Ruby no Windows. É bastante usado pelos alunos da e-Genial nos cursos de Rails ministrado pelo Daniel Lopes.</p>
+
+<p>Já o Passenger é usado na hora de colocar sua aplicação em produção por quase todos os grandes players do Brasil e do Mundo.</p>
+
+<p>Esses dois projetos são muito importantes, o primeiro por permitir que a simplicidade do Ruby chegue na complexidade que é o Windows e com todas aquelas telas azuis, e o segundo por fazer o deployment de aplicações Ruby (Só precisa ser Rack!) ser mais simples como é muito coisa no Ruby!</p>
+
+<p>Eu já estou divulgando por aqui e nos vemos no Ruby Masters Conf!</p>
+
+<p>:D</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/27/meu-ambiente-de-desenvolvimento-em-7-itens/">Meu ambiente de desenvolvimento em 7 itens</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-27T00:00:00-03:00" pubdate data-updated="true">Dec 27<span>th</span>, 2010</time>
+        
+         | <a href="/2010/12/27/meu-ambiente-de-desenvolvimento-em-7-itens/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fui convidado pelo <a href="http://twitter.com/danillos" target="_blank">@danillos</a> para descrever mais sobre o meu ambiente de trabalho :)</p>
+
+<h3>1. Sistema operacional</h3>
+
+<p>Mac OS X e Ubuntu.</p>
+
+<p>E já estou indo para o meu terceiro ano com Mac OS, simplesmente fantástico, não só pelo software, mas pelo casamento com o hardware. E o Ubuntu ainda tenho em um desktop que as vezes eu utilizo no <a href="http://jus.com.br">Jusplex</a>, sinceramente não muito, mas uso.</p>
+
+<h3>2. Terminal</h3>
+
+<p>Indispensável. Abre junto com a inicialização do sistema operacional e continua até ser desligado.</p>
+
+<h3>3. Git</h3>
+
+<p>Se você ainda não usa nenhum tipo de controle de versão, você merece ser marcado com brasa quente! Não passe pelo mesmo problema que o Jonny Ken teve nesse ano de 2010.</p>
+
+<h3>4. TDD/BDD</h3>
+
+<p>&#8220;Test all the f*cking time&#8221; é um &#8220;vício&#8221; que surgiu na comunidade Ruby e quando você vai pra outra linguagem percebe o quanto isso é importante no dia a dia em desenvolvimento.</p>
+
+<h3>5. Editor de texto</h3>
+
+<p>Vim/TextMate. Atualmente entrei na modinha do vim, então resolvi dar o braço a torcer por ele e ele é realmente legal (E funciona da mesma forma no Linux e no Mac OS X). O TextMate consegue ser a killer app de editores no Mac OS X, fantástico!</p>
+
+<p>Se você precisar mais do que isso, você é um Javeiro que só consegue fazer as coisas usando o Eclipse! :trollface:</p>
+
+<h3>6. Google Chrome</h3>
+
+<p>Preciso de memória, eu sempre estou com um monte de coisa aberto, e sempre tem uma aba no Gmail, que pesa muito depois de muito tempo aberto.</p>
+
+<p>Testei todos os browsers suportados no Mac OS X, e o que me deu a melhor resposta foi o Google Chrome.</p>
+
+<p>Funciona sobre o WebKit, existe uma boa ferramenta para desenvolvimento e recentemente abriu a app store.</p>
+
+<h3>7. Água</h3>
+
+<p>Combustível diário para desenvolvimento. Sem água nada funciona.</p>
+
+<p>Para continuar a série eu convido o <a href="http://blog.areacriacoes.com.br">Daniel Lopes</a>, o <a href="http://www.vedovelli.com.br">Vedovelli</a> e o <a href="http://cassiomarques.wordpress.com">Cássio Marques</a>!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/29/extraindo-informacoes-usando-ruby/">Extraindo informações usando Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-29T00:00:00-03:00" pubdate data-updated="true">Jun 29<span>th</span>, 2010</time>
+        
+         | <a href="/2010/06/29/extraindo-informacoes-usando-ruby/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Hoje lancei <a href="http://hackmarkoapp.heroku.com">uma aplicação</a> que faz a análise dos palpites de um bolão (<a href="http://www.bolaodamarko.com.br">O bolão da Marko Informática</a>) e mostra um gráfico com a quantidade de palpites por placa em um determinado jogo.</p>
+
+<p>Para extrair essas informações eu não precisei acessar o banco de dados. Apenas consumi o que todos já podem ver, como por exemplo este <a href="http://www.bolaodamarko.com.br/palpitejogo.php?jogo=84">link</a>.</p>
+
+<p>Essa brincadeira de extrair essas informações do bolão da Marko Informática começou com uma dúvida da minha esposa se tinha condição de ver no site os palpites dos outros participantes. Em menos de cinco minutos depois eu vi que tinha a possibilidade de ver essa informação, mas que infelizmente para mim é irrelevante.</p>
+
+<p>Essa informação é desorganizada e não vai me ajudar a tomar uma decisão quanto aos meus palpites. Para mim é mais importante ter esses dados sumarizados de forma que eu não perca tempo analisando todos os palpites, um por um. Então, organizar a informação para que eu saiba quantos apostaram em 2x1 é mais interessante do que ter que contabilizar isso manualmente.</p>
+
+<p>Para fazer isso em ruby eu utilizo a <code>gem nokogiri</code>, que faz justamente a análise e busca em html/xml. Com ela eu posso facilmente consumir o conteúdo de uma página e extrair os dados que realmente importa.</p>
+
+<p>Nada muito complexo de se aprender, como você pode ver <a href="http://gist.github.com/457000">aqui</a>.</p>
+
+<p>Eu pensei em fazer usando o Rails 3, mas depois de fazer o primeiro protótipo, vi que não seria necessária algo tão grande, então tirei o Rails e coloquei o Sinatra.</p>
+
+<p>Para montar o gráfico eu perguntei no Twitter quem indicaria bibliotecas js que fizessem Chart. Depois de olhar todas, a do <a href="http://code.google.com/apis/charttools/index.html">Google Charts</a> foi a que eu achei mais simples e sem burocracia para colocar no site.</p>
+
+<p>E por fim, para fazer deploy da aplicação eu usei o Heroku, que é um serviço Cloud para aplicações em Ruby.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/17/trabalhando-com-datas-naturalmente-com-chronic/">Trabalhando com datas naturalmente com Chronic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-17T00:00:00-03:00" pubdate data-updated="true">Jun 17<span>th</span>, 2010</time>
+        
+         | <a href="/2010/06/17/trabalhando-com-datas-naturalmente-com-chronic/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta semana passei gastando um tempão implementando um Parser que me retornaria um dia em que um evento ocorre em uma determinada data.</p>
+
+<p>Mas a data seria algo &#8220;Quero trazer todos os usuários que se cadastraram na terceira terça feira do mês de janeiro&#8221;. A forma que eu estava implementando não era assim tão segura, apesar de todos os testes estarem passando.</p>
+
+<p>Então hoje eu encontro o <a href="http://chronic.rubyforge.org">Chronic</a>. É uma gem ruby que faz justamente o que eu precisava:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">005</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span> <span class="no">Chronic</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;3rd tuesday in january&quot;</span><span class="p">,</span> <span class="ss">:context</span> <span class="o">=&gt;</span> <span class="ss">:past</span><span class="p">)</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="no">Tue</span> <span class="no">Jan</span> <span class="mi">19</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="o">-</span><span class="mo">0300</span> <span class="mi">2010</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Simples e rápido.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

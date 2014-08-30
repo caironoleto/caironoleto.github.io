@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Suporte para Behaviour Driven Development (BDD) e Histórias (Stories) no PHPUnit 3.3 - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Agora o PHPUnit tem suporte para Behaviour Driven Development (BDD) e criação de histórias (Stories). Além de Test-Driven Development (TDD) agora BDD &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2008/08/05/suporte-para-behaviour-driven-development--bdd--e-historias--stories--no-phpunit-3-3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Suporte para Behaviour Driven Development (BDD) e Histórias (Stories) no PHPUnit 3.3</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-05T00:00:00-03:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Agora o PHPUnit tem suporte para Behaviour Driven Development (BDD) e criação de histórias (Stories). Além de Test-Driven Development (TDD) agora BDD no PHPUnit. <a title="Support for BDD and Stories in PHPUnit 3.3" href="http://sebastian-bergmann.de/archives/738-Support-for-BDD-and-Stories-in-PHPUnit-3.3.html" target="_blank"></a></p>
+
+<p>Nesse artigo do Sebastian Bergmann, ele demonstra como utilizar BDD no PHPUnit descrevendo uma partida de boliche. O que eu achei legal foi o formato de saída:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sb@vmware ~ % phpunit --story BowlingGameSpec
+</span><span class='line'>PHPUnit @package_version@ by Sebastian Bergmann.
+</span><span class='line'>BowlingGameSpec
+</span><span class='line'> - Score <span class="k">for </span>gutter game should be 0 <span class="o">[</span>successful<span class="o">]</span>
+</span><span class='line'>   Given New game
+</span><span class='line'>    Then Score should be 0
+</span><span class='line'> - Score <span class="k">for </span>all ones is 20 <span class="o">[</span>successful<span class="o">]</span>
+</span><span class='line'>   Given New game
+</span><span class='line'>    When Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>     and Player rolls 1
+</span><span class='line'>    Then Score should be 20
+</span><span class='line'> - Score <span class="k">for </span>one spare is 16 <span class="o">[</span>successful<span class="o">]</span>
+</span><span class='line'>   Given New game
+</span><span class='line'>    When Player rolls 5
+</span><span class='line'>     and Player rolls 5
+</span><span class='line'>     and Player rolls 3
+</span><span class='line'>    Then Score should be 16
+</span><span class='line'> - Score <span class="k">for </span>one strike is 24 <span class="o">[</span>successful<span class="o">]</span>
+</span><span class='line'>   Given New game
+</span><span class='line'>    When Player rolls 10
+</span><span class='line'>     and Player rolls 3
+</span><span class='line'>     and Player rolls 4
+</span><span class='line'>    Then Score should be 24
+</span><span class='line'> - Score <span class="k">for </span>perfect game is 300 <span class="o">[</span>successful<span class="o">]</span>
+</span><span class='line'>   Given New game
+</span><span class='line'>    When Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>     and Player rolls 10
+</span><span class='line'>    Then Score should be 300
+</span><span class='line'>Scenarios: 5, Failed: 0, Skipped: 0, Incomplete: 0.
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-05T00:00:00-03:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2008/08/05/suporte-para-behaviour-driven-development--bdd--e-historias--stories--no-phpunit-3-3/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2008/08/05/suporte-para-behaviour-driven-development--bdd--e-historias--stories--no-phpunit-3-3/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/08/04/o-uso-de-requires--e-includes--em-aplicacoes-php/" title="Previous Post: O uso de requires* e includes* em aplicações PHP">&laquo; O uso de requires* e includes* em aplicações PHP</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/08/06/documentacao-agil--agile-documentation--com-phpunit/" title="next Post: Documentação Ágil (Agile documentation) com PHPUnit">Documentação Ágil (Agile documentation) com PHPUnit &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2008/08/05/suporte-para-behaviour-driven-development--bdd--e-historias--stories--no-phpunit-3-3/';
+        var disqus_url = 'http://caironoleto.github.com/2008/08/05/suporte-para-behaviour-driven-development--bdd--e-historias--stories--no-phpunit-3-3/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

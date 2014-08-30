@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tradução: Rails database Migrations - Parte I - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Olá, este é o primeiro de quatro partes desse artigo sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2008/09/23/traducao--rails-database-migrations---parte-i">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Tradução: Rails database Migrations - Parte I</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-23T00:00:00-03:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Olá, este é o primeiro de quatro partes <a href="http://guide.rails.info/migrations.html">desse artigo</a> sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter (<a href="http://twitter.com/caironoleto">caironoleto</a>), ou qualquer mensageiro!! :P</p>
+
+<h3>Migrações em Banco de Dados em Rails</h3>
+
+<p>Migrações é a forma conveniente de você alterar seu banco de dados de uma maneira organizada e estruturada. Você poderia editar fragmentos de SQL na mão mas você teria a responsabilidade de comunicar aos outros desenvolvedores que eles precisam ir lá e executá-los. Você também necessita acompanhar as mudanças na máquina de produção na próxima vez que você for fazer deploy. O Active Record marca as migrações que já foram executadas e tudo que você precisa fazer é atualizar seu código e rodar rake db:migrate. O Active Record irá trabalhar para que suas migrações sejam executadas.</p>
+
+<p>Migrações é a forma de você descrever essas transformações usando Ruby. A grande coisa disso tudo (como muito das funcionalidades do Active Record) é a independência do banco de dados: você não precisa se preocupar com mais nenhuma sintaxe para CREATE TABLE, ou que você se preocupe sobre variações de SELECT * (você pode abstrair os requisitos específicos de banco de dados SQL). Por exemplo, você poderia usar SQLite 3 no desenvolvimento, mas MySQL em produção.</p>
+
+<p>Você aprenderá tudo sobre migrações incluindo:</p>
+
+<ul>
+<li>Os geradores que você pode usar para criá-los</li>
+<li>Os métodos que o Active Record provê para manipular seu banco de dados</li>
+<li>As tarefas Rake que você pode manipular</li>
+<li>Como eles são relativo ao schema.rb</li>
+</ul>
+
+
+<h3>1. Anatomia de uma migração</h3>
+
+<p>Antes de eu mergulhar nos detalhes de uma migração, aqui estão alguns exemplos curtos de coisas que você pode fazer:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="ss">:description</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_table</span> <span class="ss">:products</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Essa migração adiciona uma tabela chamada <code>products</code> com uma coluna string chamada <code>name</code> e uma coluna text chamada <code>description</code>. Uma chave primária chamada id também será adicionada, no entanto por padrão, não precisamos pedir isso. As colunas timestamps <code>created_at</code> e <code>updated_at</code> que o Active Record preenche automaticamente também são adicionadas. Revertendo essa migração simplesmente remove a tabela.</p>
+
+<p>Migrações não tem limite para alterar o esquema. Você pode usar para corrigir dados errados no banco de dados ou popular novos campos:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddReceiveNewsletterToUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">change_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">boolean</span> <span class="ss">:receive_newsletter</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="no">User</span><span class="o">.</span><span class="n">update_all</span> <span class="o">[</span><span class="s2">&quot;receive_newsletter = ?&quot;</span><span class="p">,</span> <span class="kp">true</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:receive_newsletter</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Esta migração adiciona a coluna <code>receive_newsletter</code> para a tabela users. Nós queremos que o padrão seja falso para novos usuários, mas para os usuários existentes nos consideramos que eles já fizeram a sua opção, então nos usamos o modelo User para setar a bandeira para true para usuários existentes.</p>
+
+<h3>1.1 Migrações são classes</h3>
+
+<p>A migração é uma subclasse de ActiveRecord::Migration que implementa dois métodos: up (para realizar as transformações exigidas) e down (reverte o que foi feito).</p>
+
+<p>O Active Record prover métodos para executar as tarefas comuns na definição dos dados independente do banco de dados (Você verá mais detalhes mais tarde):</p>
+
+<ul>
+<li><code>create_table</code></li>
+<li><code>change_table</code></li>
+<li><code>drop_table</code></li>
+<li><code>add_column</code></li>
+<li><code>remove_column</code></li>
+<li><code>change_column</code></li>
+<li><code>rename_column</code></li>
+<li><code>add_index</code></li>
+<li><code>remove_index</code></li>
+</ul>
+
+
+<p>Se você precisa executar tarefas específicas para seu banco de dados (por exemplo, criar uma chave estrangeira) então a função <code>execute</code>permite executar SQL arbitrarias. As migrações é apenas uma classe regular em Ruby, então você não esta limitado a apenas essas funções. Por exemplo, após adicionar uma coluna, você pode escrever código para setar o valor dessa coluna para dados existentes (se necessário usando seus modelos).</p>
+
+<h3>1.2 O que está no nome</h3>
+
+<p>Migrações sao armazenadas em arquivos em <code>db/migrate</code>, uma para cada classe de migração. O nome dos arquivos é na forma de <code>YYYYMMDDHHMMSS_create_products.rb</code>, ou seja, uma hora UTC identificando a migração seguida de um sublinhado e seguido do nome da migração. O Nome da classe de migração deve bater com a ultima parte do arquivo. Por exemplo, <code>20080906120000_create_products.rb</code> deveria definir CreateProducts e <code>20080906120001_add_details_to_products.rb</code> deveria definer AddDetailsToProducts. Se você acha que necessita mudar o nome do arquivo, então você deve atualizar o nome da classe dentro do arquivo ou então o Rails ira queixar-se que não existe a classe.</p>
+
+<p>Internamente Rails usa apenas o numero da migração (data) para identificá-lo. Antes do Rails 2.1 os números das migrações eram iniciados em 1 e apenas incrementado cada vez que era gerado uma nova migração. Com múltiplos desenvolvedores era mais fácil haver colisões, necessitando você voltar e reordena-los. Você pode reverter para o esquema da velha numeração setando <code>config.active_record.timestamped_migrations</code>para <code>false</code>no <code>environment.rb</code>.</p>
+
+<p>A combinação do tempo e o registro que permite executar as migrações foram a forma como o Rails fez para manipular as situações comuns que ocorrem com múltiplos desenvolvedores.</p>
+
+<p>Por exemplo Alice adicionou a migração <code>20080906120000</code>e <code>20080906123000</code>e Bob adicionou <code>20080906124500</code> e rodou. Alice finaliza suas mudanças e checa nas suas migrações e Bob puxa as mais recentes atualizações. Rails sabe que ele não rodou as duas migrações de Alice assim <code>rake db:migrate</code> irá executá-los (Apesar que a migração do Bob seja executada uma hora mais tarde), e similarmente fazendo regressão da migração não teria executado esses dois métodos.</p>
+
+<p>Claro que isso não substitui a comunicação dentro da equipe, por exemplo, na migração da Alice ela removeu uma tabela que Bob assumiu a existência na sua migração, então claro que um problema irá acontecer.</p>
+
+<h3>1.3 Mudando migrações</h3>
+
+<p>Ocasionalmente você comete um erro enquanto escrevia a migração. Se você já tiver executado a migração, então você não pode simplesmente editar e executar novamente a migração: Rails acha que a migração já foi executada, então ele não fará nada quando você rodar <code>rake db:migrate</code>. Você deve voltar a migração (por exemplo, com <code>rake db:rollback</code>), editar sua migração e rodar <code>rake db:migrate</code>para a correta versão.</p>
+
+<p>No geral, editar migrações existentes não é uma boa idéia: você criará trabalho extra para você mesmo e para seus parceiros de trabalho e causar um maior problema se a versão da migração for rodada em uma máquina de produção. Em vez disso, você deve escrever uma nova migração para realizar as alterações que você solicita. Editando uma recém migração gerada e que ainda não foi <code>commitada</code> para o controle de versão (ou que geralmente não foi propagada além da sua máquina de desenvolvimento) é relativamente inofensivo. Apenas use com bom senso.</p>
+
+<ul>
+<li><a href="/2008/10/21/traducao--rails-database-migrations---parte-ii">Continuação: Rails Database Migrations - Parte II</a></li>
+<li><a href="/2008/11/04/traducao--rails-database-migrations---parte-iii">Continuação: Rails Database Migrations - Parte III</a></li>
+<li><a href="/2008/11/12/traducao--rails-database-migrations---parte-iv">Continuação: Rails Database Migrations - Parte IV</a></li>
+</ul>
+
+
+<p>E aqui finaliza a primeira parte deste artigo.</p>
+
+<p>Até a próxima!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-23T00:00:00-03:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2008/09/23/traducao--rails-database-migrations---parte-i/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2008/09/23/traducao--rails-database-migrations---parte-i/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/09/19/lancado-phpunit-3-3/" title="Previous Post: Lançado PHPUnit 3.3">&laquo; Lançado PHPUnit 3.3</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/10/04/php-conference-2008-eu-vou/" title="next Post: PHP Conference 2008, eu vou!">PHP Conference 2008, eu vou! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2008/09/23/traducao--rails-database-migrations---parte-i/';
+        var disqus_url = 'http://caironoleto.github.com/2008/09/23/traducao--rails-database-migrations---parte-i/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

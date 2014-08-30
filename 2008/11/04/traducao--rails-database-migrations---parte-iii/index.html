@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tradução: Rails Database Migrations - Parte III - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2008/11/04/traducao--rails-database-migrations---parte-iii">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Tradução: Rails Database Migrations - Parte III</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-04T00:00:00-03:00" pubdate data-updated="true">Nov 4<span>th</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, <strong>comuniquem-me!</strong> Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P</p>
+
+<ul>
+<li><a href="/2008/09/23/traducao--rails-database-migrations---parte-i">Rails Database Migrations - Parte I</a></li>
+<li><a href="/2008/10/21/traducao--rails-database-migrations---parte-ii">Rails Database Migrations - Parte II</a></li>
+</ul>
+
+
+<h3>4. Rodando migrações</h3>
+
+<p>Rails fornece um conjunto de tarefas rake para trabalhar com as migrações, que se resume em rodar alguns conjuntos de migrações. A tarefa rake mais relatada que você provavelmente usará é <code>db:migrate</code>. Na sua forma mais básica certamente rodará o método <code>up</code> para todas as migrações que ainda não foram rodadas. Se não existir migrações ele sai.</p>
+
+<p>Se você especificar uma migração, o Active Record irá rodar as migrações requeridas (up ou down) até que ela tenha chegado nessa versão específica. A versão é o prefixo numérico do nome de uma migração. Por exemplo para migrar até a versão 20080906120000 execute</p>
+
+<p><code>rake db:migrate VERSION=20080906120000</code></p>
+
+<p>Se a versão for maior do que a versão corrente (ou seja, está migrando para cima) irá rodar o método <code>up</code> de em todas as migrações acima e incluindo a versão 20080906120000, se a migração for para baixo, então será executado os métodos <code>down</code> de todas as migrações para baixo até, mas não incluindo, 20080906120000.</p>
+
+<h3>4.1 Reversão</h3>
+
+<p>Uma tarefa comum é regressar a última migração, por exemplo, se você cometeu um engano e deseja corrigi-lo. Ao invés de monitorar o método down com a migração anterior, você pode rodar</p>
+
+<p><code>rake db:rollback</code></p>
+
+<p>Isso irá rodar o método down da migração mais recente. Se você precisa se desfazer de várias migrações, você pode fornecer o parâmetro <code>STEP</code>:</p>
+
+<p><code>rake db:rollback STEP=3</code></p>
+
+<p>irá rodar o método <code>down</code> das 3 últimas migrações.</p>
+
+<p>A tarefa <code>db:migrate:redo</code> é um atalho para fazer uma reversão e a migração de volta. Assim como na tarefa <code>db:rollback</code> você pode usar o parâmetro <code>STEP</code> se você precisar voltar em mais de uma versão, por exemplo</p>
+
+<p><code>rake db:migrate:redo STEP=3</code></p>
+
+<p>Nenhuma dessas tarefas Rake fazem qualquer coisa que você não poderia fazer com <code>db:migrate</code>, são simplesmente mais convenientes, desde que você não precise especificar explicitamente de uma migração para outra.</p>
+
+<p>Finalmente, a tarefa <code>db:reset</code> irá destruir sua base de dados, recria-la e carregar o schema atual dentro dela.</p>
+
+<h3>4.2 Especificando uma migração</h3>
+
+<p>Se você precisa especificar uma migração para cima ou para baixo, as tarefas <code>db:migrate:up</code> e <code>db:migrate:down</code> irão fazer isso. Basta especificar a versão apropriada e a migração correspondente e terá seu método <code>up</code> ou <code>down</code> invocado, por exemplo</p>
+
+<p><code>rake db:migrate:up VERSION=20080906120000</code></p>
+
+<p>irá rodar o método <code>up</code> da migração 20080906120000. Estas tarefas checa se a migração já tenha sido executada, se por exemplo <code>db:migrate:up VERSION=20080906120000</code> não irá fazer nada se o Active Record acreditar que 20080906120000 já tenha sido executada.</p>
+
+<h3>4.3 Sendo comunicativo</h3>
+
+<p>Por padrão, as migrações falam exatamente o que elas estão fazendo e o tempo de duração. Uma migração criando uma tabela e adicionando um index produz uma saída como esta</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: <span class="nv">migrating</span> <span class="o">===================================</span>
+</span><span class='line'>
+</span><span class='line'>-- create_table<span class="o">(</span>:products<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 0.0021s
+</span><span class='line'>
+</span><span class='line'>-- add_index<span class="o">(</span>:products, :name<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 0.0026s
+</span><span class='line'>
+</span><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: migrated <span class="o">(</span>0.0059s<span class="o">)</span> <span class="o">==========================</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Vários método fornecem para você o controle tudo isto:</p>
+
+<ul>
+<li><code>suppress_messages</code> suprime qualquer mensagem gerada pelo bloco</li>
+<li><code>say</code> saída de texto (o segundo argumento controla se é recortado ou não)</li>
+<li><code>say_with_time</code> saída de texto com o tempo utilizado pelos blocos. Se o bloco retornar um inteiro, assume-se que este é o número de linhas afetadas.</li>
+</ul>
+
+
+<p>Por exemplo, esta migração</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">suppress_messages</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="ss">:description</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">say</span> <span class="s2">&quot;Created a table&quot;</span>
+</span><span class='line'>    <span class="n">suppress_messages</span> <span class="p">{</span><span class="n">add_index</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:name</span><span class="p">}</span>
+</span><span class='line'>    <span class="n">say</span> <span class="s2">&quot;and an index!&quot;</span><span class="p">,</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="n">say_with_time</span> <span class="s1">&#39;Waiting for a while&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="nb">sleep</span> <span class="mi">10</span>
+</span><span class='line'>      <span class="mi">250</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_table</span> <span class="ss">:products</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>gera a seguinte saída</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: <span class="nv">migrating</span> <span class="o">===================================</span>
+</span><span class='line'>
+</span><span class='line'>-- Created a table
+</span><span class='line'>
+</span><span class='line'>   -&gt; and an index!
+</span><span class='line'>
+</span><span class='line'>-- Waiting <span class="k">for </span>a <span class="k">while</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 10.0001s
+</span><span class='line'>
+</span><span class='line'>   -&gt; 250 <span class="nv">rows</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: migrated <span class="o">(</span>10.0097s<span class="o">)</span> <span class="o">=========================</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Se você quiser que o Active Record mantenha-se em silêncio, então execute <code>rake db:migrate VERBOSE=false</code> irá suprimir qualquer saída.</p>
+
+<h3>5. Usando Models nas suas migrações</h3>
+
+<p>Ao criar ou atualizar dados na sua migração, muitas vezes, é tentador utilizar um de seus models. Afinal eles existem para fornecer acesso fácil nos dados subjacentes. Isto pode ser feito mas um certo cuidado devem ser observados.</p>
+
+<p>Considere por exemplo a migração que usa o modelo Product para atualizar a linha na tabela correspondente. Alice depois atualiza o modelo Product, adicionando uma nova coluna e uma validação. Bobs volta do feriado, atualiza o código e roda as migrações pendentes com <code>rake db:migrate</code>, incluindo o modelo que é utilizado para o Product. Quando o código é atualizado e só então o modelo Product possui a atualização adicionada pela Alice. O banco de dados entretanto não é atualizado e assim não possui a coluna e então gerará um erro, por que a validação para esta coluna ainda não existe.</p>
+
+<p>Frequentemente eu preciso atualizar as linhas no banco de dados sem escrever SQL pelas minhas mãos. Eu não estou usando qualquer especialidade do modelo. Um padrão para isso é definir uma cópia do modelo dentro da própria migração, por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Product</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A migração possuirá uma própria copia do modelo Product e não mais precisará saber sobre o modelo Product definido na própria aplicação.</p>
+
+<h3>5.1 Lidando com as mudanças no modelo</h3>
+
+<p>Por razões de performance, as informações sobre as colunas de um modelo é cacheada. Por exemplo, se você adicionar a coluna na tabela e tentar usar o modelo correspondente para inserir uma nova linha, ele pode tentar usar as informações antigas. Você pode forçar o Active Record para reler a informação da coluna com o método <code>reset_column_information</code>, por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Product</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:product</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="no">Product</span><span class="o">.</span><span class="n">reset_column_information</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><a href="/2008/11/12/traducao--rails-database-migrations---parte-iv">Continuação: Rails Database Migrations - Parte IV</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-04T00:00:00-03:00" pubdate data-updated="true">Nov 4<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2008/11/04/traducao--rails-database-migrations---parte-iii/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2008/11/04/traducao--rails-database-migrations---parte-iii/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/10/29/noticias-sobre-phpunit/" title="Previous Post: Notícias sobre PHPUnit">&laquo; Notícias sobre PHPUnit</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/11/05/namespaces-em-php-e-a-confusao/" title="next Post: Namespaces em PHP e a confusão!">Namespaces em PHP e a confusão! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2008/11/04/traducao--rails-database-migrations---parte-iii/';
+        var disqus_url = 'http://caironoleto.github.com/2008/11/04/traducao--rails-database-migrations---parte-iii/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

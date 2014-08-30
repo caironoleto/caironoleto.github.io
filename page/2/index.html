@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Maatkit é uma ferramenta criada para DBAs, programadores e usuários que lidam com bancos de dados opensource em replicação master-master e master- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/page/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/14/sincronizando-bancos-mysql-com-maatkit/">Sincronizando bancos MySQL com Maatkit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-14T00:00:00-03:00" pubdate data-updated="true">Jun 14<span>th</span>, 2010</time>
+        
+         | <a href="/2010/06/14/sincronizando-bancos-mysql-com-maatkit/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Maatkit é uma ferramenta criada para DBAs, programadores e usuários que lidam com bancos de dados opensource em replicação master-master e master-slave.</p>
+
+<p>A maioria das ferramentas foi feita para o MySQL, mas você pode utilizar em seu banco de dados preferido (Não sei quais seriam esses outros bancos :P).</p>
+
+<p>Uma das ferramentas do Maatkit é a sincronização entre bancos de dados. Ela é extremamente útil quando você tem bancos de dados MySQL replicados, sendo ele na configuração master-master ou master-slave.</p>
+
+<p>Após instalado (debian like é apt-get install maatkit) você pode fazer o seguinte comando:</p>
+
+<p><code>mk-table-sync --execute --synctomaster --verbose</code></p>
+
+<p><code>mk-table-sync</code> é um dos executáveis que ele instala junto com vários outros.</p>
+
+<p>Para sincronizar dois bancos sem ser master-slave você pode fazer da seguinte forma:</p>
+
+<p><code>mk-table-sync --execute u=user,p=pass,h=host1,D=db,t=tbl host2</code></p>
+
+<p>Se você que mais detalhes e ver os outros executáveis, visite o <a href="http://www.maatkit.org">site do projeto</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/06/01/mais-teorias-sobre-testes/">Mais teorias sobre testes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-01T00:00:00-03:00" pubdate data-updated="true">Jun 1<span>st</span>, 2010</time>
+        
+         | <a href="/2010/06/01/mais-teorias-sobre-testes/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Atualmente eu trabalho em basicamente duas aplicações: a do Jus Navigandi e o TrendTime. São duas aplicações Ruby On Rails, bem distintas, nessas duas aplicações eu faço testes.</p>
+
+<p>Mas são níveis de testes diferentes, infelizmente. Enquanto que na aplicação do Jus Navigandi eu não escrevo código sem testes, na do TrendTime eu ignoro alguns lugares.</p>
+
+<p>Eu faço isso por um único motivo: No Jus Navigandi o código <strong>não é meu</strong>, não é uma aplicação minha. Justamente por isso eu não posso arriscar em escrever códigos sem testes, sem ter um mínimo de qualidade aceitável. No TrendTime parte da aplicação foi feita sem testes, só no &#8220;olhômetro&#8221;. Claro que temos uma suíte de testes, mas ela não cobre a aplicação 100%.</p>
+
+<p>Eu faço isso por quê no TrendTime eu posso errar e voltar atrás, enquanto que na aplicação do Jus Navigandi eu não posso cometer esse mesmo deslize. O código não é meu, o código é do Jus Navigandi, e como o código faz parte da empresa, o código tem que refletir a qualidade que é o Jus Navigandi.</p>
+
+<p>O Jus Navigandi é uma empresa em excelência nos artigos publicados, é uma revista jurídica, como tal não é qualquer texto que entra lá. Existe uma bancada de pessoas que analisa todos os textos no dia a dia e apenas os melhores textos é que são selecionados.</p>
+
+<p>Nós programadores temos que levar essa qualidade para dentro do coração do Jus Navigandi, o código tem que refletir a mesma qualidade com que os textos do Jus Navigandi são aceitos. O código tem que ser bom, o código tem que ser limpo e o código tem que ter testes (ciclo vicioso de qualidade).</p>
+
+<p>Quando eu navego pelo github, por vários projetos, a primeira coisa que eu faço é descer a barra de rolagem e procuro por test ou spec. Faço isso pra saber se o criador daquela biblioteca teve pelo menos o trabalho de fazer alguns testes naquele código. Faço isso porquê eu, como um desenvolvedor que vai usar aquele código, fico mais tranquilo em saber que a biblioteca possui testes. Por conta disso, posso codificar com mais tranquilidade e se alguma coisa acontecer, vou primeiro verificar meus testes/códigos.</p>
+
+<p>Assim como as bibliotecas que eu vou escrever, se eu não fizer os testes, vou passar menos confiança para quem possivelmente vai utiliza-la. Aprendi que na comunidade Ruby On Rails, os testes expressam mais do que os códigos. Se eu quiser saber como uma biblioteca realmente funciona, eu não preciso necessariamente criar algo com aquele código, eu posso ver a suíte de testes e me situar sobre aquela biblioteca.</p>
+
+<p>Em uma empresa que você faz parte do time, é essencial que você passe tranquilidade para os outros programadores, sejam eles pessoas que já trabalhe com você ou um novo programador que vai ajudar o seu time.</p>
+
+<p>Com uma suíte de testes, você tem a oportunidade de mudar tudo, arrumar e deixar como era antes. Por exemplo, mudar de SQL para NoSQL e sua aplicação continuar a mesma.</p>
+
+<p>A melhor forma de você passar confiança para outros programadores é fazendo testes e cobrindo sua aplicação de testes. São eles que vão te salvar no dia que você vai ter que mudar a regra de negócio. São os testes que vão te guiar para uma solução simples.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/28/migracao-finalizada/">Migração finalizada!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-28T00:00:00-03:00" pubdate data-updated="true">Mar 28<span>th</span>, 2010</time>
+        
+         | <a href="/2010/03/28/migracao-finalizada/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Nesta semana fiz duas migrações, uma importante e outra super mega ulta importante. A primeira é que acabei de migrar todos os posts do Wordpress para cá. Não fiz a migração dos comentários ainda. Vou fazer em breve :P</p>
+
+<p>A migração mais importante ainda foi a do TrendTime. Vou contar um pouco de história!</p>
+
+<p>Nós começamos o TrendTime como brincadeira, e como tal não escolhemos um banco de dados, usamos o bom e velho SQLite que com um <code>rails projeto</code> já vem configurado. E o colocamos em produção assim.</p>
+
+<p>E com o SQLite nós cobrimos o Rails Summit Latin America 2009, Chupa Argentina, Intercon 2009, Ceará On Rails, Flex for Kids 2010, PyCon 2010 Atlanta e até o Big Brother Brasil.</p>
+
+<p>Nós migramos para o MySQL quando o SQLite não estava mais aguentando a inserção dos dados do Big Brother, que apesar de não ser um TrendTopic, é um case muito bom de análise de tweets, por quê é uma hash que é usada massivamente enquanto o programa está passando na TV.</p>
+
+<p>Neste ponto, nós começamos a ter problemas com crons que não finalizavam, inserção de múltiplos resultados no banco, além da lentidão em indexar 100 novos tweets. Mesmo depois da migração para o MySQL continuamos com esses problemas.</p>
+
+<p>Então nessa última semana resolvemos migrar para o MongoDB. Nós temos experiência com CouchDB usando CouchRest, mas a migração para o MongoDB com MongoMapper foi muito mais rápida do que esperávamos. Além disso, nos testes iniciais tivemos uma percepção de velocidade maior do que com couchdb. Esses fatores foram decisivos para a migração.</p>
+
+<p>Além da migração para MongoDB, nós fizemos ajustes na nossa biblioteca de busca ao Twitter e agora temos uma cron específica para a indexação dos usuários. Com isso conseguimos mais requisições livres para o Twitter (Ainda estamos com a limitação padrão)</p>
+
+<p>Por falar em velocidade, a migração do MySQL para MongoDB foi mais rápida do que a migração do SQLite para o MySQL (Escrita, a leitura é praticamente a mesma velocidade).</p>
+
+<p>Vamos testando o MongoDB. Se precisarmos mudar de banco, seja para outro NoSQL ou para um novo paradigma, ou até voltando para um banco de dados relacionais, vamos fazer e vocês nem vão perceber quando migrarmos. :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/11/23/colhendo-frutos-do-pomodoro/">Colhendo frutos do Pomodoro</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-23T00:00:00-03:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2009</time>
+        
+         | <a href="/2009/11/23/colhendo-frutos-do-pomodoro/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A pouco tempo eu comecei com essa história de <a href="http://www.pomodorotechnique.com">Pomodoro</a>. Eu já conhecia a técnica faz tempos, desde o ano passado. Na época ela passou como mais uma metodologia de concentração e foco, mas agora voltou então resolvi da uma chance ao Pomodoro.</p>
+
+<p>As regras do Pomodoro são simples:</p>
+
+<p>Priorize suas tarefas logo no inicio do dia;</p>
+
+<p>Você vai ter um intervalo de 25 minutos para resolver todas as tarefas, após esse tempo você descansa 5 minutos. Após 4 pomodoros (Que são 30 minutos - 25 da tarefa e 5 do descanso) você deve descansar por mais tempo, por 20 minutos;</p>
+
+<p>Ao final de cada pomodoro, marque com um x ao lado da tarefa, ao concluir risque-a da lista.</p>
+
+<p>Claro que não entrei em detalhes nas regras, mas basicamente é isso. Sem mistério, simples e direto ao ponto. O único material que você precisa é de uma caneta e de um contador regressivo programável (25, 5 e 20 minutos) que tenha alarme.</p>
+
+<p>O principal ponto que eu notei sobre o pomodoro é que eu sei quanto tempo eu gasto por cada tarefa. Contando as horas que eu trabalho por dia isso é muito importante, se aplicarmos o mesmo principio do gerenciamento financeiro, você não sabe que tem um problema até que você comece a contabilizar o quanto é o tamanho do seu problema.</p>
+
+<p>Usar o pomodoro me fez ter algumas estatísticas interessantes, por exemplo, no período da manhã é o horário onde eu gasto menos pomodoros (Isso quer dizer menos produtividade). O período da tarde é o que eu mais faço pomodoros, mas não muitos, variam entre 4 a 6. Eu sei que da pra fazer até 8 pomodoros.</p>
+
+<p>Em casa é o ambiente onde eu tenho o maior número de distrações. No trabalho eu tenho bem menos distrações, mas tenho o maior número de pomodoros interrrompidos.</p>
+
+<p>E por último outra coisa legal, você começa a identificar as tarefas comuns e começa a medir a quantidade de pomodoros para completar uma tarefa, isso faz com que você possa se organizar melhor (Se você sabe que tem apenas 2 pomodoros disponíveis, você então faz uma tarefa que vá levar 2 pomodoros).</p>
+
+<p>Eu realmente indico o pomodoro para quem não tem noção nenhuma de onde você gasta suas horas. Recomendo que você leia todo o livro antes, mas não precisa para começar a usar. Ler sobre as interrupções é importante, saber lidar com ela é muito importante.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/16/rails-summit-2009-e-o-lancamento-do-trendti-me/">Rails Summit 2009 e o lançamento do TrendTi.me!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-16T00:00:00-03:00" pubdate data-updated="true">Oct 16<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/16/rails-summit-2009-e-o-lancamento-do-trendti-me/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Este ano o Rails Summit se consolidou como um dos maiores eventos de Rails do mundo. Infelizmente mais uma vez não pude ir e participar presencialmente ao evento, mas nem por isso eu não participei!</p>
+
+<p>No Oxente Rails, evento realizado em Natal - RN, eu, Cleiton, Weldys e Cyrus começamos uma aplicação por brincadeira e zoação, nós criamos um livestream, foram 2 dias de muito trabalho e pouco descanço.</p>
+
+<p>Na volta pra casa nós discutimos bastante sobre os rumos do livestream mas não chegamos a nenhum ponto. Logo no mês seguinte participamos do Rails For Kids, e mais uma vez estávamos com nosso Livestream, e dois dias depois nós cobrimos o Dev In Rio.</p>
+
+<p>A cada novo evento nos surgiam mais e mais idéias, surgiram mais e mais feedback nesse tempo todo e resolvemos que iríamos fazer uma aplicação, bem estilo web x.0 e bem cara de Rails.</p>
+
+<p>Daí surgiu a idéia do <a href="http://trendti.me/">TrendTi.me</a>, que é um stream ao vivo do que acontece sobre um determinado assunto em vários canais da mídia. Inicialmente estamos cobrindo tudo que acontece no twitter, flickr e youtube.</p>
+
+<p>Nós marcamos a estréia do TrendTi.me no maior evento de Rails do Brasil, o Rails Summit.</p>
+
+<p>A cada dia nós temos mais e mais idéias, estamos anotando tudo para implementar! Estamos com um bom roadmap, a equipe ta ótima e o desenvolvimento melhor ainda!</p>
+
+<p>Em breve terei mais novidades sobre o TrendTi.me!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/03/dois-programadores-pensam-melhor-do-que-um/">Dois programadores pensam melhor do que um</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-03T00:00:00-03:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2009</time>
+        
+         | <a href="/2009/09/03/dois-programadores-pensam-melhor-do-que-um/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>O XP é uma metodologia de desenvolvimento Ágil, alguns consideram como framework, outros, assim como eu, consideram como filosofia. Não da dá pra aprender XP em um dia e no segundo dia sua equipe já será extremamente Ágil. Isso é mentira. Assim como programação, XP só se aprende com o tempo, treinando dia após dia.</p>
+
+<p>O XP possui práticas e dentre elas a que eu acho mais vantajosa é a Programação em Par, que é a atividade onde dois programadores usam um computador e eles codificam juntos. Eu, quando comecei minha vida no desenvolvimento, não colocava muita fé nesse tipo de desenvolvimento. Cheguei a espalhar para outros programadores que duas pessoas em um computador não funcionava, e que seriam melhor um programador por computador.</p>
+
+<p>Esse é o pensamento Taylor de desenvolvimento de software ainda presente em várias empresas no mundo onde duas pessoas, cada um fazendo o seu trabalho, são mais eficientes do que as duas em um único computador. Quem tem mais experiência com desenvolvimento de software sabe que isso é uma afirmação falsa. Pode sim duas pessoas em um computador ser melhor do que uma.</p>
+
+<p>O fato é que duas pessoas se motivam para desenvolver. Como estão em par, ver email, olhar os twitts, ler feeds, não entra nesse tipo de desenvolvimento. Em par, as distrações são menores porquê quem está desenvolvendo está preocupado apenas no código, e fica um dando pilha para o outro.</p>
+
+<p>O design da solução se torna melhor e mais consistente. Aquele velho ditado popular que diz que duas cabeças pensam melhor do que uma é verdade, dois programadores pensam melhor na solução do problema, discutem mais, avaliam mais os riscos, escrevem melhor os testes.</p>
+
+<p>Na equipe você acaba com ilhas de conhecimento. Programação em par é uma prática que se faz em no máximo algumas horas, então você sempre estará trocando de par e assim estará compartilhando mais rápido o conhecimento do negócio entre a equipe.</p>
+
+<p>Uma outra vantagem é o codigo compartilhado, a prática ajuda para que todos saibam o que está sendo feito em cada parte do código, assim faz com que acabe o &#8220;Dono do código&#8221;, já que toda a equipe fez parte do desenvolvimento.</p>
+
+<p>Ainda assim, alguns programadores não gostam de fazer programação em par, nesses casos não se pode forçar a barra. Faça apenas com que eles saibam que valores eles estarão perdendo. Não o demita só porquê ele não faz programação em par, talvez ela realmente seja bom sozinho. Mas faça com que ele compartilhe o código, que ele não crie ilha de conhecimento e que se comunique ao máximo com a sua equipe.</p>
+
+<p>Mesmo que sua empresa não adote uma metodologia, eu recomendo que você a adote no seu dia a dia . A curto prazo você pode ter a sensação de que não está evoluindo muito, mas a médio e longo prazo, você, sua equipe e sua empresa começarão a ter o retorno mais rápido e a satisfação no desenvolvimento será bem maior.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/02/o-mais-importante-e-arte-e-nao-codigo/">O mais importante é arte e não código!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-02T00:00:00-03:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2009</time>
+        
+         | <a href="/2009/09/02/o-mais-importante-e-arte-e-nao-codigo/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Nos últimos dias eu venho tentando aprender a fazer design sozinho. E sinceramente, design é algo que se aprende, mas é muito difícil. Não é tão simples como programação, aprender meio número de comandos e escrevê-los.</p>
+
+<p>Se fosse assim, já estaria com o design que eu quero pronto. Mas não, não é tão simples. Falo sinceramente quando uma pessoa que sabe fazer design e é programador é um profissional completo.</p>
+
+<p>Desing é mais complexo do que muitos pensam. Não é apenas colocar alguns formulários e pronto! Não, longe disso. Você tem que entender de cores, de tamanhos, de posição. Depois você tem que entender de usabilidade, saber que botão é melhor para colocar aqui, ou para colocar ali.</p>
+
+<p>Eu tenho noção de usabilidade. Sei que posicionar um botão num lugar errado pode fazer com que os clientes não saibam usar o seu produto. Sei que isso é o que define o seu produto e sinceramente, eu vejo poucas empresas que apostam alto nessa parte que eu considero importante.</p>
+
+<p>Não basta que a coisa seja bonita, ela tem que ser funcional, e o mais importante, o seu cliente tem que saber usar sem precisar de um manual.</p>
+
+<p>Quando um programador, como eu, tento fazer um desing de um produto, eu só consigo pensar nas funcionalidades que eu vou implementar com JavaScript, ou o banco de dados que eu vou usar para armazenar os dados. Eu não consigo imaginar mais, não porquê eu não saiba (Tá, eu não sei, AINDA! ;) mas porquê como programador, eu não prático isso no meu dia-a-dia.</p>
+
+<p>Para um designer é fácil ele fazer isso, é a profissão dele. É a mesma coisa, ele não conhece programação para poder fazer o meu trabalho. Se ele sabe, com certeza, para ele é mais fácil saber o que deve fazer.</p>
+
+<p>Lembro muito bem no livro da 37 Signals, Getting Real, onde eles falam que a melhor coisa que você faz no seu produto é começar pelo mais importante, o que seus clientes irão ver. O mais importante dessa abordagem é que você, como programador, só vai implementar o que é essencial para o produto funcionar. Nem uma linha a mais, nenhuma a menos.</p>
+
+<p>A 37 Signals sabe que isso fará com que seu produto seja o mais simples possível. É verdade, o produto será. Mas por quê você apenas faz o essencial, não mais do que você vê. Para o seu cliente é a melhor abordagem! Em menos tempo ele tem o seu produto funcionando, com todos os recursos possíveis.</p>
+
+<p>Foi nessa filosofia que o Rails foi desenvolvido. Não apenas para ser rápido, mas para está preparado para as mudanças do cliente. Em alguns minutos é possível mudar a forma como os dados estão sendo mostrados no Rails, mais uma vez, não apenas por que ele já é rápido e já vem com várias coisas disponíveis para que você faça a coisa mais rápido, mas por quê ele foi desenhado para que isso seja feito de forma rápida e sem dor, porquê foi essa praticidade que a 37 Signals estava precisando para resolver o seu problema.</p>
+
+<p>Vai começar um novo produto e já escolheu o banco de dados, criou os models mas nem imagina como está as telas?! Peço que você reconsidere todo o seu trabalho, pois tenho certeza que esse seu produto não vai ser tão recompensante do que se você começar pelo design.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/01/aprendendo-agilidade-fora-da-caixa/">Aprendendo Agilidade fora da caixa</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-01T00:00:00-03:00" pubdate data-updated="true">Sep 1<span>st</span>, 2009</time>
+        
+         | <a href="/2009/09/01/aprendendo-agilidade-fora-da-caixa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Podemos aprender em qualquer lugar, com qualquer coisa. Livros, vídeos, fotos, apresentações, músicas, filmes, etc. Se você ver a coisa com outra ótica poderá aprender muito.</p>
+
+<p>Eu gosto muito de ver o filme do Homem de Ferro, gosto muito de ver toda aquela coisa tecnologica funcionando. Acho o máximo quando ele usa o &#8220;raio repulsor&#8221; e passa da barreira do som!</p>
+
+<p>O mais importante de se tirar dessa história, é como uma equipe motivada pode ser melhor do que meia duzia de ótimos profissionais.</p>
+
+<p>Tony Stark estava entre a vida e a morte, sem recursos e com uma equipe reduzida (Ele e Yin Sen). Yin Sen inventa um aparelho para manter o coração do Tony Stark batendo. Depois disso, Tony Stark inventa uma armadura para libertar os dois dali.</p>
+
+<p>A versão 1.0 da armadura é cheia de bugs e nem se parece com a última versão do filme. Ela não é muito resistente nem tão Ágil, mas é com ela que Tony Stark foge.</p>
+
+<p>Até aqui, a história dele é bem parecida com várias start ups pelo mundo. Pouco recursos, equipe motivada, velocidade para ter um primeiro release, bugs e mais bugs.</p>
+
+<p>Quando ele sai, ele &#8220;recebe&#8221; investimento. Aprimora sua armadura e torna ela forte, resistente e Ágil.</p>
+
+<p>Esse mesmo estágio acontece com algumas start ups, elas crescem, recebem investimentos ou começam a ter retorno. Geralmente, neste ponto, é que muitas start ups mudam! Aumentam o quadro de funcionários, crescem, mudam de atitude. Outras não, continuam com a mesma equipe, apenas melhoram a motivação, que além de lançar um produto, agora tem um incentivo financeiro.</p>
+
+<p>A 37 Signals sabe, pequenas equipes, mas extremamentes motivadas são melhores do uma &#8220;IBM&#8221; da vida sem motivação. E isso acontece no filme.</p>
+
+<p>Tony Stark durante o filme tem um concorrente, Obadiah Stane. Ele junta os melhores engenheiros que o dinheiro pode pagar. Esses engenheiros não conseguem reproduzir o mesmo equipamento que Tony Stark possui. Para ter a primeira versão do Monge de Ferro ele tem que roubar o dispositivo do Tony para fazer a máquina dele funcionar.</p>
+
+<p>Isso geralmente acontece em grandes corporações. Empresas como Microsoft, Google, que não tem mais a mesma agilidade que possuiam quando começaram. Elas se tornaram grandes, com milhares de processos e camadas. Para inovar, elas precisam gastar muitos recursos e ter muitos profissionais.</p>
+
+<p>Diferente das pequenas empresas, que com poucos recursos e com muita motivação conseguem fazer produtos de sucesso. Aprender a motivar a sua equipe pode ser mais importante do que fazer um ótimo produto. Sem uma equipe motivada, o melhor dos produtos terá uma péssima execução e assim não terá o retorno esperado. Produtos médios mas com uma ótima execução vão ser muito mais lucrativos.</p>
+
+<p>Fica a dica, tente aprender pensando fora da caixa, existe muito mais valores que você pode detectar em outras coisas que você nem esperava encontrar!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/08/31/rails-initializers/">Rails Initializers!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-31T00:00:00-03:00" pubdate data-updated="true">Aug 31<span>st</span>, 2009</time>
+        
+         | <a href="/2009/08/31/rails-initializers/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>No rails existem 4 lugares onde você pode configurar sua aplicação, no config/environment.rb, config/environments/production.rb, config/environments/development.rb, config/environments/test.rb.</p>
+
+<p>Nesses 4 lugares você pode adicionar configurações para um do environments do rails (production, test e development) ou em todos os environments (config/environment.rb).</p>
+
+<p>Dentro desses arquivos, você pode configurar gems específicas para cada environment, ou para toda a aplicação. Mas uma coisa que muitos fazem é centralizar nesses locais configurações de inicialização de constantes, de conexões com serviços externos, monkey patches entre outros.</p>
+
+<p>Recentemente estou desenvolvendo um projeto e brincando com <a href="http://couchdb.apache.org">Apache CouchDB</a> e <a href="http://github.com/mattetti/couchrest/tree/master">CouchRest</a>. No CouchRest eu resolvi fazer um monkey patch e na hora de colocar eu não sabia a melhor forma. Depois de um pouco de buscas no google lembrei do <code>config/initializers/</code>.</p>
+
+<p>Nesse lugar é onde você deve colocar as coisas que vão ser inicializadas junto com o Rails. Todos os arquivos serão executados após o carregamento dos plugins.</p>
+
+<p>Por exemplo, você pode inicializar o MemCached, fazer com que ele conecte nos 4 servidores de cache que você tem, limpar a cache e colocar na cache toda a sua aplicação.</p>
+
+<p>Ou você pode fazer um monkey patch.</p>
+
+<p>Assim você mantem seus environments limpos.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/08/29/rails-4-kids/">Rails 4 kids. Ajude!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-29T00:00:00-03:00" pubdate data-updated="true">Aug 29<span>th</span>, 2009</time>
+        
+         | <a href="/2009/08/29/rails-4-kids/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.railsforkids.com/">Rails for Kids</a> é uma iniciativa muito bacana do <a href="http://www.egenial.com.br/">Carlos Eduardo, da e-Genial</a>. Quem não sabe ou não lembra, o Rails for Kids é um dia inteiro com muito Rails e toda a renda é para ajudar uma instituição que cuida de crianças.</p>
+
+<p>Esse ano a instituição escolhida foi a Cotolengo. Sobre o evento, vai contar com os mais importantes Railers do Brasil, vai ser um puta grande evento sobre Rails. Vamos ajudar as crianças e vamos ganhar conhecimento que é o este Brasil esta precisando, principalmente nosso estúpido senado.</p>
+
+<p>O Rails 4 kids acontecerá no dia 12 de setembro, não fique de fora dessa, não perca essa oportunidade de ajudar as crianças e poder contar com um dia inteiro de rails com os melhores do Brasil, faça já <a href="http://www.railsforkids.com/inscriptions">sua inscrição</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

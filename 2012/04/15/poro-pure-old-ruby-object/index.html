@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PORO - Pure Old Ruby Object - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Este post foi escrito no README de um projeto depois de um refactoring. Hoje, no dia 22 de janeiro de 2011, resolvi fazer um refactoring neste código &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2012/04/15/poro-pure-old-ruby-object">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PORO - Pure Old Ruby Object</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-15T09:43:00-03:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Este post foi escrito no README de um <a href="https://github.com/caironoleto/Criptografia">projeto</a> depois de um refactoring.</h2>
+
+<p>Hoje, no dia 22 de janeiro de 2011, resolvi fazer um refactoring neste código e explicar mais sobre uma dúvida que o <a href="https://github.com/dannlucioano">dannluciano</a> me perguntou no twitter de como estavamos usando PORO em nossos projetos na <a href="https://github.com/nohupbrasil">Nohup</a>.</p>
+
+<p>Para começarmos, PORO é um acrônimo para Pure Old Object Ruby, que é mais um movimento da comunidade Ruby em trazer de volta aquelas velhas classes puras do Ruby.</p>
+
+<p>E como tudo na comunidade Ruby onde cada movimento vem com uma pitada de amadurecimento, com os POROs não podia ser diferente. Além de resgatar a utilização de classes puras do Ruby, sem ter que herdar (na sua grande maioria do ActiveRecord) de nenhuma outra classe, o uso dos POROs é para poder aplicar os conceitos de SOLID que o Uncle Bob introduziu no desenvolvimento de software e que o Lucas Húngaro explanou muito bem em uma série de blog posts que cobre os 5 princípios de SOLID e de como aplicá-los em Ruby.</p>
+
+<p>O conceito de SOLID mais forte no uso de POROs é o de <a href="http://blog.lucashungaro.com/2011/05/04/solid-ruby-single-responsibility-principle/">Single Responsibility</a>, onde cada classe tem apenas uma única responsabilidade. Neste refactoring, a classe Cripto tinha a responsabilidade de criptografar e descriptografar um texto. Só que ele também tinha a responsabilidade de saber o dicionário de criptografia.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cripto</span>
+</span><span class='line'>  <span class="c1"># Responsabilidade de criptografar  </span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">cripto</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Responsabilidade de descriptografar</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">decript</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Responsabilidade de saber o dicionário</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">dicionario</span>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fonte: <a href="https://github.com/caironoleto/Criptografia/blob/79236001445a2e04312825668f99114d80d849f1/lib/cripto.rb">79236001445a2e04312825668f99114d80d849f1</a></p>
+
+<p>Meu refactoring nesta classe foi em retirar o dicionário da classe Cripto e de usar outro princípio do SOLID, que é o de <a href="http://blog.lucashungaro.com/2011/05/09/solid-ruby-dependency-inversion-principle/">Dependecy Inversion</a>, para preparar a classe Cripto a aceitar qualquer objeto que respondam a <code>Object#[]</code> e <code>Object#key</code>.</p>
+
+<p>Neste caso então eu posso utilizar a class Hash, que implementa esses métodos, ou qualquer outra classe que eu possa criar e no caso eu criei a classe Dictionary.</p>
+
+<p>E a implementação final da classe Cripto ficou da sequinte forma:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Cripto</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:dictionary</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">dictionary</span> <span class="o">=</span> <span class="n">dictionary</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">process</span><span class="p">(</span><span class="ss">:[]</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">process</span><span class="p">(</span><span class="ss">:key</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">processed_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'>    <span class="n">text</span><span class="o">.</span><span class="n">each_char</span> <span class="k">do</span> <span class="o">|</span><span class="n">ch</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">processed_text</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="o">||</span> <span class="n">ch</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">processed_text</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fonte: <a href="Fonte:%20https://github.com/caironoleto/Criptografia/blob/dfeecf4c00590b027017514723329562a46fa9d0/lib/cripto.rb">dfeecf4c00590b027017514723329562a46fa9d0</a></p>
+
+<h2>Aplicando esses conceitos em uma aplicação Rails</h2>
+
+<p>Eu falei antes que na Nohup nós não estamos utilizando callbacks, assim como reuniões, callbacks são tóxicos! No lugar deles, estamos usando POROs com a responsabilidade de fazer o que seria feito pelo callback e chamando nas actions onde eles seriam executados.</p>
+
+<p>Uma coisa bastante comum em aplicações Rails é a geração de slugs. A regra mais comum para geração do slug é de sempre que o nome do usuário for passado pelo formulário para ser alterado, ele deve gerar um novo slug. A implementação mais comum é:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">before_save</span> <span class="ss">:slugify</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">slugify</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="nb">name</span><span class="o">.</span><span class="n">parameterize</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Essa abordagem fere um dos princípios que comentei anteriormente. A classe User deixa de ter somente a responsabilidade de lidar com os dados e adiciona a responsabilidade de gerar o slug sempre que o usuário for salvo.</p>
+
+<p>A primeira coisa que fazemos nesse caso é extrair nossa regra de negócio para um PORO. Poderíamos fazer da seguinte forma:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">class</span> <span class="nc">SlugGenerator</span>
+</span><span class='line'>    <span class="kp">attr_accessor</span> <span class="ss">:slug</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">slug</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="n">slug</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">slugify!</span>
+</span><span class='line'>      <span class="n">slug</span><span class="o">.</span><span class="n">parameterize</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Então para finalizar, essa regra de negócio deve sempre ser executada quando o usuário for criado ou quando for atualizado, então nós alteramos o controller de <code>users</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="vi">@user</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="no">SlugGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@user</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">slugify!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">update</span>
+</span><span class='line'>    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="vi">@user</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="no">SlugGenerator</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@user</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">slugify!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># …</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>:
+Em muitos lugares diferentes da aplicação nós podemos salvar esse objeto e não necessariamente nós precisamos aplicar a regra de gerar um novo slug. O que geralmente acontece é que no uso de callbacks, você acaba tendo comportamentos inesperados na hora de salvar um objeto.</p>
+
+<p>Daí na Nohup nós acabamos criando uma convenção, onde uma regra de negócio não deve ficar no model e sim em um PORO e que só deve ser executado nas actions que tem necessidade.</p>
+
+<p>E ficamos com uma estrutura de diretórios assim:</p>
+
+<p><img src="https://img.skitch.com/20120123-n9ypqgy419ds8urqmj1ywgu6p6.png" alt="app" /></p>
+
+<p>Obviamente, dentro do diretório <code>business</code> estão todos os POROs com todas as regras de negócio da aplicação. Nossos models são bem simples, contendo apenas a lógica para lidar com os dados (validações, escopos de busca, etc) e toda as regras de negócio ficam dentro de <code>business</code>.</p>
+
+<p>Espero que isso ajude a você a repensar melhor no design da sua aplicação.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-15T09:43:00-03:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2012/04/15/poro-pure-old-ruby-object/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2012/04/15/poro-pure-old-ruby-object/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/" title="Previous Post: Realmente existe diferença entre TDD e BDD?">&laquo; Realmente existe diferença entre TDD e BDD?</a>
+      
+      
+        <a class="basic-alignment right" href="/2013/09/01/rubyconf-brasil-2013/" title="next Post: RubyConf Brasil 2013">RubyConf Brasil 2013 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2012/04/15/poro-pure-old-ruby-object/';
+        var disqus_url = 'http://caironoleto.github.com/2012/04/15/poro-pure-old-ruby-object/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

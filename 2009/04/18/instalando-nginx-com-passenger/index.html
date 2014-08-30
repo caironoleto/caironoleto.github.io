@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Instalando Nginx com Passenger - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Para quem acompanha o mundo Ruby On Rails soube que no dia 16 foi lançado o Passenger com suporte total para Nginx (Lê-se Engine X). Assim temos mais &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2009/04/18/instalando-nginx-com-passenger">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Instalando Nginx com Passenger</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-18T00:00:00-03:00" pubdate data-updated="true">Apr 18<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Para quem acompanha o mundo <a href="http://www.rubyonrails.com">Ruby On Rails</a> soube que no dia 16 foi <a href="http://blog.phusion.nl/2009/04/16/phusions-one-year-anniversary-gift-phusion-passenger-220">lançado</a> o <a href="http://www.modrails.com">Passenger</a> com suporte total para <a href="http://nginx.net">Nginx</a> (Lê-se <code>Engine X</code>). Assim temos mais uma rápida opção de deployment para Ruby On Rails.</p>
+
+<p>Para instalar, primeiro instala a gem do Passenger</p>
+
+<p><code>sudo gem install passenger</code></p>
+
+<p>O Passenger gera o instalador fácil para Nginx e para o Apache, no nosso caso só digitarmos</p>
+
+<p><code>sudo passenger-install-nginx-module</code></p>
+
+<p>Nessa parte eu estava obtendo um erro e não estava instalando o Nginx e <a href="http://github.com/FooBarWidget/passenger/commit/7a9092a560de4f2096a73fc39375260f827f6153">aqui</a> <a href="http://code.google.com/p/phusion-passenger/issues/detail?id=249">nessa</a> <a href="http://groups.google.com/group/phusion-passenger/browse_thread/thread/cbf0ed3f143e01fc">thread</a> os Phusion Guys resolveram o problema. Então eu fiz um clone do <a href="http://github.com/FooBarWidget/passenger/">projeto</a> e rodei um <code>rake package</code> para gerar a gem com a modificação e fiz a instalação da gem e tudo foi resolvido.</p>
+
+<p>Após isso é só configurar o Nginx, que por padrão é instalado em <code>/opt/nginx</code>. Para fazer o deploy é simples, adicione o seguinte código em <code>/opt/nginx/conf/nginx.conf</code> (altere a pasta conforme onde você instalou o Nginx)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">server</span> <span class="p">{</span>
+</span><span class='line'>   <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>   <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+</span><span class='line'>   <span class="kn">root</span> <span class="s">/var/www/aplicacao</span>
+</span><span class='line'>   <span class="s">passenger_enabled</span> <span class="no">on</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Para completar, eu fiz um script onde posso iniciar, parar ou reiniciar o servidor</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#! /bin/sh</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
+</span><span class='line'><span class="c"># Provides:          nginx</span>
+</span><span class='line'><span class="c"># Required-Start:    $all</span>
+</span><span class='line'><span class="c"># Required-Stop:     $all</span>
+</span><span class='line'><span class="c"># Default-Start:     2 3 4 5</span>
+</span><span class='line'><span class="c"># Default-Stop:      0 1 6</span>
+</span><span class='line'><span class="c"># Short-Description: starts the nginx web server</span>
+</span><span class='line'><span class="c"># Description:       starts nginx using start-stop-daemon</span>
+</span><span class='line'><span class="c">### END INIT INFO</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#Alter to nginx path</span>
+</span><span class='line'><span class="nv">NGINXPATH</span><span class="o">=</span>/opt/nginx
+</span><span class='line'>
+</span><span class='line'><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+</span><span class='line'><span class="nv">DAEMON</span><span class="o">=</span><span class="nv">$NGINXPATH</span>/sbin/nginx
+</span><span class='line'><span class="nv">NAME</span><span class="o">=</span>nginx
+</span><span class='line'><span class="nv">DESC</span><span class="o">=</span>nginx
+</span><span class='line'>
+</span><span class='line'><span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit </span>0
+</span><span class='line'>
+</span><span class='line'><span class="c"># Include nginx defaults if available</span>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -f /etc/default/nginx <span class="o">]</span> ; <span class="k">then</span>
+</span><span class='line'>        . /etc/default/nginx
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'><span class="k"> </span>
+</span><span class='line'><span class="nb">set</span> -e
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+</span><span class='line'>  start<span class="o">)</span>
+</span><span class='line'>        <span class="nb">echo</span> -n <span class="s2">&quot;Starting $DESC: &quot;</span>
+</span><span class='line'>        start-stop-daemon --start --quiet --pidfile <span class="nv">$NGINXPATH</span>/logs/<span class="nv">$NAME</span>.pid --exec <span class="nv">$DAEMON</span> -- <span class="nv">$DAEMON_OPTS</span>
+</span><span class='line'>        <span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>        ;;
+</span><span class='line'>  stop<span class="o">)</span>
+</span><span class='line'>        <span class="nb">echo</span> -n <span class="s2">&quot;Stopping $DESC: &quot;</span>
+</span><span class='line'>        start-stop-daemon --stop --quiet --pidfile <span class="nv">$NGINXPATH</span>/logs/<span class="nv">$NAME</span>.pid --exec <span class="nv">$DAEMON</span>
+</span><span class='line'>        <span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>        ;;
+</span><span class='line'>
+</span><span class='line'>  restart|force-reload<span class="o">)</span>
+</span><span class='line'>        <span class="nb">echo</span> -n <span class="s2">&quot;Restarting $DESC: &quot;</span>
+</span><span class='line'>        start-stop-daemon --stop --quiet --pidfile <span class="nv">$NGINXPATH</span>/logs/<span class="nv">$NAME</span>.pid --exec <span class="nv">$DAEMON</span>
+</span><span class='line'>        sleep 1
+</span><span class='line'>        start-stop-daemon --start --quiet --pidfile <span class="nv">$NGINXPATH</span>/logs/<span class="nv">$NAME</span>.pid --exec <span class="nv">$DAEMON</span> -- <span class="nv">$DAEMON_OPTS</span>
+</span><span class='line'>        <span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>        ;;
+</span><span class='line'>  reload<span class="o">)</span>
+</span><span class='line'>      <span class="nb">echo</span> -n <span class="s2">&quot;Reloading $DESC configuration: &quot;</span>
+</span><span class='line'>      start-stop-daemon --stop --signal HUP --quiet --pidfile <span class="nv">$NGINXPATH</span>/logs/<span class="nv">$NAME</span>.pid --exec <span class="nv">$DAEMON</span>
+</span><span class='line'>      <span class="nb">echo</span> <span class="s2">&quot;$NAME.&quot;</span>
+</span><span class='line'>      ;;
+</span><span class='line'>  *<span class="o">)</span>
+</span><span class='line'>        <span class="nv">N</span><span class="o">=</span>/etc/init.d/<span class="nv">$NAME</span>
+</span><span class='line'>        <span class="nb">echo</span> <span class="s2">&quot;Usage: $N {start|stop|restart|reload|force-reload}&quot;</span> &gt;&amp;2
+</span><span class='line'>        <span class="nb">exit </span>1
+</span><span class='line'>        ;;
+</span><span class='line'><span class="k">esac</span>
+</span><span class='line'><span class="k"> </span>
+</span><span class='line'><span class="nb">exit </span>0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Você pode colocar a inicialização automaticamente no servidor</p>
+
+<p><code>sudo update-rc.d nginx defaults</code></p>
+
+<p>Depois é só inicializar o servidor e pronto.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-18T00:00:00-03:00" pubdate data-updated="true">Apr 18<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2009/04/18/instalando-nginx-com-passenger/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2009/04/18/instalando-nginx-com-passenger/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/04/16/instalando-apache-couchdb-no-linux/" title="Previous Post: Instalando Apache CouchDB no Linux">&laquo; Instalando Apache CouchDB no Linux</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/05/08/opa--ainda-estou-aqui/" title="next Post: Opa, ainda estou aqui!">Opa, ainda estou aqui! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2009/04/18/instalando-nginx-com-passenger/';
+        var disqus_url = 'http://caironoleto.github.com/2009/04/18/instalando-nginx-com-passenger/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

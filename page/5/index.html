@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Um assunto recorrente nas listas de discussão é sobre MVC, esse pattern) que é a base para quase todos os framewok atuais. Quem usa Ruby On Rails &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/page/5">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/02/09/cuidado-com-model-view-controller/">Cuidado com Model-View-Controller</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-09T00:00:00-03:00" pubdate data-updated="true">Feb 9<span>th</span>, 2009</time>
+        
+         | <a href="/2009/02/09/cuidado-com-model-view-controller/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Um assunto recorrente nas listas de discussão é sobre <a href="http://en.wikipedia.org/wiki/Model-view-controller">MVC</a>, esse <a href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science">pattern</a>) que é a base para quase todos os <a href="http://en.wikipedia.org/wiki/Frameworks">framewok</a> atuais. Quem usa Ruby On Rails sabe &#8220;Fat Models, Slim Controls&#8221; por que é um comportamento imposto pelo criador do framework e praticamente por todos que utilizam.</p>
+
+<p>O que acontece é que em outros frameworks (<a href="http://en.wikipedia.org/wiki/CodeIgniter">CodeIgniter</a> por exemplo) te deixam mais livres e as pessoas acabam fazendo as coisas certas em lugares errados. O pattern por si só diz que é necessário colocar a lógica para os models e os controllers fazerem o fluxo das informações irem de um lugar para outro, mas não é bem isso que acontece.</p>
+
+<p>E como a discussão foi em uma lista de CodeIgniter, ele ainda peca por isso. O CodeIgniter usa MVC, mas o framework da a liberdade para você fazer o que quer. Eu vejo aplicações que reutilizam controllers e não fazem uso dos helpers, eu vejo aplicações que fazem uso dos controllers, mas que os models deveriam fazer.</p>
+
+<p>Helpers serve para você tirar a lógica de views, models servem para ter a lógica da aplicação, quem ainda não entedeu, lógica de views são apenas lógicas de controle, algo como if - else, switch - case, &#8220;div com o login da aplicação&#8221;, e coisas nas views que se vai repetir em toda a aplicação. Os models servem para fazer autenticação da aplicação, para verificarem se o usuário está cadastrado no banco de dados, para calcularem a quantidade de juros de uma venda a prazo, enfim, tudo aquilo que está ligado a lógica da aplicação.</p>
+
+<p>Se repita menos (<a href="http://en.wikipedia.org/wiki/DRY">Don&#8217;t Repeat Yourself</a>), use helpers, construa bons models, limpem seus controllers, seja um melhor profissional e uma pessoa menos estressada no final do dia (coisas simples nos deixam mais felizes que coisas complexas), use da simplicidade.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/01/07/benchmarks--como-vou-saber-se-esta-bom-ou-ruim/">Benchmarks: Como vou saber se está bom ou ruim?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-07T00:00:00-03:00" pubdate data-updated="true">Jan 7<span>th</span>, 2009</time>
+        
+         | <a href="/2009/01/07/benchmarks--como-vou-saber-se-esta-bom-ou-ruim/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta foi a pergunta que um amigo me fez no GTalk, eu respondi a ele mas gostei do assunto, é um bom assunto para começar 2009.</p>
+
+<p>Como vou saber se está bom ou ruim um benchmark?! Simples, assim como muita coisa na vida, tudo depende do ponto de vista. A grande maioria dos benchmarks são sobre performance, tecnologia X é mais rápido do que Y ou framework U é mais rápido do que framework K.</p>
+
+<p>Mas existem alguns benchmarks específicos como framework Y é mais fácil de fazer manutenção do que framework Z ou o tamanho dos arquivos gerados. Enfim, todos os propósitos dos benchmarks são apenas para demonstrar o lado bom e o ruim de uma tecnologia e levantar dados que facilitam na escolha dessas tecnologias.</p>
+
+<p>Se você está indeciso de sobre qual tecnologia escolher, pesquise todos os benchmarks que existem sobre esta tecnologia em comparações a outras, se ainda não estiver satisfeito, faça seus próprios benchmarks e no final faça um levantamento junto com a sua equipe e discuta todos os pontos.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/02/se-voces-puderem-pelo-menos-uma-vez-ir-a-sao-paulo--vao/">Se vocês puderem pelo menos uma vez ir a São Paulo, vão!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-02T00:00:00-03:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2008</time>
+        
+         | <a href="/2008/12/02/se-voces-puderem-pelo-menos-uma-vez-ir-a-sao-paulo--vao/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Não é brincadeira, é sério! Vocês não precisam morar lá, mas devem conhecer São Paulo e seus lugares mais obscuros!</p>
+
+<p>No último final de semana eu fui a São Paulo para participar do PHP Conference 2008 (Em breve, um resumo sobre o evento), eu fiquei na casa do Klederson. O apartamento dele é dentro do coração de São Paulo, próximo a Av. Paulista e perto de tudo!</p>
+
+<p>Por ser perto de tudo, sai caminhando pela cidade assim que cheguei, a impressão é muito boa. Limpa (As ruas, não o ar), cheia de gente de todos os tipos e sempre alguma coisa para fazer.</p>
+
+<p>Eu fui a um #NoB, no El Malak, depois de passar na porta e caminhar até quase o final da rua e depois de ter perguntando a umas pessoas em um bar se lá estava acontecendo o #NoB.</p>
+
+<p>Conheci Mirian Bottan, Marco Gomes, Sabine e mais algumas pessoas que não me lembro o nome xD depois do #NoB saímos e pronto!</p>
+
+<p>Na sexta levantei cedo e conheci de perto o sistema de transporte da cidade, totalmente interligado, e cheguei a Osasco de trem.</p>
+
+<p>E no sábado, após o evento, consegui dar umas voltas de carro pela cidade, eu mesmo dirigindo, com o meu tio louco!</p>
+
+<p>Depois de dar um susto no papai e na mamãe, dizendo que eu estava perdido e procurando uma parada de ônibus para ir para o aeroporto, quase em cima da hora, cheguei ao aeroporto internacional de guarulhos e tomei o rumo de casa.</p>
+
+<p>Deixando para trás uma bela cidade, gigante, por sinal, com muita coisa para fazer e muita coisa para aproveitar, fico agradecido as pessoas que me ajudaram por lá e para as pessoas que eu conheci fica meu grande prazer.</p>
+
+<p>P.S. No final da viagem, eu pedi ao piloto do 737-800 para tirar umas fotos na cabine, coisa de Nerd. Então ele me explicou que não podia, mas pediu a camera para filmar a aterrissagem em Fortaleza, ele só filmou 2:17 por quê tinha acabado a bateria :( mas para a minha sorte, um dos pilotos desembarcou em Fortaleza, e o mesmo piloto me chamou para voltar para Teresina dentro da cabine, mas sem eu tirar foto e nem filmar. Como Nerd que sou, fiquei muito feliz em viajar como terceiro piloto de um 737-800 por alguns minutos!!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/26/esta-chegando--php-conference/">Está chegando, PHP Conference!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-26T00:00:00-03:00" pubdate data-updated="true">Nov 26<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/26/esta-chegando--php-conference/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Essas últimas semanas está sendo corrida Estou acertando todos os detalhes para o <a href="http://www.phpconf.com.br">PHP Conference</a>, e é por que ainda não cheguei por lá, quando chegar, terá mais coisas para fazer :)</p>
+
+<p>Esse post é para apenas lembrá-los que a Add4 Comunicação estará fazendo parte do PHP Conference e nós queremos vocês com a gente :)</p>
+
+<p>Eu chego em São Paulo no dia 27. Tem um #NoB marcado, quero ir, alguém me leva?! :P</p>
+
+<p>O PHP Conference vai acontecer nos dias 27, 28 e 29 e será recheada de PHPzeiros e Nerds. Espero conhecer muita gente boa.</p>
+
+<p>Nos encontramos lá :)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/17/midias-alternativas---a-vida-alem-dos-30-segundos/">Mídias alternativas - A vida além dos 30 segundos</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-17T00:00:00-03:00" pubdate data-updated="true">Nov 17<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/17/midias-alternativas---a-vida-alem-dos-30-segundos/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esse foi o tema da mesa redonda na semana de comunicação da <a href="http://www.ceut.com.br/semanadecomunicacao.asp">semana de Comunicação</a>. Estava lá eu ( :P ), Thiago Emérito, Igor Drey e Itallo Victor.</p>
+
+<p>Bom, eu falei um pouco sobre minha experiência com a Web 2.0 e como você pode utiliza-la para lucro (não apenas para diversão).</p>
+
+<p>Eu já esperava que a maior parte do tempo nós quatro falaríamos e que em algumas partes quem estava lá, iria contribuir, mas eu não esperava que seriam umas quatro pessoas (de mais de 40). A impressão que eu tive é que essas pessoas ainda não entraram de cabeça dentro do novo mundo, ou que ainda não tiveram o interesse necessário para fazer esse tipo de coisa.</p>
+
+<p>Uma coisa que eu sempre falo para todos é que vocês devem estar atentos as mudanças mundiais, acompanhar bolsa de valores, política, novas tecnologias, enfim, se manter atualizado frente ao mundo. Fazendo isso você está preparado para qualquer desafio, independente da sua área de atuação.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/12/traducao--rails-database-migrations---parte-iv/">Tradução: Rails Database Migrations - Parte IV</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-12T00:00:00-03:00" pubdate data-updated="true">Nov 12<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/12/traducao--rails-database-migrations---parte-iv/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta é a última parte da tradução <a href="http://guide.rails.info/migrations.html">desse artigo</a> sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter (<a href="http://twitter.com/caironoleto">caironoleto</a>), ou qualquer mensageiro!! :P</p>
+
+<ul>
+<li><a href="/2008/09/23/traducao--rails-database-migrations---parte-i">Continuação: Rails Database Migrations - Parte I</a></li>
+<li><a href="/2008/10/21/traducao--rails-database-migrations---parte-ii">Continuação: Rails Database Migrations - Parte II</a></li>
+<li><a href="/2008/11/04/traducao--rails-database-migrations---parte-iii">Continuação: Rails Database Migrations - Parte III</a></li>
+</ul>
+
+
+<h3>6. Armazenando esquemas e você</h3>
+
+<h3>6.1 Quais são os arquivos do esquema?</h3>
+
+<p>Migrações, poderosas como são, não são fontes autorizada para o esquema do seu banco de dados. Esse papel cabe ao <code>schema.rb</code> ou ao um arquivo SQL gerado pelo Active Record através da análise do banco de dados. Este arquivo não foi projetado para ser editado, ele é uma representação do estado atual do banco de dados.</p>
+
+<p>Não é necessário (e isto é um erro propenso) para implantar uma nova instancia de uma aplicação repetindo o histórico inteiro da migração. É mais simples e rápido apenas carregar dentro do banco de dados a descrição do esquema atual.</p>
+
+<p>Por exemplo, esta é a forma de como o banco de dados de testes é criado: o banco de dados atual de desenvolvimento é excluído (tanto para o <code>schema.rb</code> ou para <code>development.sql</code>) e então carregado dentro do banco de dados de teste.</p>
+
+<p>Arquivos de esquema também são uteis se deseja olhar rapidamente quais atributos o objeto do Active Record possui. Estas informações não está no código do modelo e frequentemente está espalhado pelas várias migrações mas está resumido no arquivo de esquema. O plugin <a href="http://agilewebdevelopment.com/plugins/annotate_models">annotate_models</a>, adiciona automaticamente cada (e atualiza) um dos comentários no início de cada modelo resumindo o esquema, que pode ser de seu interesse.</p>
+
+<h3>6.2 Formas de armazenar o esquema</h3>
+
+<p>Existe duas formas de armazenar o esquema. Uma é setar em <code>config/environment.rb</code> atribuindo o <code>config.active_record.schema_format</code>, que pode ser <code>:sql</code> ou <code>:ruby</code>.</p>
+
+<p>Se <code>:ruby</code> é selecionada então o esquema será armazenado em <code>db/schema.rb</code>. Se você olhar este arquivo você verá que não encontrará um pouco mais do que uma grande migração:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="ss">:version</span> <span class="o">=&gt;</span> <span class="mi">20080906171750</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">create_table</span> <span class="s2">&quot;authors&quot;</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;name&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;created_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;updated_at&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">create_table</span> <span class="s2">&quot;products&quot;</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;name&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">&quot;description&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;created_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;updated_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;part_number&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>De muitas formas é exatamente isso. Este arquivo é criado pela examinação do banco de dados e expressado em estruturas usando <code>create_table</code>, <code>add_index</code> e assim por diante. Por causa da independência do banco de dados ele deve carregar dentro de qualquer banco de dados que o Active Record suporta. Isso poderia ser muito útil se você quiser distribuir a aplicação para rodar em vários banco de dados.</p>
+
+<p>Existe porém uma desvantagem: <code>schema.rb</code> não expressa itens específicos de banco de dados como constraints de chaves estrangeiras, triggers ou stored procedures. Enquanto na migração você pode executar SQL customizadas, o esquema armazenado não pode reconstituir essas atribuições do banco de dados. Se você usar recursos como este, então você deve atribuir o esquema para <code>:sql</code>.</p>
+
+<p>Em vez de usar o esquema de armazenamento do Active Record a estrutura será armazenada usando uma ferramenta específica do banco de dados (pela tarefa rake <code>db:structure:dump</code>) dentro de <code>db/#\{RAILS_ENV\}_structure.sql</code>. Por exemplo para o PostgreSQL a utilidade <code>pg_dump</code> é usada e para o MySQL este arquivo irá conter a saída de SHOW CREATE TABLE para as várias tabelas. Carregando este esquema é uma simples questão de executar as declarações SQL contida dentro.</p>
+
+<p>Por definição irá fazer uma copia perfeita da estrutura do banco de dados mas isso vai impedir o carregamento do esquema dentro de outros banco de dados que não seja um dos utilizados para criá-lo.</p>
+
+<h3>6.3 Armazenamento de esquema e controle de código</h3>
+
+<p>Por causa da autoridade do código do seu esquema de banco de dados, é altamente recomendado que você verifique dentro de seu controle de código.</p>
+
+<h3>7. Active Record e Integridade Referencial</h3>
+
+<p>O Active Record é a maneira inteligente de permanecer em seus modelos, não no banco de dados. Alguns recursos como triggers ou constraints de chaves estrangeiras, que empurra alguma inteligência de volta para os banco de dados não são muito usados.</p>
+
+<p>Validações como <code>validates_uniqueness_of</code> é uma forma de seus modelos podem valer a integridade dos dados. A opção <code>:dependent</code> em associações adiciona aos modelos automaticamente destruir os objetos filhos que seus pais são destruídos. Como tudo que funciona a nível de aplicação, estes não podem garantir integridade referencial e algumas pessoas aumentam com constraints de chaves estrangeiras.</p>
+
+<p>Apesar de o Active Record não fornecer todas as ferramentas para trabalhar diretamente com todos os recursos, o método <code>execute</code> pode ser usado para executar SQL arbitrárias. Há também uma série de plugins como <a href="http://agilewebdevelopment.com/plugins/search?search=redhillonrails">redhillonrails</a> que adicionam suporte a chaves estrangeiras para o Active Record (incluindo suporte para destruir chaves estrangeiras no <code>schema.rb</code>)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/12/mesa-redonda-hoje/">Mesa redonda hoje!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-12T00:00:00-03:00" pubdate data-updated="true">Nov 12<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/12/mesa-redonda-hoje/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Olá, fui convidado para participar de uma mesa redonda na <a href="http://www.ceut.com.br/semanadecomunicacao.asp">semana de Comunicação</a> da faculdade CEUT.</p>
+
+<p>O assunto da mesa será Mídias Alternativas - vida além dos 30 segundos. Falaremos sobre como a internet pode ajudar a aumentar suas iniciativas de marketing e de como ela pode ser altamente lucrativa.</p>
+
+<p>Vou falar sobre alguns cases que considero bastante interessantes, vai ser uma ótima experiência. Então se você está querendo um local agradavél com uma conversa boa é só aparecer lá às 17:00 no horário de verão brasileiro :P</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/06/cake--codeigniter-make/">Cake: Codeigniter mAKE!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-06T00:00:00-03:00" pubdate data-updated="true">Nov 6<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/06/cake--codeigniter-make/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Olá, hoje eu lancei o <a href="http://github.com/caironoleto/cake/tree/master">cake</a> e ele tem esse nome por que é um acrônimo de <strong>C</strong>odeIgniter m<strong>AKE</strong>.</p>
+
+<h3>Mas o que ele faz?</h3>
+
+<p>Ele aumenta a velocidade para você trabalhar com CodeIgniter. Ele tem a mesma funcionalidade dos scripts/generate do Ruby On Rails, apenas criando uma estrutura para seu projeto CodeIgniter.</p>
+
+<p>Ele cria magicamente controllers, views e models.</p>
+
+<h3>E o que ele gera?</h3>
+
+<p>Bom, no momento ele está gerando controllers e models, e com um aperitivo a mais, ele está gerando também as views passada como parâmetro para gerar os controllers.</p>
+
+<p>Outra coisa ele está o seguindo padrão <code>nomeController.php</code> e o nome da classe como <code>NomeController</code>, para os models está criando as classes como <code>nome.php</code> e <code>Nome</code>.</p>
+
+<p>As views estão sendo geradas em <code>nome_controller/</code> com o sufixo <code>_view.php</code>, algo como <code>nome_controller/index_view.php</code>.</p>
+
+<p>Ele é verboso, então ele vai dizendo o que está sendo feito a cada passo.</p>
+
+<h3>Como faço pra usar?!</h3>
+
+<p>Eu escrevi um Read Me bem simples, assim mesmo para quem não está muito bem no inglês possa entender.</p>
+
+<h3>O que eu espero para o futuro?</h3>
+
+<p>Atualmente só tem suporte ao linux e ao macOS, então quem se interessar em portar para funcionar no windows, fique a vontade ;) (Os scripts que geram os arquivos estão em php então independe de OS para funcionar, o que falta é o script funciona no windows, que se não me engano é necessário fazer os bats e configurar a PATH, isso é quase a solução :).</p>
+
+<p>Bom, primeiramente vou ajustar para também gerar rotas padrões para cada controller.</p>
+
+<p>Depois vou adicionar opções como nomenclaturas diferentes.</p>
+
+<p>Vou adicionar também um suporte para gerar os testes para controllers e models.</p>
+
+<p>E gostaria de incluir a opção de baixar a versão mais nova do CodeIgniter e criar a estrutura do projeto, algo como <code>cake app nomeDaApp</code> e <code>cake update</code>.</p>
+
+<p>O projeto está sobre licença <a href="http://creativecommons.org/licenses/by/3.0/legalcode">Creative Commons 3.0</a>, você pode usar comercialmente, modificar e distribuir, apenas mantendo meus créditos!</p>
+
+<p>e o mais importante: <strong>VOCÊ PODE CONTRIBUIR</strong>, só ir lá no github, fazer um git clone e depois me mandar um pull request ou um patch :P</p>
+
+<p>Até a próxima!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/05/namespaces-em-php-e-a-confusao/">Namespaces em PHP e a confusão!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-05T00:00:00-03:00" pubdate data-updated="true">Nov 5<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/05/namespaces-em-php-e-a-confusao/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A semana passada foi movimentada no PHP. Para quem ainda não sabe Namespaces é a forma conveniente de agrupar e distribuir bibliotecas, para quem já programa em Java são os velhos pacotes e quem programa em ruby são os módulos.</p>
+
+<p>E só agora o PHP está querendo colocar no seu Core o uso de namespaces, que vai ser uma boa forma de programar, adicionando mais paradigmas legais em PHP.</p>
+
+<p>Mas a grande confusão que se teve na semana passada, foi sobre a forma de requisitar os Namespaces.</p>
+
+<p>No início, seu uso seria com 3 dois pontos ( ::: ), depois mudaram para 2 dois pontos ( :: ) e viram que haveria conflito com chamadas estáticas e por fim decidiram o uso de uma barra invertida ( \ ), como por exemplo:</p>
+
+<ul>
+<li><p><code>MeuNameSpace:::metodo();</code></p></li>
+<li><p><code>MeuNameSpace::metodo();</code></p></li>
+<li><p><code>MeuNameSpace\metodo();</code></p></li>
+</ul>
+
+
+<p>Mas com isso surgiu vários problemas como poder ser facilmente trocado por \ é usada para escapar strings entre outros problemas. <a href="http://wiki.php.net/rfc/backslashnamespaces">Aqui</a> você pode ver com detalhes a discussão sobre NameSpaces.</p>
+
+<p>Depois de toda essa discussão, quem já estava querendo no próximo release utilizar namespaces, pode ir tirando o cavalinho da chuva :P</p>
+
+<p>Agora é aguardar e observar as próximas decisões do CoreTeam do PHP.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/04/traducao--rails-database-migrations---parte-iii/">Tradução: Rails Database Migrations - Parte III</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-04T00:00:00-03:00" pubdate data-updated="true">Nov 4<span>th</span>, 2008</time>
+        
+         | <a href="/2008/11/04/traducao--rails-database-migrations---parte-iii/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Esta é a terceira parte da tradução do artigo Rails Database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, <strong>comuniquem-me!</strong> Avisem-me por email, twitter (@caironoleto), ou qualquer mensageiro!! :P</p>
+
+<ul>
+<li><a href="/2008/09/23/traducao--rails-database-migrations---parte-i">Rails Database Migrations - Parte I</a></li>
+<li><a href="/2008/10/21/traducao--rails-database-migrations---parte-ii">Rails Database Migrations - Parte II</a></li>
+</ul>
+
+
+<h3>4. Rodando migrações</h3>
+
+<p>Rails fornece um conjunto de tarefas rake para trabalhar com as migrações, que se resume em rodar alguns conjuntos de migrações. A tarefa rake mais relatada que você provavelmente usará é <code>db:migrate</code>. Na sua forma mais básica certamente rodará o método <code>up</code> para todas as migrações que ainda não foram rodadas. Se não existir migrações ele sai.</p>
+
+<p>Se você especificar uma migração, o Active Record irá rodar as migrações requeridas (up ou down) até que ela tenha chegado nessa versão específica. A versão é o prefixo numérico do nome de uma migração. Por exemplo para migrar até a versão 20080906120000 execute</p>
+
+<p><code>rake db:migrate VERSION=20080906120000</code></p>
+
+<p>Se a versão for maior do que a versão corrente (ou seja, está migrando para cima) irá rodar o método <code>up</code> de em todas as migrações acima e incluindo a versão 20080906120000, se a migração for para baixo, então será executado os métodos <code>down</code> de todas as migrações para baixo até, mas não incluindo, 20080906120000.</p>
+
+<h3>4.1 Reversão</h3>
+
+<p>Uma tarefa comum é regressar a última migração, por exemplo, se você cometeu um engano e deseja corrigi-lo. Ao invés de monitorar o método down com a migração anterior, você pode rodar</p>
+
+<p><code>rake db:rollback</code></p>
+
+<p>Isso irá rodar o método down da migração mais recente. Se você precisa se desfazer de várias migrações, você pode fornecer o parâmetro <code>STEP</code>:</p>
+
+<p><code>rake db:rollback STEP=3</code></p>
+
+<p>irá rodar o método <code>down</code> das 3 últimas migrações.</p>
+
+<p>A tarefa <code>db:migrate:redo</code> é um atalho para fazer uma reversão e a migração de volta. Assim como na tarefa <code>db:rollback</code> você pode usar o parâmetro <code>STEP</code> se você precisar voltar em mais de uma versão, por exemplo</p>
+
+<p><code>rake db:migrate:redo STEP=3</code></p>
+
+<p>Nenhuma dessas tarefas Rake fazem qualquer coisa que você não poderia fazer com <code>db:migrate</code>, são simplesmente mais convenientes, desde que você não precise especificar explicitamente de uma migração para outra.</p>
+
+<p>Finalmente, a tarefa <code>db:reset</code> irá destruir sua base de dados, recria-la e carregar o schema atual dentro dela.</p>
+
+<h3>4.2 Especificando uma migração</h3>
+
+<p>Se você precisa especificar uma migração para cima ou para baixo, as tarefas <code>db:migrate:up</code> e <code>db:migrate:down</code> irão fazer isso. Basta especificar a versão apropriada e a migração correspondente e terá seu método <code>up</code> ou <code>down</code> invocado, por exemplo</p>
+
+<p><code>rake db:migrate:up VERSION=20080906120000</code></p>
+
+<p>irá rodar o método <code>up</code> da migração 20080906120000. Estas tarefas checa se a migração já tenha sido executada, se por exemplo <code>db:migrate:up VERSION=20080906120000</code> não irá fazer nada se o Active Record acreditar que 20080906120000 já tenha sido executada.</p>
+
+<h3>4.3 Sendo comunicativo</h3>
+
+<p>Por padrão, as migrações falam exatamente o que elas estão fazendo e o tempo de duração. Uma migração criando uma tabela e adicionando um index produz uma saída como esta</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: <span class="nv">migrating</span> <span class="o">===================================</span>
+</span><span class='line'>
+</span><span class='line'>-- create_table<span class="o">(</span>:products<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 0.0021s
+</span><span class='line'>
+</span><span class='line'>-- add_index<span class="o">(</span>:products, :name<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 0.0026s
+</span><span class='line'>
+</span><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: migrated <span class="o">(</span>0.0059s<span class="o">)</span> <span class="o">==========================</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Vários método fornecem para você o controle tudo isto:</p>
+
+<ul>
+<li><code>suppress_messages</code> suprime qualquer mensagem gerada pelo bloco</li>
+<li><code>say</code> saída de texto (o segundo argumento controla se é recortado ou não)</li>
+<li><code>say_with_time</code> saída de texto com o tempo utilizado pelos blocos. Se o bloco retornar um inteiro, assume-se que este é o número de linhas afetadas.</li>
+</ul>
+
+
+<p>Por exemplo, esta migração</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">suppress_messages</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="ss">:description</span>
+</span><span class='line'>        <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">say</span> <span class="s2">&quot;Created a table&quot;</span>
+</span><span class='line'>    <span class="n">suppress_messages</span> <span class="p">{</span><span class="n">add_index</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:name</span><span class="p">}</span>
+</span><span class='line'>    <span class="n">say</span> <span class="s2">&quot;and an index!&quot;</span><span class="p">,</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="n">say_with_time</span> <span class="s1">&#39;Waiting for a while&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="nb">sleep</span> <span class="mi">10</span>
+</span><span class='line'>      <span class="mi">250</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_table</span> <span class="ss">:products</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>gera a seguinte saída</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: <span class="nv">migrating</span> <span class="o">===================================</span>
+</span><span class='line'>
+</span><span class='line'>-- Created a table
+</span><span class='line'>
+</span><span class='line'>   -&gt; and an index!
+</span><span class='line'>
+</span><span class='line'>-- Waiting <span class="k">for </span>a <span class="k">while</span>
+</span><span class='line'>
+</span><span class='line'>   -&gt; 10.0001s
+</span><span class='line'>
+</span><span class='line'>   -&gt; 250 <span class="nv">rows</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">==</span> 20080906170109 CreateProducts: migrated <span class="o">(</span>10.0097s<span class="o">)</span> <span class="o">=========================</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Se você quiser que o Active Record mantenha-se em silêncio, então execute <code>rake db:migrate VERBOSE=false</code> irá suprimir qualquer saída.</p>
+
+<h3>5. Usando Models nas suas migrações</h3>
+
+<p>Ao criar ou atualizar dados na sua migração, muitas vezes, é tentador utilizar um de seus models. Afinal eles existem para fornecer acesso fácil nos dados subjacentes. Isto pode ser feito mas um certo cuidado devem ser observados.</p>
+
+<p>Considere por exemplo a migração que usa o modelo Product para atualizar a linha na tabela correspondente. Alice depois atualiza o modelo Product, adicionando uma nova coluna e uma validação. Bobs volta do feriado, atualiza o código e roda as migrações pendentes com <code>rake db:migrate</code>, incluindo o modelo que é utilizado para o Product. Quando o código é atualizado e só então o modelo Product possui a atualização adicionada pela Alice. O banco de dados entretanto não é atualizado e assim não possui a coluna e então gerará um erro, por que a validação para esta coluna ainda não existe.</p>
+
+<p>Frequentemente eu preciso atualizar as linhas no banco de dados sem escrever SQL pelas minhas mãos. Eu não estou usando qualquer especialidade do modelo. Um padrão para isso é definir uma cópia do modelo dentro da própria migração, por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Product</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A migração possuirá uma própria copia do modelo Product e não mais precisará saber sobre o modelo Product definido na própria aplicação.</p>
+
+<h3>5.1 Lidando com as mudanças no modelo</h3>
+
+<p>Por razões de performance, as informações sobre as colunas de um modelo é cacheada. Por exemplo, se você adicionar a coluna na tabela e tentar usar o modelo correspondente para inserir uma nova linha, ele pode tentar usar as informações antigas. Você pode forçar o Active Record para reler a informação da coluna com o método <code>reset_column_information</code>, por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Product</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:product</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="no">Product</span><span class="o">.</span><span class="n">reset_column_information</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><a href="/2008/11/12/traducao--rails-database-migrations---parte-iv">Continuação: Rails Database Migrations - Parte IV</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/page/6/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

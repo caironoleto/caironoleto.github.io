@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tradução: Rails database Migrations - Parte II - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Esta é a segunda parte da tradução do artigo Rails database Migrations. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2008/10/21/traducao--rails-database-migrations---parte-ii">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Tradução: Rails database Migrations - Parte II</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-21T00:00:00-03:00" pubdate data-updated="true">Oct 21<span>st</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Esta é a segunda parte da tradução do <a href="http://guide.rails.info/migrations.html">artigo Rails database Migrations</a>. Mais uma vez, antes de desfrutarem da leitura, quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter (<a href="http://twitter.com/caironoleto">caironoleto</a>), ou qualquer mensageiro!! :P</p>
+
+<ul>
+<li><a href="/2008/09/23/traducao--rails-database-migrations---parte-i">Rails Database Migrations - Parte I</a></li>
+</ul>
+
+
+<h3>2.0 Criando migrações</h3>
+
+<h3>2.1 Criando um Modelo</h3>
+
+<p>Um Modelo e os geradores de scaffold criará migrações apropriadas para criação de um novo Modelo. Esta migração contém instruções prontas para criação de uma tabela relevante. Se você mostrar pro Rails as colunas que você precisa então as declarações já estarão criadas. Por exemplo, rodando <code>ruby script/generate model Product name:string description:text</code> gerará uma migração como esta</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">text</span> <span class="ss">:description</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">drop_table</span> <span class="ss">:products</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Você pode adicionar quantos nomes/tipo de colunas como você deseja. Por padrão <code>t.timestamps</code> (Que criam as colunas <code>updated_at</code> e <code>created_at</code> que serão populadas automáticamentes pelo Rails) podem ser adicionadas para você.</p>
+
+<h3>2.2 Criando uma migração autônoma</h3>
+
+<p>Se você criar uma migração para outros propósitos (Por exemplo, adicionar uma coluna numa tabela já existente) então você pode usar o gerador de migrações:</p>
+
+<p><code>ruby script/generate migration AddPartNumberToProducts</code></p>
+
+<p>Criará uma migração vazia mas já apropriada com o nome da migração:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Se o nome da migração é na forma AddXXXtoYYY ou RemoveXXXtoYYY e for seguida de uma lista de nomes de colunas e seus tipos então a migração será criada contendo declarações apropriadas para adicionar e remover colunas.</p>
+
+<p><code>ruby script/generate migration AddPartNumberToProducts part_number:string</code></p>
+
+<p>Gerará:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddPartNumberToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Similarmente:</p>
+
+<p><code>ruby script/generate migration RemovePartNumberFromProducts part_number:string</code></p>
+
+<p>gerará</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">RemovePartNumberFromProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>E você não está limitado a gerar magicamente apenas uma coluna, por exemplo</p>
+
+<p><code>ruby script/generate migration AddDetailsToProducts part_number:string price:decimal</code></p>
+
+<p>gerará</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">AddDetailsToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:price</span><span class="p">,</span> <span class="ss">:decimal</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:price</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>E sempre o que foi gerado é apenas um ponto de partida, você pode adicionar ou remover a partir dele o que você quiser, como você achar melhor.</p>
+
+<h3>3.0 Escrevendo uma migração</h3>
+
+<p>Uma vez que você criou uma migração usando um dos geradores, é a hora de trabalhar!</p>
+
+<h3>3.1 Criando uma tabela</h3>
+
+<p><code>create_table</code> será um dos métodos mais usados. Tipicamente usada assim</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>criará uma tabela <code>products</code> com uma coluna chamada <code>name</code> (e como discutido anteriormente, implicitamente criará uma coluna id).</p>
+
+<p>O objeto &#8220;renderizado&#8221; (yielded) no bloco permite você criar colunas na tabela. Existe duas formas de se fazer isso. A primeira é algo assim</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">column</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">:null</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>a segunda forma, que é chamada de migração &#8220;sexy&#8221;, que elimina redundância dos métodos. Em vez de <code>string</code>, <code>integer</code>, etc os métodos são criados a partir do tipo da coluna, onde os parâmetros subseqüentes são idênticos.</p>
+
+<p>Por padrão <code>create_table</code> criará uma chave primária chamada <code>id</code>. Você pode alterar o nome da chave primária com a opção <code>:primary_key</code> (Não esqueça de atualizar o modelo correspondente) ou se você não precisar de uma chave primária (por exemplo HABTM (<a href="http://wiki.rubyonrails.org/rails/pages/has_and_belongs_to_many">has and belongs to many</a>) join table) você pode passar <code>:id =&gt; false</code>. Se você precisa passar alguma informação específica, você pode passar um fragmento SQL na opção <code>:options</code>. Por exemplo:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:options</span> <span class="o">=&gt;</span> <span class="s2">&quot;ENGINE=BLACKHOLE&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:null</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Irá anexar <code>ENGINE=BLACKHOLE</code> na sql usada para criar a tabela (Quando se usa MySQL por padrão é usado &#8220;ENGINE=InnoDB&#8221;).</p>
+
+<p>Os tipos que o Active Record suporta são <code>:primary_key</code>, <code>:string</code>, <code>:text</code>, <code>:integer</code>, <code>:float</code>, <code>:decimal</code>, <code>:datetime</code>, <code>:timestamp</code>, <code>:time</code>, <code>:date</code>, <code>:binary</code>, <code>:boolean</code>.</p>
+
+<p>Eles vão ser mapeados apropriadamente para cada banco de dados, por exemplo com MySQL <code>:string</code> é mapeada para <code>VARCHAR(255)</code>. Você pode criar colunas e tipos não suportados pelo Active Record usando uma sintaxe não sexy, por exemplo:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">column</span> <span class="ss">:name</span><span class="p">,</span> <span class="s1">&#39;polygon&#39;</span><span class="p">,</span> <span class="ss">:null</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Esta forma, no entanto, dificulta a portabilidade para outros banco de dados.</p>
+
+<h3>3.2 Mudando tabelas</h3>
+
+<p>O primo mais próximo de <code>create_table</code> é <code>change_table</code>. Usado para alterar tabelas existentes, é similarmente usada como o <code>create_table</code> mas o objeto &#8220;rendenrizado&#8221; (yielded) para o bloco conhece mais truques. Por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">change_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">remove</span> <span class="ss">:description</span><span class="p">,</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:part_number</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">index</span> <span class="ss">:part_number</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">rename</span> <span class="ss">:upccode</span><span class="p">,</span> <span class="ss">:upc_code</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>remove a coluna <code>description</code> e <code>name</code>, adiciona a coluna <code>part_number</code> e adiciona um index nesta mesma coluna. E por ultimo altera o nome da coluna <code>upccode</code>. É o mesmo que fazer</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:description</span>
+</span><span class='line'><span class="n">remove_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:name</span>
+</span><span class='line'><span class="n">add_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'><span class="n">add_index</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:part_number</span>
+</span><span class='line'><span class="n">rename_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:upccode</span><span class="p">,</span> <span class="ss">:upc_code</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Você não deve manter repetindo o nome da tabela e de todos os grupos de declarações relatados para modificar uma tabela em particular. Em uma transformação individual os nomes são curtos, por exemplo <code>remove_column</code> torna-se <code>remove</code> e <code>add_index</code> torna-se <code>index</code>.</p>
+
+<h3>3.3 Helpers especiais</h3>
+
+<p>O Active Record provê alguns atalhos para as funcionalidades mais comuns. Por exemplo, é muito comum adicionar as colunas <code>created_at</code>e <code>updated_at</code> e o método que faz exatamente isso é:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Criará uma tabela products com essas duas colunas</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">change_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Adiciona essas duas colunas a uma tabela existente.</p>
+
+<p>Outro helper é chamado de <code>references</code> (Também disponível como <code>belongs_to</code> ). Na sua forma mais simples adiciona alguma habilidade de reutilização.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:category</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>então criará a coluna <code>category_id</code> com o tipo apropriado. Note que você deve passar o nome do modelo e não da coluna. O Active Record adicionará o sufixo _id para você. Se você tiver uma associação <code>belongs_to</code> polimórfica então <code>references</code> irá adicionar as colunas referidas</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:attachment</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="s1">&#39;Photo&#39;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>irá adicionar a coluna <code>attachment_id</code> e a coluna <code>attachment_type</code> com o valor padrão Photo.</p>
+
+<p>Se os helpers fornecidos pelo Active Record não for suficiente, você pode utilizar a função <code>execute</code> para executar SQL arbitrárias.</p>
+
+<p>Para mais detalhes e exemplos de métodos individuais dê uma olhada na documentação da API, em particular a documentação para <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html">ActiveRecord::ConnectionAdapters::SchemaStatements</a> (na qual provê os métodos disponíveis nos métodos <code>up</code> e <code>down</code>), <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html">ActiveRecord::ConnectionAdapters::TableDefinition</a> (na qual provê os métodos disponíveis para o objeto &#8220;rendenrizado&#8221; (yielded) por <code>create_table</code>) e o <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/Table.html">ActiveRecord::ConnectionAdapters::Table</a> (na qual fornece os métodos disponíveis para o objeto &#8220;rendenrizado&#8221; (yielded) por <code>change_table</code>).</p>
+
+<h3>3.4 Escrevendo seu método down</h3>
+
+<p>O método <code>down</code> da sua migração deve reverter as transformações concluídas pelo método <code>up</code>. Em outras palavras, o banco de dados deve se manter inalterado se você fizer um <code>up</code> seguido de um <code>down</code>. Por exemplo, se você criar uma tabela no método <code>up</code> você deverá excluí-la no método <code>down</code>. Deve ser inteligente e precisamente inverso ao método <code>up</code>. Por exemplo</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ExampleMigration</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:products</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:category</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="c1">#add a foreign key</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;ALTER TABLE products ADD CONSTRAINT fk_products_categories FOREIGN KEY (category_id) REFERENCES categories(id)&quot;</span>
+</span><span class='line'>    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:home_page_url</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'>    <span class="n">rename_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:email_address</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">down</span>
+</span><span class='line'>    <span class="n">rename_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:email_address</span><span class="p">,</span> <span class="ss">:email</span>
+</span><span class='line'>    <span class="n">remove_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:home_page_url</span>
+</span><span class='line'>    <span class="n">execute</span> <span class="s2">&quot;ALTER TABLE products DROP FOREIGN KEY fk_products_categories&quot;</span>
+</span><span class='line'>    <span class="n">drop_table</span> <span class="ss">:products</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>as vezes a sua migração pode fazer algumas coisas irreversíveis, por exemplo quando você destrói alguns dados. Em casos como esse onde você não pode reverter uma migração, você pode lançar IrreversibleMigration para o seu método <code>down</code>. Se alguém tentar reverter a sua migração uma mensagem será mostrada falando que ela não será completa.</p>
+
+<p>E aqui finaliza a segunda parte do artigo.</p>
+
+<ul>
+<li><a href="/2008/11/04/traducao--rails-database-migrations---parte-iii">Continuação: Rails Database Migrations - Parte III</a></li>
+<li><a href="/2008/11/12/traducao--rails-database-migrations---parte-iv">Continuação: Rails Database Migrations - Parte IV</a></li>
+</ul>
+
+
+<p>Até a próxima!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-21T00:00:00-03:00" pubdate data-updated="true">Oct 21<span>st</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2008/10/21/traducao--rails-database-migrations---parte-ii/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2008/10/21/traducao--rails-database-migrations---parte-ii/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/10/13/meus-plugins-do-gedit-no-github/" title="Previous Post: Meus plugins do Gedit no GitHub">&laquo; Meus plugins do Gedit no GitHub</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/10/27/create--update--destroy--e-index-nao-sao-obrigatorios/" title="next Post: Create, update, destroy e index não são obrigatórios!">Create, update, destroy e index não são obrigatórios! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2008/10/21/traducao--rails-database-migrations---parte-ii/';
+        var disqus_url = 'http://caironoleto.github.com/2008/10/21/traducao--rails-database-migrations---parte-ii/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

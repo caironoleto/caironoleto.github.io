@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Tradução: Rails Database Migrations - Parte IV - Cairo Noleto</title>
+  <meta name="author" content="Cairo Noleto">
+
+  
+  <meta name="description" content="Esta é a última parte da tradução desse artigo sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://caironoleto.github.com/2008/11/12/traducao--rails-database-migrations---parte-iv">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Cairo Noleto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Cairo Noleto</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:caironoleto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Tradução: Rails Database Migrations - Parte IV</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-12T00:00:00-03:00" pubdate data-updated="true">Nov 12<span>th</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Esta é a última parte da tradução <a href="http://guide.rails.info/migrations.html">desse artigo</a> sobre as Migrations do Rails. Antes de se desfrutarem da leitura quero dizer-lhes que se encontrar erros de português ou a tradução com sentido diferente, por favor, comuniquem-me! Avisem-me por email, twitter (<a href="http://twitter.com/caironoleto">caironoleto</a>), ou qualquer mensageiro!! :P</p>
+
+<ul>
+<li><a href="/2008/09/23/traducao--rails-database-migrations---parte-i">Continuação: Rails Database Migrations - Parte I</a></li>
+<li><a href="/2008/10/21/traducao--rails-database-migrations---parte-ii">Continuação: Rails Database Migrations - Parte II</a></li>
+<li><a href="/2008/11/04/traducao--rails-database-migrations---parte-iii">Continuação: Rails Database Migrations - Parte III</a></li>
+</ul>
+
+
+<h3>6. Armazenando esquemas e você</h3>
+
+<h3>6.1 Quais são os arquivos do esquema?</h3>
+
+<p>Migrações, poderosas como são, não são fontes autorizada para o esquema do seu banco de dados. Esse papel cabe ao <code>schema.rb</code> ou ao um arquivo SQL gerado pelo Active Record através da análise do banco de dados. Este arquivo não foi projetado para ser editado, ele é uma representação do estado atual do banco de dados.</p>
+
+<p>Não é necessário (e isto é um erro propenso) para implantar uma nova instancia de uma aplicação repetindo o histórico inteiro da migração. É mais simples e rápido apenas carregar dentro do banco de dados a descrição do esquema atual.</p>
+
+<p>Por exemplo, esta é a forma de como o banco de dados de testes é criado: o banco de dados atual de desenvolvimento é excluído (tanto para o <code>schema.rb</code> ou para <code>development.sql</code>) e então carregado dentro do banco de dados de teste.</p>
+
+<p>Arquivos de esquema também são uteis se deseja olhar rapidamente quais atributos o objeto do Active Record possui. Estas informações não está no código do modelo e frequentemente está espalhado pelas várias migrações mas está resumido no arquivo de esquema. O plugin <a href="http://agilewebdevelopment.com/plugins/annotate_models">annotate_models</a>, adiciona automaticamente cada (e atualiza) um dos comentários no início de cada modelo resumindo o esquema, que pode ser de seu interesse.</p>
+
+<h3>6.2 Formas de armazenar o esquema</h3>
+
+<p>Existe duas formas de armazenar o esquema. Uma é setar em <code>config/environment.rb</code> atribuindo o <code>config.active_record.schema_format</code>, que pode ser <code>:sql</code> ou <code>:ruby</code>.</p>
+
+<p>Se <code>:ruby</code> é selecionada então o esquema será armazenado em <code>db/schema.rb</code>. Se você olhar este arquivo você verá que não encontrará um pouco mais do que uma grande migração:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="ss">:version</span> <span class="o">=&gt;</span> <span class="mi">20080906171750</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">create_table</span> <span class="s2">&quot;authors&quot;</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;name&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;created_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;updated_at&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">create_table</span> <span class="s2">&quot;products&quot;</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;name&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">&quot;description&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;created_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">&quot;updated_at&quot;</span>
+</span><span class='line'>    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">&quot;part_number&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>De muitas formas é exatamente isso. Este arquivo é criado pela examinação do banco de dados e expressado em estruturas usando <code>create_table</code>, <code>add_index</code> e assim por diante. Por causa da independência do banco de dados ele deve carregar dentro de qualquer banco de dados que o Active Record suporta. Isso poderia ser muito útil se você quiser distribuir a aplicação para rodar em vários banco de dados.</p>
+
+<p>Existe porém uma desvantagem: <code>schema.rb</code> não expressa itens específicos de banco de dados como constraints de chaves estrangeiras, triggers ou stored procedures. Enquanto na migração você pode executar SQL customizadas, o esquema armazenado não pode reconstituir essas atribuições do banco de dados. Se você usar recursos como este, então você deve atribuir o esquema para <code>:sql</code>.</p>
+
+<p>Em vez de usar o esquema de armazenamento do Active Record a estrutura será armazenada usando uma ferramenta específica do banco de dados (pela tarefa rake <code>db:structure:dump</code>) dentro de <code>db/#\{RAILS_ENV\}_structure.sql</code>. Por exemplo para o PostgreSQL a utilidade <code>pg_dump</code> é usada e para o MySQL este arquivo irá conter a saída de SHOW CREATE TABLE para as várias tabelas. Carregando este esquema é uma simples questão de executar as declarações SQL contida dentro.</p>
+
+<p>Por definição irá fazer uma copia perfeita da estrutura do banco de dados mas isso vai impedir o carregamento do esquema dentro de outros banco de dados que não seja um dos utilizados para criá-lo.</p>
+
+<h3>6.3 Armazenamento de esquema e controle de código</h3>
+
+<p>Por causa da autoridade do código do seu esquema de banco de dados, é altamente recomendado que você verifique dentro de seu controle de código.</p>
+
+<h3>7. Active Record e Integridade Referencial</h3>
+
+<p>O Active Record é a maneira inteligente de permanecer em seus modelos, não no banco de dados. Alguns recursos como triggers ou constraints de chaves estrangeiras, que empurra alguma inteligência de volta para os banco de dados não são muito usados.</p>
+
+<p>Validações como <code>validates_uniqueness_of</code> é uma forma de seus modelos podem valer a integridade dos dados. A opção <code>:dependent</code> em associações adiciona aos modelos automaticamente destruir os objetos filhos que seus pais são destruídos. Como tudo que funciona a nível de aplicação, estes não podem garantir integridade referencial e algumas pessoas aumentam com constraints de chaves estrangeiras.</p>
+
+<p>Apesar de o Active Record não fornecer todas as ferramentas para trabalhar diretamente com todos os recursos, o método <code>execute</code> pode ser usado para executar SQL arbitrárias. Há também uma série de plugins como <a href="http://agilewebdevelopment.com/plugins/search?search=redhillonrails">redhillonrails</a> que adicionam suporte a chaves estrangeiras para o Active Record (incluindo suporte para destruir chaves estrangeiras no <code>schema.rb</code>)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cairo Noleto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-12T00:00:00-03:00" pubdate data-updated="true">Nov 12<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://caironoleto.github.com/2008/11/12/traducao--rails-database-migrations---parte-iv/" data-via="caironoleto" data-counturl="http://caironoleto.github.com/2008/11/12/traducao--rails-database-migrations---parte-iv/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/11/12/mesa-redonda-hoje/" title="Previous Post: Mesa redonda hoje!">&laquo; Mesa redonda hoje!</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/11/17/midias-alternativas---a-vida-alem-dos-30-segundos/" title="next Post: Mídias alternativas - A vida além dos 30 segundos">Mídias alternativas - A vida além dos 30 segundos &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/08/30/o-que-eu-nao-curti-em-go/">O que eu não curti em go</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/01/rubyconf-brasil-2013/">RubyConf Brasil 2013</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/15/poro-pure-old-ruby-object/">PORO - Pure Old Ruby Object</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/07/10/realmente-existe-diferenca-entre-tdd-e-bdd/">Realmente existe diferença entre TDD e BDD?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/01/proc-e-lambda/">Proc e lambda</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/caironoleto">@caironoleto</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'caironoleto',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("caironoleto", 10, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/caironoleto" class="twitter-follow-button" data-show-count="true">Follow @caironoleto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Cairo Noleto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'caironoleto';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://caironoleto.github.com/2008/11/12/traducao--rails-database-migrations---parte-iv/';
+        var disqus_url = 'http://caironoleto.github.com/2008/11/12/traducao--rails-database-migrations---parte-iv/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
