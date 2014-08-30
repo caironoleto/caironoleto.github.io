@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ""O que eu não curti em go""
+title: "O que eu não curti em go"
 date: 2014-08-30 07:12
 comments: true
 categories: 
